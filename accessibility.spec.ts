@@ -5,7 +5,7 @@ test.describe("BetoDashboard Accessibility", () => {
   test("should not have any automatically detectable accessibility issues on the main page", async ({
     page,
   }) => {
-    await page.goto("/pages/app.html");
+    await page.goto("/src/pages/app.html");
 
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
 
@@ -15,7 +15,7 @@ test.describe("BetoDashboard Accessibility", () => {
   test("should not have any automatically detectable accessibility issues on the modal", async ({
     page,
   }) => {
-    await page.goto("/pages/app.html");
+    await page.goto("/src/pages/app.html");
 
     // Open the modal
     await page.getByRole("button", { name: "Open Modal" }).click();
@@ -29,3 +29,4 @@ test.describe("BetoDashboard Accessibility", () => {
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 });
+

@@ -3,7 +3,7 @@ import AxeBuilder from "@axe-core/playwright";
 
 test.describe("ModalBasic Accessibility", () => {
   test("basic modal has no detectable issues", async ({ page }) => {
-    await page.goto("/pages/app.html");
+    await page.goto("/src/pages/app.html");
 
     await page.getByRole("button", { name: "Open Basic Modal" }).click();
     const dialog = page.getByRole("dialog");
@@ -15,4 +15,5 @@ test.describe("ModalBasic Accessibility", () => {
     expect(results.violations).toEqual([]);
   });
 });
+
 
