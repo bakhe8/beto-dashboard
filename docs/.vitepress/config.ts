@@ -8,11 +8,17 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Components', link: '/components/modal' },
-      { text: 'Security', link: '/security' }
+      { text: 'Get Started', link: '/getting-started' }
     ],
 
     sidebar: [
+      {
+        text: 'Introduction',
+        items: [
+          { text: 'Getting Started', link: '/getting-started' },
+          { text: 'Architecture', link: '/architecture' }
+        ]
+      },
       {
         text: 'Components',
         items: [
@@ -21,12 +27,6 @@ export default defineConfig({
           { text: 'ThemeSwitcher', link: '/components/themeswitcher' },
           { text: 'Sidebar', link: '/components/sidebar' },
           { text: 'Loader', link: '/components/loader' }
-        ]
-      },
-      {
-        text: 'Guides',
-        items: [
-          { text: 'Security', link: '/security' }
         ]
       }
     ],
