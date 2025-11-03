@@ -10,9 +10,9 @@ export const ToastContainer = (root: HTMLElement) => {
       toasts
         .map(
           toast => `
-        <div class="toast" data-type="${toast.type}" role="status" aria-live="polite">
+        <div class="toast" data-id="${toast.id}" data-type="${toast.type}" role="status" aria-live="polite">
           <p>${toast.message}</p>
-          <button class="toast-close" data-id="${toast.id}" aria-label="Close">×</button>
+          <button class="toast-close" aria-label="Close">×</button>
         </div>
       `
         )
@@ -21,14 +21,14 @@ export const ToastContainer = (root: HTMLElement) => {
   };
 
   const handleClick = (e: Event) => {
-    const target = (e.target as HTMLElement).closest<HTMLButtonElement>(".toast-close");
-    if (target) {
-      const idAttr = target.getAttribute('data-id');
-      const id = idAttr ? Number.parseInt(idAttr, 10) : NaN;
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(".toast-close");
+    if (btn) {
+      const toastEl = btn.closest<HTMLElement>('.toast');
+      const message = toastEl?.querySelector('p')?.textContent ?? '';
       const currentToasts = store.get("toasts");
-      store.set("toasts", currentToasts.filter(t => t.id !== id));
+      store.set("toasts", currentToasts.filter(t => t.message !== message));
       // Optimistically remove from DOM to ensure immediate visual update
-      target.closest('.toast')?.remove();
+      toastEl?.remove();
     }
   };
 

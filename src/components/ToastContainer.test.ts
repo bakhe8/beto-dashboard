@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { fireEvent, getByText, queryByText, getByLabelText } from "@testing-library/dom";
+import { fireEvent, getByText, queryByText, getByLabelText, waitFor } from "@testing-library/dom";
 import { mount } from "./runtime";
 import { ToastContainer } from "./ToastContainer";
 import { store } from "../js/store";
@@ -48,9 +48,10 @@ describe("ToastContainer Component", () => {
 
     const closeButton = getByLabelText(host, "Close");
     await fireEvent.click(closeButton);
-    // Wait a tick to allow store listeners + DOM updates to flush
-    await new Promise(r => setTimeout(r, 0));
-    expect(queryByText(host, "A toast to close")).toBeNull();
+    // Assert DOM update with retry to avoid jsdom timing flake
+    await waitFor(() => {
+      expect(queryByText(host, "A toast to close")).toBeNull();
+    });
     expect(store.get("toasts").length).toBe(0);
   });
 });

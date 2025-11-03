@@ -1,5 +1,11 @@
 # BetoDashboard
 
+[![CI](https://github.com/bakhe8/beto-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/ci.yml)
+[![Lighthouse](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml)
+[![CodeQL](https://github.com/bakhe8/beto-dashboard/actions/workflows/codeql.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/codeql.yml)
+[![Chromatic](https://github.com/bakhe8/beto-dashboard/actions/workflows/chromatic.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/chromatic.yml)
+[![Docs](https://github.com/bakhe8/beto-dashboard/actions/workflows/docs-deploy.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/docs-deploy.yml)
+
 A Modern, Type-Safe Dashboard Framework built with TypeScript, zero dependencies, and a focus on performance and accessibility.
 
 This repository contains the source code for the BetoDashboard framework. For full component documentation, architecture guides, and live examples, please visit the **[official documentation site](https://bakhe8.github.io/beto-dashboard/)**.
