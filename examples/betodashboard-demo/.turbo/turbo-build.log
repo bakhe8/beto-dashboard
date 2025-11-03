@@ -14,4 +14,4 @@ computing gzip size...
 [2mdist/[22m[36massets/dashboard-B_8sGsxr.js   [39m[1m[2m 0.13 kB[22m[1m[22m[2m │ gzip:  0.14 kB[22m
 [2mdist/[22m[36massets/app-fllVzFxz.js         [39m[1m[2m 2.16 kB[22m[1m[22m[2m │ gzip:  1.08 kB[22m
 [2mdist/[22m[36massets/schemas-D324cxKh.js     [39m[1m[2m83.96 kB[22m[1m[22m[2m │ gzip: 23.66 kB[22m
-[32m✓ built in 1.27s[39m
+[32m✓ built in 1.34s[39m

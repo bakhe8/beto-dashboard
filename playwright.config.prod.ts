@@ -7,16 +7,17 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   reporter: "html",
   use: {
-    baseURL: "http://localhost:5173",
+    baseurl: "http://localhost:5173/src/pages/app.html",
     trace: "on-first-retry",
   },
   webServer: {
     command: "npm run demo:preview:5173",
-    url: "http://localhost:5173",
+    url: "http://localhost:5173/src/pages/app.html",
     reuseExistingServer: !process.env.CI,
     stdout: "ignore",
     stderr: "pipe",
   },
 });
+
 
 

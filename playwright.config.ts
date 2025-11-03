@@ -23,7 +23,7 @@ export default defineConfig({
   // Run your local dev server before starting the tests.
   webServer: {
     command: "npm run demo:preview:5174",
-    url: "http://localhost:5174",
+    url: "http://localhost:5174/src/pages/app.html",
     reuseExistingServer: false,
     stdout: "ignore",
     stderr: "pipe",

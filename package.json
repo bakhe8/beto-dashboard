@@ -13,7 +13,7 @@
     "preview": "vite preview",
     "test": "turbo run test",
     "test:core": "turbo run test --filter=@betodashboard/core",
-    "test:e2e": "playwright test",
+    "test:e2e": "start-server-and-test \"npm run demo:preview:5174\" http://localhost:5174/src/pages/app.html \"playwright test\"",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -59,14 +59,15 @@
     "jsdom": "^24.1.0",
     "lint-staged": "^15.2.5",
     "prettier": "^3.3.1",
+    "rimraf": "^5.0.10",
     "rollup-plugin-visualizer": "^5.12.0",
+    "start-server-and-test": "^2.1.2",
+    "tailwindcss": "^3.4.13",
+    "turbo": "^2.0.0",
     "typescript": "^5.4.5",
     "vite": "^7.1.12",
     "vitepress": "^1.5.0",
-    "vitest": "^4.0.6",
-    "turbo": "^2.0.0",
-    "tailwindcss": "^3.4.13",
-    "rimraf": "^5.0.10"
+    "vitest": "^4.0.6"
   },
   "dependencies": {
     "autoprefixer": "^10.4.19",
@@ -79,3 +80,4 @@
     "*.{js,ts,css,md}": "prettier --write"
   }
 }
+
