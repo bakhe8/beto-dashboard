@@ -61,6 +61,9 @@ jobs:
           name: engineering-metrics
           path: test-results/metrics.json
 
+      - name: Validate engineering metrics
+        run: node scripts/validate-metrics.mjs
+
   docs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' }}
@@ -76,3 +79,42 @@ jobs:
         run: npm ci
       - name: Build docs
         run: npm run docs:build
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Build (for bundle metrics)
+        run: npm run build
+      - name: Run E2E (dev preview)
+        run: npm run test:e2e
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+      - name: Upload DOM metrics
+        if: ${{ hashFiles('test-results/dom-metrics.json') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: dom-metrics
+          path: test-results/dom-metrics.json
+      - name: Collect engineering metrics (E2E)
+        run: npm run metrics:collect
+      - name: Validate engineering metrics (E2E)
+        run: node scripts/validate-metrics.mjs
+      - name: Upload engineering metrics (E2E)
+        uses: actions/upload-artifact@v4
+        with:
+          name: engineering-metrics-e2e
+          path: test-results/metrics.json

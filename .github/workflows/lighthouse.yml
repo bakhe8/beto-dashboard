@@ -48,3 +48,6 @@ jobs:
         with:
           name: engineering-metrics-lh
           path: test-results/metrics.json
+
+      - name: Validate engineering metrics (LH)
+        run: node scripts/validate-metrics.mjs --expect-lh

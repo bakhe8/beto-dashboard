@@ -223,3 +223,5 @@ themeDir.subscribe(v => document.documentElement.dataset.themeDir = v);
 Next: See the [Tradeoffs & Scaling Strategy](./BetoDashboard_Tradeoffs_and_Scaling_Strategy.md) for long-term architectural paths and the [Execution Roadmap v2](./BetoDashboard_v2.md) for phase gates and KPIs.
 
 Also see: [Engineering Metrics & Validation](./architecture/metrics.md) for how we collect and track measurable signals.
+
+See: [Development Morphology](./architecture/morphology.md) for standard forms and scaffolding rules that make features buildable, repeatable, and extensible.

@@ -6,7 +6,7 @@
     <title>BetoDashboard</title>
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' ws:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' ws:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
     />
     <script type="module" src="../js/app-main.ts"></script>
   </head>
@@ -69,9 +69,49 @@
           <button data-close>Confirm</button>
         </template>
       </div>
+
+      <h2>List</h2>
+      <div
+        data-component="List"
+        data-props='{"items":["Alpha","Beta","Gamma"]}'
+      >
+        <template data-slot="empty">
+          <p>No entries</p>
+        </template>
+      </div>
+
+      <h2>FormGroup</h2>
+      <div
+        data-component="FormGroup"
+        data-props='{"name":"email","label":"Email","type":"email","placeholder":"you@example.com"}'
+      ></div>
+
+      <h2>FormGroupValidated</h2>
+      <div
+        data-component="FormGroupValidated"
+        data-props='{"name":"username","label":"Username","minLength":3,"maxLength":12,"placeholder":"yourname"}'
+      ></div>
+
+      <h2>ConfirmDialog</h2>
+      <div
+        data-component="ConfirmDialog"
+        data-props='{"title":"Delete item","message":"Are you sure?","confirmLabel":"Yes, delete","cancelLabel":"Cancel"}'
+      ></div>
     </main>
+
+    <section>
+      <h2>Notice</h2>
+      <div
+        data-component="Notice"
+        data-props='{"type":"info","message":"Welcome to BetoDashboard"}'
+      ></div>
+    </section>
+
+    <section>
+      <h2>Event Log</h2>
+      <div id="event-log" class="event-log"></div>
+    </section>
 
     <div data-component="ToastContainer" class="toast-container"></div>
   </body>
 </html>
-

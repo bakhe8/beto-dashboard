@@ -17,6 +17,7 @@ hero:
   - [Getting Started](./getting-started.md)
   - [Architecture](./architecture.md)
   - [Engineering Metrics](./architecture/metrics.md)
+  - [Development Morphology](./architecture/morphology.md)
   - [Core Utilities](./architecture/utilities.md)
   - [API Fetching](./api.md)
   - [Security](./security.md)
@@ -32,6 +33,10 @@ hero:
   - [Sidebar](./components/sidebar.md)
   - [Loader](./components/loader.md)
   - [Toast](./components/toast.md)
+  - [List](./components/list.md)
+  - [FormGroup](./components/formgroup.md)
+  - [FormGroupValidated](./components/formgroup-validated.md)
+  - [ConfirmDialog](./components/confirmdialog.md)
 - Handbook
   - [BetoDashboard v2](./BetoDashboard_v2.md)
   - [BetoDashboard v1](./BetoDashboard_v1.md)

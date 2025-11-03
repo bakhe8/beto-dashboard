@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from 'fs';
 import path from 'path';
+import zlib from 'zlib';
 
 const outDir = path.resolve('test-results');
 const outFile = path.join(outDir, 'metrics.json');
@@ -14,7 +15,7 @@ function readNumberEnv(name) {
   return Number.isFinite(n) ? n : null;
 }
 
-// Placeholder aggregation — populate from env or leave null.
+// Aggregation — populate from env or compute below
 const metrics = {
   timestamp: new Date().toISOString(),
   env: process.env.CI ? 'ci' : 'dev',
@@ -44,10 +45,27 @@ const metrics = {
   }
 };
 
-ensureDir(outDir);
-fs.writeFileSync(outFile, JSON.stringify(metrics, null, 2));
-console.log(`Wrote metrics → ${outFile}`);
-// Try to merge DOM metrics if produced by E2E
+// Fill bundle metrics from dist if available and not provided
+try {
+  const dist = path.resolve('dist');
+  const assets = path.join(dist, 'assets');
+  if (fs.existsSync(assets)) {
+    const files = fs.readdirSync(assets).filter(f => /\.(js|css)$/.test(f));
+    const gzip = (buf) => zlib.gzipSync(buf).length;
+    let total = 0;
+    let vendor = 0;
+    for (const f of files) {
+      const p = path.join(assets, f);
+      const size = gzip(fs.readFileSync(p));
+      total += size;
+      if (/(vendor|vendors|chunk-vendor)/i.test(f)) vendor += size;
+    }
+    if (metrics.bundle.totalGzipKb == null) metrics.bundle.totalGzipKb = Math.round(total / 1024);
+    if (metrics.bundle.vendorGzipKb == null && vendor) metrics.bundle.vendorGzipKb = Math.round(vendor / 1024);
+  }
+} catch {}
+
+// Merge DOM metrics if produced by E2E
 const domMetricsPath = path.resolve('test-results', 'dom-metrics.json');
 if (fs.existsSync(domMetricsPath)) {
   try {
@@ -57,3 +75,7 @@ if (fs.existsSync(domMetricsPath)) {
     if (typeof dm.reflows === 'number') metrics.dom.reflows = dm.reflows;
   } catch {}
 }
+
+ensureDir(outDir);
+fs.writeFileSync(outFile, JSON.stringify(metrics, null, 2));
+console.log(`Wrote metrics → ${outFile}`);

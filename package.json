@@ -40,7 +40,8 @@
     "serve:prod": "node scripts/serve.js",
     "test:e2e:prod": "npm run build && playwright test -c playwright.config.prod.ts",
     "metrics:collect": "node scripts/collect-metrics.mjs",
-    "metrics:report": "type test-results\\metrics.json"
+    "metrics:report": "type test-results\\metrics.json",
+    "morph:component": "node scripts/morph/create-component.mjs"
   },
   "workspaces": [
     "packages/*",
@@ -82,6 +83,7 @@
     "postcss-nesting": "^12.1.5",
     "zod": "^3.23.8"
   },
+  "overrides": {},
   "lint-staged": {
     "*.{js,ts,css,md}": "prettier --write"
   }
