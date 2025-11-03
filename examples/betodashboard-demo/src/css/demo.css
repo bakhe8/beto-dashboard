@@ -4,3 +4,28 @@
 
 :root { --color-primary: #0046FF; --color-text: #11224E; }
 
+/* Demo dashboard styles (minimal) */
+header.demo-header { display:flex; align-items:center; justify-content:space-between; padding:12px; border-bottom:1px solid #ddd; }
+nav.demo-nav a { margin-right:12px; color:#11224E; text-decoration:none; }
+nav.demo-nav a.active { font-weight:600; color: var(--color-primary); }
+main.demo-main { padding:16px; }
+#breadcrumb { color:#666; margin-bottom:8px; }
+.toolbar { display:flex; gap:8px; align-items:center; margin:8px 0; }
+.pager { display:flex; gap:8px; align-items:center; margin-top:8px; }
+.cards { display:grid; grid-template-columns: repeat(auto-fill,minmax(160px,1fr)); gap:12px; margin:12px 0 16px; }
+.card { border:1px solid #e5e7eb; border-radius:8px; background:#fff; }
+.card-header { padding:8px 12px; border-bottom:1px solid #e5e7eb; font-weight:600; }
+.card-body { padding:12px; font-size:1.25rem; }
+.card-footer { padding:8px 12px; border-top:1px solid #e5e7eb; }
+.chart { border:1px solid #e5e7eb; border-radius:8px; background:#fff; padding:8px; }
+.chart-title { font-weight:600; margin:4px 0 8px; }
+.event-log { border:1px dashed #ccc; padding:8px; min-height:60px; }
+.list .list-item { color: var(--color-primary); text-decoration: underline; }
+
+/* Table visuals */
+table { width:100%; border-collapse: collapse; background:#fff; }
+thead th { position: sticky; top: 0; background:#f9fafb; border-bottom:1px solid #e5e7eb; text-align:left; padding:8px; }
+tbody td { padding:8px; border-bottom:1px solid #f1f5f9; }
+tbody tr:nth-child(odd) { background:#fcfdff; }
+tbody tr:hover { background:#f3f6ff; }
+button.row-edit, button.row-delete { padding:4px 8px; margin-right:6px; }

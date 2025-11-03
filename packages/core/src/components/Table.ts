@@ -1,5 +1,5 @@
 import { define } from "./runtime";
-import { sanitize } from "../js/utils/sanitize";
+import { setHTML } from "../js/dom";
 
 type Props = {
   columns: { key: string; label: string }[];
@@ -10,7 +10,7 @@ export const Table = (root: HTMLElement, props: Props, slots: Record<string, str
   const { columns, data } = props;
 
   if (!data || data.length === 0) {
-    root.innerHTML = sanitize(slots.empty || "<p>No data available</p>");
+    setHTML(root, slots.empty || "<p>No data available</p>");
     return;
   }
 
@@ -24,7 +24,7 @@ export const Table = (root: HTMLElement, props: Props, slots: Record<string, str
     )
     .join("")}</tbody>`;
 
-  root.innerHTML = sanitize(`<table>${header}${body}</table>`);
+  setHTML(root, `<table>${header}${body}</table>`);
 };
 
 define("Table", Table);

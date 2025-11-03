@@ -22,11 +22,11 @@ export default defineConfig({
 
   // Run your local dev server before starting the tests.
   webServer: {
-    command: "npm run demo:dev:5174",
-    url: "http://localhost:5174",
-    reuseExistingServer: !process.env.CI,
+    command: "npm run demo:preview:5174",
+    url: "http://localhost:5174/src/pages/app.html",
+    reuseExistingServer: true,
     stdout: "ignore",
     stderr: "pipe",
-    timeout: 120000,
+    timeout: 180000,
   },
 });

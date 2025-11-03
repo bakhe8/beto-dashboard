@@ -6,8 +6,5 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "@betodashboard/core": "0.0.1",
-    "@betodashboard/tokens": "0.0.1"
-  }
+  "dependencies": {}
 }

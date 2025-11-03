@@ -11,11 +11,13 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   webServer: {
-    command: "npm run serve:prod",
-    url: "http://localhost:5173",
+    command: "npm run demo:preview:5173",
+    url: "http://localhost:5173/src/pages/app.html",
     reuseExistingServer: !process.env.CI,
     stdout: "ignore",
     stderr: "pipe",
   },
 });
+
+
 

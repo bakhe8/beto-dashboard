@@ -1,0 +1,13 @@
+{
+  "kpis": {
+    "users": 1280,
+    "active": 932,
+    "sales": 246,
+    "conversion": 4.2
+  },
+  "series": {
+    "labels": ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+    "values": [120,160,180,220,200,140,100]
+  }
+}
+

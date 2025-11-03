@@ -22,3 +22,9 @@ yarn-error.log*
 .vscode/
 .idea/
 .DS_Store
+
+# Turbo & Storybook
+.turbo/
+storybook-static/
+examples/betodashboard-demo/dist/
+examples/**/.vite/

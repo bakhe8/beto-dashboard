@@ -13,7 +13,9 @@
     "preview": "vite preview",
     "test": "turbo run test",
     "test:core": "turbo run test --filter=@betodashboard/core",
-    "test:e2e": "playwright test",
+    "test:e2e": "start-server-and-test \"npm run demo:preview:5174\" http://localhost:5174/src/pages/app.html \"playwright test\"",
+    "test:e2e:clean": "npm run ports:kill && npm run test:e2e",
+    "report:e2e": "playwright show-report --port 0",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -26,11 +28,22 @@
     "build-storybook": "storybook build",
     "demo:dev:5174": "vite --config examples/betodashboard-demo/vite.config.ts --port 5174",
     "demo:build": "vite build --config examples/betodashboard-demo/vite.config.ts",
+    "demo:preview:5174": "npm run demo:build && vite preview --config examples/betodashboard-demo/vite.config.ts --port 5174 --strictPort",
+    "demo:preview:5173": "npm run demo:build && vite preview --config examples/betodashboard-demo/vite.config.ts --port 5173 --strictPort",
+    "ports:kill": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/kill-ports.ps1",
+    "ports:kill:sh": "bash scripts/kill-ports.sh",
+    "clean": "rimraf dist examples/betodashboard-demo/dist storybook-static .turbo \"**/.vite\" coverage playwright-report test-results stats.html",
+    "reset": "npm run clean && rimraf node_modules && npm ci",
     "bootstrap:ps1": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/bootstrap_betodashboard.ps1 -InPlace",
     "bootstrap:sh": "bash scripts/bootstrap_betodashboard_inplace.sh",
     "prepare": "husky",
     "serve:prod": "node scripts/serve.js",
-    "test:e2e:prod": "npm run build && playwright test -c playwright.config.prod.ts"
+    "demo:skeleton": "node scripts/serve-skeleton.mjs",
+    "demo:record": "node scripts/record-skeleton.mjs",
+    "test:e2e:prod": "npm run build && playwright test -c playwright.config.prod.ts",
+    "metrics:collect": "node scripts/collect-metrics.mjs",
+    "metrics:report": "type test-results\\metrics.json",
+    "morph:component": "node scripts/morph/create-component.mjs"
   },
   "workspaces": [
     "packages/*",
@@ -55,13 +68,15 @@
     "jsdom": "^24.1.0",
     "lint-staged": "^15.2.5",
     "prettier": "^3.3.1",
+    "rimraf": "^5.0.10",
     "rollup-plugin-visualizer": "^5.12.0",
+    "start-server-and-test": "^2.1.2",
+    "tailwindcss": "^3.4.13",
+    "turbo": "^2.0.0",
     "typescript": "^5.4.5",
     "vite": "^7.1.12",
     "vitepress": "^1.5.0",
-    "vitest": "^4.0.6",
-    "turbo": "^2.0.0",
-    "tailwindcss": "^3.4.13"
+    "vitest": "^4.0.6"
   },
   "dependencies": {
     "autoprefixer": "^10.4.19",
@@ -70,7 +85,9 @@
     "postcss-nesting": "^12.1.5",
     "zod": "^3.23.8"
   },
+  "overrides": {},
   "lint-staged": {
     "*.{js,ts,css,md}": "prettier --write"
   }
 }
+

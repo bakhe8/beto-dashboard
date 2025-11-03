@@ -33,5 +33,21 @@ jobs:
         with:
           urls: 'http://localhost:8080/'
           configPath: 'lighthouserc.json'
+          outputDir: 'lhci'
           uploadArtifacts: true
           temporaryPublicStorage: true
+
+      - name: Parse Lighthouse results
+        run: node scripts/parse-lighthouse.mjs lhci
+
+      - name: Collect engineering metrics (LH)
+        run: BD_LH_PERF=$(jq -r .performance test-results/lighthouse.json) BD_LH_A11Y=$(jq -r .accessibility test-results/lighthouse.json) BD_LH_BP=$(jq -r .bestPractices test-results/lighthouse.json) BD_LH_SEO=$(jq -r .seo test-results/lighthouse.json) npm run metrics:collect
+
+      - name: Upload engineering metrics (LH)
+        uses: actions/upload-artifact@v4
+        with:
+          name: engineering-metrics-lh
+          path: test-results/metrics.json
+
+      - name: Validate engineering metrics (LH)
+        run: node scripts/validate-metrics.mjs --expect-lh

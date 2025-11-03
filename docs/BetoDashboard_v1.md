@@ -98,6 +98,8 @@ It consolidates every phase, technical detail, process, and decision
 required to take the framework from **clone → build → test → secure →
 ship** without ambiguity.
 
+> Related reading: [Engineering Process Behind Our Analysis](./BetoDashboard_Engineering_Process.md) — the playbook describing how we framed problems, derived requirements, and validated solutions.
+
 **1.2 Vision**
 
 BetoDashboard aims to become a **universal, enterprise-grade admin

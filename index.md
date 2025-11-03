@@ -28,6 +28,8 @@ Key sections:
 - Handbook
   - BetoDashboard v2: ./docs/BetoDashboard_v2.md
   - BetoDashboard Handbook: ./docs/BetoDashboard_v1.md
+  - Engineering Process: ./docs/BetoDashboard_Engineering_Process.md
   - Handbook (WIP): ./docs/handbook/BetoDashboard.md
+  - Tradeoffs & Scaling Strategy: ./docs/BetoDashboard_Tradeoffs_and_Scaling_Strategy.md
 
 Tip: Use this page’s URL directly: https://github.com/bakhe8/beto-dashboard/blob/main/index.md

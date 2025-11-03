@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Walking Skeleton</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 24px; }
+      #app { padding: 12px; border: 1px solid #ddd; border-radius: 6px; }
+      button { margin-top: 12px; padding: 8px 12px; }
+    </style>
+  </head>
+  <body>
+    <h1>Walking Skeleton</h1>
+    <div id="app"></div>
+    <div style="margin-top:8px; display:flex; gap:8px;">
+      <button id="inc">Increment</button>
+      <button id="reset">Reset</button>
+      <button id="toggle-btn">Toggle</button>
+    </div>
+
+    <script type="module">
+      import { DOMRenderer } from '../core/dom/DOMRenderer.js';
+      import { StateSlice } from '../core/state/StateSlice.js';
+
+      const app = document.getElementById('app');
+      const renderer = new DOMRenderer(app);
+
+      // First visible render (counter)
+      const counter = new StateSlice(0);
+      renderer.render('<div data-domrenderer-text>Count: 0</div>');
+
+      // Reactive update: whenever state changes, DOM updates
+      counter.subscribe(v => renderer.update(`Count: ${v}`));
+
+      // Interactions
+      document.getElementById('inc').addEventListener('click', () => {
+        counter.set(counter.get() + 1);
+      });
+      document.getElementById('reset').addEventListener('click', () => {
+        counter.set(0);
+      });
+
+      // Toggle example (second renderer)
+      const toggleRoot = document.createElement('div');
+      toggleRoot.id = 'toggle-root';
+      document.body.appendChild(toggleRoot);
+      const toggleRenderer = new DOMRenderer(toggleRoot);
+      const toggled = new StateSlice(false);
+      toggleRenderer.render('<div data-domrenderer-text>Toggled: OFF</div>');
+      toggled.subscribe(v => toggleRenderer.update(`Toggled: ${v ? 'ON' : 'OFF'}`));
+      document.getElementById('toggle-btn').addEventListener('click', () => {
+        toggled.set(!toggled.get());
+      });
+    </script>
+  </body>
+  </html>

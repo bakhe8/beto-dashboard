@@ -16,6 +16,9 @@ hero:
 - Introduction
   - [Getting Started](./getting-started.md)
   - [Architecture](./architecture.md)
+  - [Engineering Metrics](./architecture/metrics.md)
+  - [Development Morphology](./architecture/morphology.md)
+  - [Core Utilities](./architecture/utilities.md)
   - [API Fetching](./api.md)
   - [Security](./security.md)
   - [Contributing](./contributing.md)
@@ -30,11 +33,17 @@ hero:
   - [Sidebar](./components/sidebar.md)
   - [Loader](./components/loader.md)
   - [Toast](./components/toast.md)
+  - [List](./components/list.md)
+  - [FormGroup](./components/formgroup.md)
+  - [FormGroupValidated](./components/formgroup-validated.md)
+  - [ConfirmDialog](./components/confirmdialog.md)
 - Handbook
   - [BetoDashboard v2](./BetoDashboard_v2.md)
   - [BetoDashboard v1](./BetoDashboard_v1.md)
+  - [Engineering Process](./BetoDashboard_Engineering_Process.md)
   - [Handbook (work in progress)](./handbook/BetoDashboard.md)
   - [Roadmap Status (v1 + v2)](./roadmap-status.md)
+  - [Tradeoffs & Scaling Strategy](./BetoDashboard_Tradeoffs_and_Scaling_Strategy.md)
 
 Tip: Every page now includes quick navigation links back to this index and the project README for easy browsing on GitHub.
 

@@ -2,14 +2,15 @@ import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
-  root: 'src',
+  root: __dirname,
   build: {
-    outDir: '../dist',
+    outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
       input: {
         app: path.resolve(__dirname, 'src/pages/app.html'),
         dashboard: path.resolve(__dirname, 'src/pages/dashboard.html'),
+        demo: path.resolve(__dirname, 'src/pages/demo-dashboard.html'),
       }
     }
   },

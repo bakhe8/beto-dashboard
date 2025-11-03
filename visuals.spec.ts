@@ -13,7 +13,7 @@ test.describe("BetoDashboard Visual Regression", () => {
   });
 
   test("Sidebar component should match snapshots", async ({ page }) => {
-    await page.goto("/pages/app.html");
+    await page.goto("/src/pages/app.html");
     const sidebar = page.locator('aside[data-component="Sidebar"]');
 
     // Wait for sidebar to be stable and visible
@@ -35,7 +35,7 @@ test.describe("BetoDashboard Visual Regression", () => {
   // to fail because the UI does not update, even though the underlying store state changes.
   // This needs to be investigated and fixed.
   test("Modal component should match snapshots in light and dark themes", async ({ page }) => {
-    await page.goto("/pages/app.html");
+    await page.goto("/src/pages/app.html");
 
     // Wait for the initial theme to be applied before starting interactions
     await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
@@ -67,7 +67,7 @@ test.describe("BetoDashboard Visual Regression", () => {
   test("Table component should match snapshots for both data and empty states", async ({
     page,
   }) => {
-    await page.goto("/pages/app.html");
+    await page.goto("/src/pages/app.html");
 
     // Snapshot of the table with data
     const tableWithData = page.locator('div[data-component="Table"]').first();
@@ -78,3 +78,4 @@ test.describe("BetoDashboard Visual Regression", () => {
     await expect(emptyTable).toHaveScreenshot("table-empty-state.png");
   });
 });
+

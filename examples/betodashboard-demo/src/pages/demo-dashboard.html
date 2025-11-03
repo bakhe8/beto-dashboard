@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BetoDashboard — Demo Dashboard</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none';" />
+    <link rel="stylesheet" href="../css/demo.css" />
+    <script type="module" src="../js/router-demo.ts"></script>
+  </head>
+  <body>
+    <header class="demo-header">
+      <strong>BetoDashboard</strong>
+      <nav class="demo-nav">
+        <a href="#/overview">Overview</a>
+        <a href="#/users">Users</a>
+        <a href="#/settings">Settings</a>
+      </nav>
+    </header>
+    <main class="demo-main">
+      <div id="breadcrumb"></div>
+      <div id="route-content"></div>
+    </main>
+  </body>
+  </html>
