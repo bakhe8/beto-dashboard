@@ -52,6 +52,26 @@ function renderUsers(root: HTMLElement) {
     </div>
   `;
   mountAll();
+  // Add Edit buttons next to Delete and wire handlers
+  root.querySelectorAll<HTMLButtonElement>('.row-delete').forEach(btn => {
+    if (!btn.previousElementSibling || !btn.previousElementSibling.classList.contains('row-edit')) {
+      const id = btn.getAttribute('data-id') || '';
+      btn.insertAdjacentHTML('beforebegin', `<button class="row-edit" data-id="${id}">Edit</button> `);
+    }
+  });
+  root.querySelectorAll<HTMLButtonElement>('.row-edit').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = Number(btn.dataset.id);
+      const user = state.users.find(u => u.id === id);
+      if (!user) return;
+      const name = prompt('Edit name:', user.name);
+      if (name && name.trim()) {
+        user.name = name.trim();
+        toast.success('User updated');
+        renderUsers(root);
+      }
+    });
+  });
   root.querySelectorAll<HTMLButtonElement>('.row-delete').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = Number(btn.dataset.id);
@@ -100,9 +120,33 @@ async function renderOverview(root: HTMLElement) {
 function renderSettings(root: HTMLElement) {
   root.innerHTML = `
     <h2>Settings</h2>
+    <section class="toolbar" style="margin:8px 0;">
+      <label><input type="checkbox" id="rtl-toggle" /> RTL</label>
+    </section>
     <div data-component="ThemeSwitcher"></div>
+    <h3 style="margin-top:12px;">Profile</h3>
+    <div data-component="FormGroupValidated" data-props='{"name":"username","label":"Username","minLength":3,"placeholder":"yourname"}'></div>
+    <div data-component="FormGroupValidated" data-props='{"name":"email","label":"Email","pattern":"^.+@.+\\..+$","placeholder":"you@example.com"}'></div>
+    <button id="save-profile">Save</button>
   `;
   mountAll();
+  const rtl = document.getElementById('rtl-toggle') as HTMLInputElement;
+  rtl.checked = document.documentElement.getAttribute('dir') === 'rtl';
+  rtl.addEventListener('change', () => {
+    const dir = rtl.checked ? 'rtl' : 'ltr';
+    import('@core').then(({ store }) => store.set('dir', dir as any));
+  });
+  (document.getElementById('save-profile') as HTMLButtonElement)?.addEventListener('click', () => {
+    const nameInput = document.querySelector('#fgv-username') as HTMLInputElement | null;
+    const emailInput = document.querySelector('#fgv-email') as HTMLInputElement | null;
+    const name = nameInput?.value?.trim();
+    const email = emailInput?.value?.trim();
+    if (!name || !email) { toast.warning('Please fill all fields'); return; }
+    import('@core').then(({ store }) => {
+      store.set('user', { id: '1', name });
+      toast.success('Profile saved');
+    });
+  });
 }
 
 function setBreadcrumb(route: string[]) {
@@ -112,6 +156,14 @@ function setBreadcrumb(route: string[]) {
   document.title = `BetoDashboard — ${route[0] || 'Overview'}`;
 }
 
+function setActiveNav(current: string) {
+  document.querySelectorAll('nav a').forEach(a => {
+    const href = (a as HTMLAnchorElement).getAttribute('href') || '';
+    const r = href.replace(/^#\//,'');
+    if (r.startsWith(current)) a.classList.add('active'); else a.classList.remove('active');
+  });
+}
+
 export async function startRouter() {
   await loadUsers();
   const content = document.getElementById('route-content') as HTMLElement;
@@ -119,6 +171,7 @@ export async function startRouter() {
     const hash = location.hash.replace(/^#\//, '') || 'overview';
     const route = hash.split('/');
     setBreadcrumb(route);
+    setActiveNav(route[0]);
     switch (route[0]) {
       case 'users':
         renderUsers(content);

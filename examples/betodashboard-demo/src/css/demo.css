@@ -21,3 +21,11 @@ main.demo-main { padding:16px; }
 .chart-title { font-weight:600; margin:4px 0 8px; }
 .event-log { border:1px dashed #ccc; padding:8px; min-height:60px; }
 .list .list-item { color: var(--color-primary); text-decoration: underline; }
+
+/* Table visuals */
+table { width:100%; border-collapse: collapse; background:#fff; }
+thead th { position: sticky; top: 0; background:#f9fafb; border-bottom:1px solid #e5e7eb; text-align:left; padding:8px; }
+tbody td { padding:8px; border-bottom:1px solid #f1f5f9; }
+tbody tr:nth-child(odd) { background:#fcfdff; }
+tbody tr:hover { background:#f3f6ff; }
+button.row-edit, button.row-delete { padding:4px 8px; margin-right:6px; }
