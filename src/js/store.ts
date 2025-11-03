@@ -1,4 +1,4 @@
-type State = {
+export type State = {
   theme: "light" | "dark" | "auto";
   dir: "ltr" | "rtl";
   sidebar: "default" | "compact" | "collapsed";

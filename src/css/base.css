@@ -105,3 +105,59 @@ th[aria-sort] {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* ---
+  Sidebar Component
+--- */
+[data-component="Sidebar"] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  background-color: var(--color-bg-muted);
+  border-right: 1px solid var(--color-border);
+  transition: width var(--speed) var(--ease);
+  padding: var(--space-md);
+}
+
+[data-component="Sidebar"][data-state="collapsed"] {
+  width: 80px;
+}
+
+.sidebar-header {
+  margin-bottom: var(--space-lg);
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav li a {
+  display: block;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  border-radius: var(--radius);
+}
+
+.sidebar-nav li a:hover {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ---
+  Main Layout
+--- */
+.main-content {
+  transition: margin-inline-start var(--speed) var(--ease);
+}
+
+body:has([data-component="Sidebar"][data-state="default"]) .main-content {
+  margin-inline-start: 250px;
+}
+body:has([data-component="Sidebar"][data-state="collapsed"]) .main-content {
+  margin-inline-start: 80px;
+}

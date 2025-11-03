@@ -6,6 +6,7 @@ import "./components/Modal";
 import "./components/Table";
 import "./components/Loader";
 import "./components/ThemeSwitcher";
+import "./components/Sidebar";
 
 import { mountAll } from "./components/runtime";
 

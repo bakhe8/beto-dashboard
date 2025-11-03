@@ -15,39 +15,43 @@
       <p>An unexpected error occurred. Please refresh the page.</p>
     </div>
 
-    <h1>BetoDashboard Components</h1>
+    <div data-component="Sidebar"></div>
 
-    <h2>Theme Switcher</h2>
-    <div data-component="ThemeSwitcher"></div>
+    <main class="main-content">
+      <h1>BetoDashboard Components</h1>
 
-    <h2>Loader</h2>
-    <div data-component="Loader"></div>
+      <h2>Theme Switcher</h2>
+      <div data-component="ThemeSwitcher"></div>
 
-    <h2>Table</h2>
-    <div
-      data-component="Table"
-      data-props='{
-        "columns": [{"key": "name", "label": "Name"}, {"key": "role", "label": "Role"}],
-        "data": [{"name": "John Doe", "role": "Admin"}, {"name": "Jane Smith", "role": "Editor"}]
-      }'
-    >
-      <template data-slot="empty">
-        <p>No users found.</p>
-      </template>
-    </div>
+      <h2>Loader</h2>
+      <div data-component="Loader"></div>
 
-    <h2>Modal</h2>
-    <div
-      data-component="Modal"
-      data-props='{"title": "Confirm Action", "size": "sm"}'
-    >
-      <template data-slot="default">
-        <p>Are you sure you want to proceed with this action?</p>
-      </template>
-      <template data-slot="footer">
-        <button data-close>Cancel</button>
-        <button data-close>Confirm</button>
-      </template>
-    </div>
+      <h2>Table</h2>
+      <div
+        data-component="Table"
+        data-props='{
+          "columns": [{"key": "name", "label": "Name"}, {"key": "role", "label": "Role"}],
+          "data": [{"name": "John Doe", "role": "Admin"}, {"name": "Jane Smith", "role": "Editor"}]
+        }'
+      >
+        <template data-slot="empty">
+          <p>No users found.</p>
+        </template>
+      </div>
+
+      <h2>Modal</h2>
+      <div
+        data-component="Modal"
+        data-props='{"title": "Confirm Action", "size": "sm"}'
+      >
+        <template data-slot="default">
+          <p>Are you sure you want to proceed with this action?</p>
+        </template>
+        <template data-slot="footer">
+          <button data-close>Cancel</button>
+          <button data-close>Confirm</button>
+        </template>
+      </div>
+    </main>
   </body>
 </html>
