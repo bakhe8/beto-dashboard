@@ -438,55 +438,53 @@ error boundary, and persistence mechanism.
 **Persistence:** LocalStorage for theme, dir, sidebar.
 
 type State = {
-
-theme: \"light\" \| \"dark\" \| \"auto\";
-
-dir: \"ltr\" \| \"rtl\";
-
-sidebar: \"default\" \| \"compact\" \| \"collapsed\";
-
-user: null \| { id: string; name: string };
-
-cache: Record\<string, unknown\>;
-
+  theme: "light" | "dark" | "auto";
+  dir: "ltr" | "rtl";
+  sidebar: "default" | "compact" | "collapsed";
+  user: null | { id: string; name: string };
+  cache: Record<string, unknown>;
 };
 
-const persisted = JSON.parse(localStorage.getItem(\"beto-state\") \|\|
-\"{}\");
+type StateKeys = keyof State;
+type Listener = (value: any) => void;
+type UnsubscribeFn = () => void;
 
-const state: State = { theme:\"auto\", dir:\"ltr\", sidebar:\"default\",
-user:null, cache:{}, \...persisted };
+const PERSISTED_KEYS: StateKeys[] = ["theme", "dir", "sidebar"];
 
-const listeners = new Set\<(k: keyof State, v: any) =\> void\>();
+function getInitialState(): State {
+  let persistedState = {};
+  try {
+    persistedState = JSON.parse(localStorage.getItem("beto-state") || "{}");
+  } catch (e) {
+    console.error("Failed to parse persisted state from localStorage", e);
+  }
+  return { theme: "auto", dir: "ltr", sidebar: "default", user: null, cache: {}, ...persistedState };
+}
+
+const state: State = getInitialState();
+const listeners = new Map<StateKeys, Set<Listener>>();
 
 export const store = {
+  get: <K extends StateKeys>(key: K): State[K] => state[key],
 
-get: \<K extends keyof State\>(k: K) =\> state\[k\],
+  set: <K extends StateKeys>(key: K, value: State[K]): void => {
+    state[key] = value;
 
-set: \<K extends keyof State\>(k: K, v: State\[K\]) =\> {
+    if ((PERSISTED_KEYS as string[]).includes(key)) {
+      const persistedState = PERSISTED_KEYS.reduce((acc, k) => ({ ...acc, [k]: state[k] }), {});
+      localStorage.setItem("beto-state", JSON.stringify(persistedState));
+    }
 
-state\[k\] = v;
+    listeners.get(key)?.forEach(fn => fn(value));
+  },
 
-if (\[\"theme\", \"dir\", \"sidebar\"\].includes(k)) {
-
-localStorage.setItem(\"beto-state\", JSON.stringify({
-
-theme: state.theme, dir: state.dir, sidebar: state.sidebar
-
-}));
-
-}
-
-listeners.forEach(l =\> l(k, v));
-
-},
-
-on: (fn: (k: keyof State, v: any) =\> void) =\> {
-
-listeners.add(fn); return () =\> listeners.delete(fn);
-
-}
-
+  on: <K extends StateKeys>(key: K, fn: Listener): UnsubscribeFn => {
+    if (!listeners.has(key)) {
+      listeners.set(key, new Set());
+    }
+    listeners.get(key)!.add(fn);
+    return () => listeners.get(key)!.delete(fn);
+  }
 };
 
 **4.3 API Fetcher (src/js/api.ts)**
@@ -1928,11 +1926,4 @@ procedural, and architectural element required for the project:
 
 - Reproducible release workflow and verification steps
 
-This document is now **developer-complete**---no stage of the project
-requires external clarification.
-
----
-
-Prev: [Recipes](./recipes.md) | Next: [Handbook (WIP)](./handbook/BetoDashboard.md)
-
-See also: [Docs Index](./index.md) | [Project README](../README.md)
+This document is now **developer-complete**--

@@ -75,10 +75,22 @@ function tryMountElement(el: HTMLElement, collect?: (() => void)[]) {
   const name = el.dataset.component?.toLowerCase();
   if (!name) return;
   if (cleanupRegistry.has(el)) return; // already mounted
-  const ctor = registry.get(name);
-  if (!ctor) return;
 
-  const props = el.dataset.props ? JSON.parse(el.dataset.props) : {};
+  const ctor = registry.get(name);
+  if (!ctor) {
+    console.warn(`[DCE] Component "${name}" is not defined. Did you forget to import and define it?`);
+    return;
+  }
+
+  let props = {};
+  try {
+    if (el.dataset.props) {
+      props = JSON.parse(el.dataset.props);
+    }
+  } catch (e) {
+    console.error(`[DCE] Failed to parse props for component "${name}". Invalid JSON.`, { element: el, error: e });
+  }
+
   const slots: Record<string, string> = {};
   el.querySelectorAll("template[data-slot]").forEach(t => {
     slots[(t as HTMLElement).dataset.slot!] = (t as HTMLTemplateElement).innerHTML;

@@ -6,6 +6,14 @@ type Props = {
   size?: "sm" | "md" | "lg";
 };
 
+const FOCUSABLE_SELECTOR = [
+  "[autofocus]",
+  "button",
+  "[href]",
+  "input:not([type='hidden'])",
+  "select", "textarea", "[tabindex]:not([tabindex='-1'])"
+].join(', ');
+
 export const Modal = (root: HTMLElement, props: Props, slots: Record<string, string>) => {
   let lastActiveElement: HTMLElement | null = null;
   let wasOpen = false;
@@ -25,32 +33,27 @@ export const Modal = (root: HTMLElement, props: Props, slots: Record<string, str
     }
   };
 
-  const handleKeydown = (e: KeyboardEvent) => {
+  const handleKeydown = (e: KeyboardEvent, focusableElements: HTMLElement[]) => {
     if (e.key === "Escape") {
       e.preventDefault();
       close();
-    } else if (e.key === "Tab") {
-      // Simple focus trap
-      const focusables = root.querySelectorAll<HTMLElement>(
-        '.modal [autofocus], .modal button, .modal [href], .modal input, .modal select, .modal textarea, .modal [tabindex]:not([tabindex="-1"])'
-      );
-      if (focusables.length === 0) return;
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      const active = document.activeElement as HTMLElement | null;
-      if (e.shiftKey) {
-        if (active === first || !root.contains(active)) {
-          e.preventDefault();
-          last.focus();
-        }
-      } else {
-        if (active === last) {
-          e.preventDefault();
-          first.focus();
-        }
+      return;
+    }
+
+    if (e.key === "Tab" && focusableElements.length > 0) {
+      const first = focusableElements[0];
+      const last = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     }
   };
+  let keydownHandler: (e: KeyboardEvent) => void;
 
   const render = () => {
     const { open, title } = store.get("modal");
@@ -59,7 +62,7 @@ export const Modal = (root: HTMLElement, props: Props, slots: Record<string, str
       root.style.display = "none";
       root.innerHTML = ""; // Clear content when closed to remove the overlay
       root.removeEventListener("click", handleClick);
-      root.removeEventListener("keydown", handleKeydown);
+      document.removeEventListener("keydown", keydownHandler);
       if (wasOpen && lastActiveElement && typeof lastActiveElement.focus === "function") {
         // Restore focus to the trigger element
         lastActiveElement.focus();
@@ -88,23 +91,26 @@ export const Modal = (root: HTMLElement, props: Props, slots: Record<string, str
       </div>
     `);
 
-    // Attach listeners only when rendered
+    const modalElement = root.querySelector<HTMLElement>('.modal');
+    const focusableElements = Array.from(modalElement?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR) || []);
+
+    // Create a specific handler instance for this render
+    keydownHandler = (e: KeyboardEvent) => handleKeydown(e, focusableElements);
+
+    // Attach listeners
     root.addEventListener("click", handleClick);
-    root.addEventListener("keydown", handleKeydown);
+    document.addEventListener("keydown", keydownHandler);
 
     // Manage focus: focus the dialog or the first focusable control
-    const dialog = root.querySelector<HTMLElement>('.modal[role="dialog"]');
-    const initialFocus = dialog?.querySelector<HTMLElement>(
-      '[autofocus], .modal-close, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    (initialFocus || dialog)?.focus();
+    const initialFocus = focusableElements.find(el => el.hasAttribute('autofocus')) || focusableElements[0] || modalElement;
+    initialFocus?.focus();
   };
 
   const unsubscribe = store.on("modal", render);
   render();
   return () => {
     root.removeEventListener("click", handleClick);
-    root.removeEventListener("keydown", handleKeydown);
+    if (keydownHandler) document.removeEventListener("keydown", keydownHandler);
     unsubscribe();
   };
 };
