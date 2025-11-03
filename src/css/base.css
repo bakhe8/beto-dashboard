@@ -1,0 +1,107 @@
+@import url("./_tokens.css");
+
+/* ---
+  Base & Resets
+--- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color var(--speed) var(--ease), color var(--speed) var(--ease);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ---
+  Modal Component
+--- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+}
+
+.modal {
+  background-color: var(--color-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  width: 90%;
+  max-width: 500px;
+}
+
+.modal[data-size="sm"] { max-width: 300px; }
+.modal[data-size="lg"] { max-width: 800px; }
+
+.modal-header, .modal-body, .modal-footer {
+  padding: var(--space-md);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+}
+
+/* ---
+  Table Component
+--- */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: var(--space-sm) var(--space-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+th[aria-sort] {
+  cursor: pointer;
+}
+
+/* ---
+  Loader Component
+--- */
+.loader[data-type="spinner"] {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-primary);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
