@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const root = path.resolve(__dirname, '..');
+const demoDist = path.join(root, 'examples', 'betodashboard-demo', 'dist');
 
 const app = express();
 
@@ -27,15 +28,14 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(root, 'dist')));
+app.use(express.static(demoDist));
 
 // Fallback to index.html for SPA-style routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(root, 'dist', 'index.html'));
+  res.sendFile(path.join(demoDist, 'pages', 'app.html'));
 });
 
 const port = process.env.PORT ? Number(process.env.PORT) : 5173;
 app.listen(port, () => {
   console.log(`Serving dist on http://localhost:${port}`);
 });
-

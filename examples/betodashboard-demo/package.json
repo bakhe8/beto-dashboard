@@ -7,8 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@betodashboard/core": "workspace:*",
-    "@betodashboard/tokens": "workspace:*"
+    "@betodashboard/core": "0.0.1",
+    "@betodashboard/tokens": "0.0.1"
   }
 }
-
