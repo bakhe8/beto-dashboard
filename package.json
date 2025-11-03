@@ -14,7 +14,7 @@
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "audit:prod": "npm audit --production",
-    "docs": "pandoc \"docs/handbook/BetoDashboard.docx\" -t markdown -o \"docs/handbook/BetoDashboard_Handbook.md\"",
+    "docs": "pandoc \"docs/handbook/BetoDashboard.docx\" -t markdown -o \"docs/handbook/BetoDashboard.md\"",
     "prepare": "husky"
   },
   "devDependencies": {
