@@ -26,6 +26,8 @@
     "build-storybook": "storybook build",
     "demo:dev:5174": "vite --config examples/betodashboard-demo/vite.config.ts --port 5174",
     "demo:build": "vite build --config examples/betodashboard-demo/vite.config.ts",
+    "demo:preview:5174": "npm run demo:build && vite preview --config examples/betodashboard-demo/vite.config.ts --port 5174 --strictPort",
+    "demo:preview:5173": "npm run demo:build && vite preview --config examples/betodashboard-demo/vite.config.ts --port 5173 --strictPort",
     "bootstrap:ps1": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/bootstrap_betodashboard.ps1 -InPlace",
     "bootstrap:sh": "bash scripts/bootstrap_betodashboard_inplace.sh",
     "prepare": "husky",
@@ -61,7 +63,8 @@
     "vitepress": "^1.5.0",
     "vitest": "^4.0.6",
     "turbo": "^2.0.0",
-    "tailwindcss": "^3.4.13"
+    "tailwindcss": "^3.4.13",
+    "rimraf": "^5.0.10"
   },
   "dependencies": {
     "autoprefixer": "^10.4.19",

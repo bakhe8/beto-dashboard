@@ -11,7 +11,7 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   webServer: {
-    command: "vite preview --config examples/betodashboard-demo/vite.config.ts --port 5173 --strictPort",
+    command: "npm run demo:preview:5173",
     url: "http://localhost:5173",
     reuseExistingServer: !process.env.CI,
     stdout: "ignore",

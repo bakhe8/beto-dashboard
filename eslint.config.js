@@ -8,7 +8,10 @@ export default [
       'node_modules/**',
       'dist/**',
       '.vitepress/**',
-      'docs/.vitepress/**'
+      'docs/.vitepress/**',
+      '.turbo/**',
+      'storybook-static/**',
+      'examples/betodashboard-demo/dist/**'
     ]
   },
   {
