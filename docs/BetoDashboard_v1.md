@@ -1926,4 +1926,10 @@ procedural, and architectural element required for the project:
 
 - Reproducible release workflow and verification steps
 
-This document is now **developer-complete**--
+This document is now **developer-complete**---no stage of the project requires external clarification.
+
+---
+
+Prev: [BetoDashboard v2](./BetoDashboard_v2.md) | Next: [Handbook (WIP)](./handbook/BetoDashboard.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)

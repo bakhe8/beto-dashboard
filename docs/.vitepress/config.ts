@@ -46,7 +46,8 @@ export default defineConfig({
       {
         text: 'Handbook',
         items: [
-          { text: 'BetoDashboard Handbook', link: '/BetoDashboard_Handbook' }
+          { text: 'BetoDashboard v2', link: '/BetoDashboard_v2' },
+          { text: 'BetoDashboard v1', link: '/BetoDashboard_v1' }
         ]
       }
     ],
@@ -56,3 +57,4 @@ export default defineConfig({
     ]
   }
 })
+

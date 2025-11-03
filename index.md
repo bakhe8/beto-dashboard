@@ -26,8 +26,8 @@ Key sections:
   - Loader: ./docs/components/loader.md
   - Toast: ./docs/components/toast.md
 - Handbook
-  - BetoDashboard Handbook: ./docs/BetoDashboard_Handbook.md
+  - BetoDashboard v2: ./docs/BetoDashboard_v2.md
+  - BetoDashboard Handbook: ./docs/BetoDashboard_v1.md
   - Handbook (WIP): ./docs/handbook/BetoDashboard.md
 
 Tip: Use this page’s URL directly: https://github.com/bakhe8/beto-dashboard/blob/main/index.md
-

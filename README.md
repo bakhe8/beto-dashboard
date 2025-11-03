@@ -37,7 +37,7 @@ BetoDashboard is built for modern browsers and officially supports the following
 
 ## Developer Resources
 
--   [📘 BetoDashboard Handbook](docs/BetoDashboard_Handbook.md)
+-   [📘 BetoDashboard v1](docs/BetoDashboard_v1.md)
 
 This handbook is the single source of truth for the project's architecture, component specifications, and development workflows. All contributors are expected to be familiar with its contents.
 
@@ -53,5 +53,9 @@ You can browse the documentation in this repository directly via Markdown:
 - API fetching: [docs/api.md](docs/api.md)
 - Testing: [docs/testing.md](docs/testing.md)
 - Code style: [docs/code-style.md](docs/code-style.md)
+- BetoDashboard v2: [docs/BetoDashboard_v2.md](docs/BetoDashboard_v2.md)
 
 Every doc page links back to the docs index and this README for easy navigation on GitHub.
+
+
+

@@ -31,7 +31,8 @@ hero:
   - [Loader](./components/loader.md)
   - [Toast](./components/toast.md)
 - Handbook
-  - [BetoDashboard Handbook (full)](./BetoDashboard_Handbook.md)
+  - [BetoDashboard v2](./BetoDashboard_v2.md)
+  - [BetoDashboard v1](./BetoDashboard_v1.md)
   - [Handbook (work in progress)](./handbook/BetoDashboard.md)
 
 Tip: Every page now includes quick navigation links back to this index and the project README for easy browsing on GitHub.
@@ -41,3 +42,4 @@ Tip: Every page now includes quick navigation links back to this index and the p
 Next: [Getting Started](./getting-started.md)
 
 See also: [Project README](../README.md)
+

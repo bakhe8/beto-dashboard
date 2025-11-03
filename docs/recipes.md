@@ -63,6 +63,7 @@ loadUserTable();
 
 ---
 
-Prev: [Toast](./components/toast.md) | Next: [BetoDashboard Handbook](./BetoDashboard_Handbook.md)
+Prev: [Toast](./components/toast.md) | Next: [BetoDashboard v2](./BetoDashboard_v2.md)
 
 See also: [Docs Index](./index.md) | [Project README](../README.md)
+
