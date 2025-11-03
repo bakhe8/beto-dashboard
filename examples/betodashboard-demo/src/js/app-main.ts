@@ -11,6 +11,7 @@ import { mountAll } from "@core/components/runtime";
 import { store, State } from "@core/js/store";
 import "@core/js/error-boundary";
 import { initWebVitals } from "@core/js/web-vitals";
+import { ModalBasic } from "@core";
 
 function applyTheme(theme: State["theme"]) {
   const root = document.documentElement;
@@ -38,3 +39,11 @@ document.getElementById("open-modal-btn")?.addEventListener("click", () => {
 });
 
 initWebVitals();
+
+// Wire up Basic Modal demo using accessible ModalBasic API
+const basicRoot = document.getElementById('modal-basic-root') as HTMLElement | null;
+document.getElementById('open-basic-modal-btn')?.addEventListener('click', () => {
+  if (basicRoot) {
+    ModalBasic(basicRoot, { open: true, title: 'Basic Modal', onClose: () => {} });
+  }
+});
