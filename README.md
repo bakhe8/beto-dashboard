@@ -111,6 +111,7 @@ Next commands after bootstrapping:
 - Coverage report: `npm run test:coverage`
 - E2E (dev preview on 5174): `npm run test:e2e`
 - E2E (prod preview on 5173): `npm run test:e2e:prod`
+- Open last E2E report: `npm run report:e2e` (random free port)
 - Preview demo (5174): `npm run demo:preview:5174` → visit `/src/pages/app.html`
 - Clean artifacts: `npm run clean`
 - Full reset (incl. node_modules): `npm run reset`
@@ -121,3 +122,4 @@ Notes
 - Strict-CSP prod server: `npm run serve:prod` serves built demo with locked CSP for manual checks.
 - Playwright report: `npx playwright show-report` opens the latest HTML report.
   - When tests finish, CLI prints a local report URL (e.g., `http://localhost:58983/`).
+  - If the default report port is busy, use `npm run report:e2e`.

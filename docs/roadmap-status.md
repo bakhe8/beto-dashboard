@@ -37,6 +37,15 @@ This checklist reflects the current state of the repository against the v1 Handb
 - [x] Theme tokens — src/css/_tokens.css
 - [~] Accessibility baseline tests — present for modal and a11y scan; continue expanding
 
+### Engineering-Level Mitigations (from Tradeoffs & Scaling Strategy)
+- [x] DOM helpers — `packages/core/src/js/dom.ts` (setHTML, setAttrs, etc.)
+- [x] Event delegation utility — `packages/core/src/js/events.ts`
+- [x] BaseComponent lifecycle helper — `packages/core/src/components/BaseComponent.ts`
+- [x] Derived state — `packages/core/src/js/derived.ts`
+- [x] Async actions — `packages/core/src/js/asyncAction.ts`
+- [x] State slices — `packages/core/src/js/slice.ts`
+- [~] Adopt helpers incrementally in components — Sidebar now uses `setHTML`; more to follow
+
 ## Phase 4 — Testing, Accessibility & QA Automation
 - [x] Unit + Integration tests (Vitest)
 - [x] E2E tests (Playwright configs present + specs)

@@ -19,7 +19,7 @@
 ---
 
 ## 1. Purpose
-This chapter defines how BetoDashboard mitigates architectural trade-offs and evolves into a scalable, maintainable framework.  
+This roadmap mitigates architectural trade‑offs by standardizing state, isolating rendering, and enforcing performance budgets—yielding a scalable, maintainable framework.  
 It connects **short-term engineering tactics** with **long-term architectural strategy** so that technical progress compounds over time.
 
 ---

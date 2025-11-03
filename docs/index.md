@@ -16,6 +16,7 @@ hero:
 - Introduction
   - [Getting Started](./getting-started.md)
   - [Architecture](./architecture.md)
+  - [Core Utilities](./architecture/utilities.md)
   - [API Fetching](./api.md)
   - [Security](./security.md)
   - [Contributing](./contributing.md)

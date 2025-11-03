@@ -1,6 +1,8 @@
 import { define } from "./runtime";
-import { sanitize } from "../js/utils/sanitize";
+import { setHTML } from "../js/dom";
 import { store } from "../js/store";
+import { BaseComponent } from "./BaseComponent";
+import { onKey } from "../js/events";
 
 type Props = {
   size?: "sm" | "md" | "lg";
@@ -14,36 +16,38 @@ const FOCUSABLE_SELECTOR = [
   "select", "textarea", "[tabindex]:not([tabindex='-1'])"
 ].join(', ');
 
-export const Modal = (root: HTMLElement, props: Props, slots: Record<string, string>) => {
-  let lastActiveElement: HTMLElement | null = null;
-  let wasOpen = false;
+class ModalComponent extends BaseComponent {
+  private lastActiveElement: HTMLElement | null = null;
+  private wasOpen = false;
+  private unsubscribe: (() => void) | null = null;
+  private props: Props;
+  private slots: Record<string, string>;
+  private offEsc: (() => void) | null = null;
 
-  const close = () => {
+  constructor(root: HTMLElement, props: Props, slots: Record<string, string>) {
+    super(root);
+    this.props = props;
+    this.slots = slots;
+
+    // Delegated close clicks
+    this.on('click' as any, '.modal-close, [data-close], .modal-footer button', () => this.close());
+
+    // Subscribe to modal state and render
+    this.unsubscribe = store.on("modal", () => this.render());
+    this.render();
+  }
+
+  private close() {
     const current = store.get("modal");
     store.set("modal", { ...current, open: false });
-  };
+  }
 
-  const handleClick = (e: Event) => {
-    const target = e.target as HTMLElement;
-    if (
-      target.closest(".modal-close, [data-close]") ||
-      target.closest(".modal-footer button")
-    ) {
-      close();
-    }
-  };
-
-  const handleKeydown = (e: KeyboardEvent, focusableElements: HTMLElement[]) => {
-    if (e.key === "Escape") {
-      e.preventDefault();
-      close();
-      return;
-    }
-
-    if (e.key === "Tab" && focusableElements.length > 0) {
-      const first = focusableElements[0];
-      const last = focusableElements[focusableElements.length - 1];
-
+  private trapTab(e: KeyboardEvent) {
+    const modalElement = this.root.querySelector<HTMLElement>('.modal');
+    const focusable = Array.from(modalElement?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR) || []);
+    if (e.key === 'Tab' && focusable.length > 0) {
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
         last.focus();
@@ -52,67 +56,65 @@ export const Modal = (root: HTMLElement, props: Props, slots: Record<string, str
         first.focus();
       }
     }
-  };
-  let keydownHandler: (e: KeyboardEvent) => void;
+  }
 
-  const render = () => {
+  private render() {
     const { open, title } = store.get("modal");
-
     if (!open) {
-      root.style.display = "none";
-      root.innerHTML = ""; // Clear content when closed to remove the overlay
-      root.removeEventListener("click", handleClick);
-      document.removeEventListener("keydown", keydownHandler);
-      if (wasOpen && lastActiveElement && typeof lastActiveElement.focus === "function") {
-        // Restore focus to the trigger element
-        lastActiveElement.focus();
-      }
-      wasOpen = false;
+      this.root.style.display = "none";
+      this.root.innerHTML = "";
+      this.offEsc?.();
+      if (this.wasOpen && this.lastActiveElement?.focus) this.lastActiveElement.focus();
+      this.wasOpen = false;
       return;
     }
 
-    // Opening transition
-    if (!wasOpen) {
-      lastActiveElement = (document.activeElement as HTMLElement) || null;
-      wasOpen = true;
+    if (!this.wasOpen) {
+      this.lastActiveElement = (document.activeElement as HTMLElement) || null;
+      this.wasOpen = true;
     }
 
-    root.style.display = "";
-    root.innerHTML = sanitize(`
+    this.root.style.display = "";
+    setHTML(this.root, `
       <div class="modal-overlay">
-        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc" data-size="${props.size || 'md'}" tabindex="-1">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc" data-size="${this.props.size || 'md'}" tabindex="-1">
           <div class="modal-header">
             <h2 id="modal-title">${title}</h2>
             <button class="modal-close" aria-label="Close">×</button>
           </div>
-          <div id="modal-desc" class="modal-body">${slots.default || ""}</div>
-          <div class="modal-footer">${slots.footer || ""}</div>
+          <div id="modal-desc" class="modal-body">${this.slots.default || ""}</div>
+          <div class="modal-footer">${this.slots.footer || ""}</div>
         </div>
       </div>
     `);
 
-    const modalElement = root.querySelector<HTMLElement>('.modal');
+    // ESC to close and Tab trap
+    this.offEsc?.();
+    this.offEsc = onKey(document, 'Escape', (e) => { e.preventDefault(); this.close(); });
+    this.effect(() => () => { this.offEsc?.(); this.offEsc = null; });
+
+    // Focus management
+    const modalElement = this.root.querySelector<HTMLElement>('.modal');
     const focusableElements = Array.from(modalElement?.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR) || []);
-
-    // Create a specific handler instance for this render
-    keydownHandler = (e: KeyboardEvent) => handleKeydown(e, focusableElements);
-
-    // Attach listeners
-    root.addEventListener("click", handleClick);
-    document.addEventListener("keydown", keydownHandler);
-
-    // Manage focus: focus the dialog or the first focusable control
     const initialFocus = focusableElements.find(el => el.hasAttribute('autofocus')) || focusableElements[0] || modalElement;
     initialFocus?.focus();
-  };
 
-  const unsubscribe = store.on("modal", render);
-  render();
-  return () => {
-    root.removeEventListener("click", handleClick);
-    if (keydownHandler) document.removeEventListener("keydown", keydownHandler);
-    unsubscribe();
-  };
+    // Attach tab trap on document keydown
+    const keyListener = (e: KeyboardEvent) => this.trapTab(e);
+    document.addEventListener('keydown', keyListener as any);
+    this.effect(() => () => document.removeEventListener('keydown', keyListener as any));
+  }
+
+  destroy() {
+    super.destroy();
+    this.unsubscribe?.();
+    this.offEsc?.();
+  }
+}
+
+export const Modal = (root: HTMLElement, props: Props, slots: Record<string, string>) => {
+  const instance = new ModalComponent(root, props, slots);
+  return () => instance.destroy();
 };
 
 define("Modal", Modal);

@@ -1,8 +1,8 @@
 import { define } from "./runtime";
-import { sanitize } from "../js/utils/sanitize";
+import { setHTML } from "../js/dom";
 
 define("Loader", root => {
-  root.innerHTML = sanitize(`
+  setHTML(root, `
     <div class="loader" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>

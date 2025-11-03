@@ -1,6 +1,6 @@
 import { define } from "./runtime";
 import { store } from "../js/store";
-import { sanitize } from "../js/utils/sanitize";
+import { setHTML } from "../js/dom";
 
 const navItems = [
   { href: "#", label: "Dashboard" },
@@ -17,7 +17,7 @@ export const Sidebar = (root: HTMLElement) => {
       .map(item => `<li><a href="${item.href}">${item.label}</a></li>`)
       .join("");
 
-    root.innerHTML = sanitize(`
+    setHTML(root, `
       <header class="sidebar-header">
         <h2 class="sidebar-title">Beto</h2>
         <button class="sidebar-toggle" aria-label="Toggle sidebar" aria-controls="sidebar-nav" aria-expanded="${currentState !== 'collapsed'}">☰</button>

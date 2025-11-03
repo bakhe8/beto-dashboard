@@ -1,12 +1,13 @@
 import { define } from "./runtime";
 import { store } from "../js/store";
-import { sanitize } from "../js/utils/sanitize";
+import { setHTML } from "../js/dom";
+import { on } from "../js/events";
 
 export const ToastContainer = (root: HTMLElement) => {
   const render = () => {
     const toasts = store.get("toasts");
 
-    root.innerHTML = sanitize(
+    setHTML(root,
       toasts
         .map(
           toast => `
@@ -20,25 +21,20 @@ export const ToastContainer = (root: HTMLElement) => {
     );
   };
 
-  const handleClick = (e: Event) => {
-    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(".toast-close");
-    if (btn) {
-      const toastEl = btn.closest<HTMLElement>('.toast');
-      const message = toastEl?.querySelector('p')?.textContent ?? '';
-      const currentToasts = store.get("toasts");
-      store.set("toasts", currentToasts.filter(t => t.message !== message));
-      // Optimistically remove from DOM to ensure immediate visual update
-      toastEl?.remove();
-    }
-  };
-
-  root.addEventListener("click", handleClick);
+  const offClose = on(root, 'click', '.toast-close', (_ev, target) => {
+    const btn = target as HTMLButtonElement;
+    const toastEl = btn.closest<HTMLElement>('.toast');
+    const message = toastEl?.querySelector('p')?.textContent ?? '';
+    const currentToasts = store.get("toasts");
+    store.set("toasts", currentToasts.filter(t => t.message !== message));
+    toastEl?.remove();
+  });
 
   const unsubscribe = store.on("toasts", render);
   render();
 
   return () => {
-    root.removeEventListener("click", handleClick);
+    offClose();
     unsubscribe();
   };
 };
