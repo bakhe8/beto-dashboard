@@ -65,6 +65,12 @@ You can browse the documentation in this repository directly via Markdown:
 
 Every doc page links back to the docs index and this README for easy navigation on GitHub.
 
+## Repository Protection & Pages (manual setup)
+
+- Enable GitHub Pages: Source = GitHub Actions; Custom domain not required.
+- Protect `main`: require status checks (CI, Lighthouse, Chromatic, CodeQL, Docs Deploy, Badges) to pass before merge.
+- Secrets: add `NPM_TOKEN` (for package publish) and `CHROMATIC_PROJECT_TOKEN` if using Chromatic.
+
 
 
 
@@ -93,3 +99,24 @@ Next commands after bootstrapping:
 - `npm install`
 - `npm run dev -w examples/betodashboard-demo`
 - Open `http://localhost:5173/pages/dashboard.html`
+
+## Monorepo Workflow
+
+- Dev (all): `npm run dev`
+- Dev (demo only): `npm run dev:demo`
+- Build (all): `npm run build`
+- Build core only: `npm run build:core`
+- Unit tests: `npm test -- --run`
+- Coverage report: `npm run test:coverage`
+- E2E (dev preview on 5174): `npm run test:e2e`
+- E2E (prod preview on 5173): `npm run test:e2e:prod`
+- Preview demo (5174): `npm run demo:preview:5174` → visit `/src/pages/app.html`
+- Clean artifacts: `npm run clean`
+- Full reset (incl. node_modules): `npm run reset`
+- Free ports (5173/5174): `npm run ports:kill`
+
+Notes
+- Ports: dev uses 5174 for preview-based E2E and 5173 for prod.
+- Strict-CSP prod server: `npm run serve:prod` serves built demo with locked CSP for manual checks.
+- Playwright report: `npx playwright show-report` opens the latest HTML report.
+  - When tests finish, CLI prints a local report URL (e.g., `http://localhost:58983/`).

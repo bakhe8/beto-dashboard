@@ -24,9 +24,9 @@ export default defineConfig({
   webServer: {
     command: "npm run demo:preview:5174",
     url: "http://localhost:5174/src/pages/app.html",
-    reuseExistingServer: false,
+    reuseExistingServer: true,
     stdout: "ignore",
     stderr: "pipe",
-    timeout: 120000,
+    timeout: 180000,
   },
 });

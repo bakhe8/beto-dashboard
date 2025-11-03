@@ -7,7 +7,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   reporter: "html",
   use: {
-    baseurl: "http://localhost:5173/src/pages/app.html",
+    baseURL: "http://localhost:5173",
     trace: "on-first-retry",
   },
   webServer: {

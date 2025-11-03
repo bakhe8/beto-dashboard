@@ -12,9 +12,13 @@ export default function ModalBasic(root: HTMLElement, props: ModalProps) {
   dialog.setAttribute('aria-modal', 'true');
   dialog.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50';
 
+  // Ensure the dialog has an accessible name via aria-labelledby
+  const titleId = `modalbasic-title-${Math.random().toString(36).slice(2)}`;
+  dialog.setAttribute('aria-labelledby', titleId);
+
   dialog.innerHTML = `
-    <div class="bg-white rounded-lg p-6 shadow-xl w-96 max-w-full mx-4 relative">
-      <h2 class="text-xl font-semibold mb-4">${props.title || 'Modal'}</h2>
+    <div class="bg-white rounded-lg p-6 shadow-xl w-96 max-w-full mx-4 relative" role="document">
+      <h2 id="${titleId}" class="text-xl font-semibold mb-4">${props.title || 'Modal'}</h2>
       <div class="modal-content">
         <slot></slot>
       </div>
@@ -44,4 +48,3 @@ export default function ModalBasic(root: HTMLElement, props: ModalProps) {
     }
   };
 }
-
