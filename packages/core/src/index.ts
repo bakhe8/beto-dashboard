@@ -1,3 +1,12 @@
-// TODO: export core modules when migrated
-export const version = "0.0.1";
-
+export * from './components/Modal';
+export * from './components/Table';
+export * from './components/Loader';
+export * from './components/Sidebar';
+export * from './components/ThemeSwitcher';
+export * from './components/ToastContainer';
+export * from './js/store';
+export * from './js/api';
+export * from './js/error-boundary';
+export * from './js/utils/sanitize';
+export * from './schemas';
+export const version = '0.0.1';
