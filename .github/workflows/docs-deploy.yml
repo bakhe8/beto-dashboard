@@ -35,7 +35,7 @@ jobs:
           cp -R examples/betodashboard-demo/dist/* docs/.vitepress/dist/demo/
 
       - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: docs/.vitepress/dist
