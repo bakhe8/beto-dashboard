@@ -17,6 +17,8 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "prepare": "husky",
     "serve:prod": "node scripts/serve.js",
     "test:e2e:prod": "npm run build && playwright test -c playwright.config.prod.ts"
@@ -39,7 +41,10 @@
     "vite": "^7.1.12",
     "vitest": "^4.0.6",
     "@axe-core/playwright": "^4.9.1",
-    "vitepress": "^1.5.0"
+    "vitepress": "^1.5.0",
+    "@storybook/html": "^8.3.6",
+    "@storybook/addon-essentials": "^8.3.6",
+    "@storybook/html-vite": "^8.3.6"
   },
   "dependencies": {
     "autoprefixer": "^10.4.19",

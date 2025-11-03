@@ -41,14 +41,15 @@ This checklist reflects the current state of the repository against the v1 Handb
 - [x] Unit + Integration tests (Vitest)
 - [x] E2E tests (Playwright configs present + specs)
 - [x] Accessibility tests (axe-core with Playwright)
-- [~] Visual regression — Playwright screenshots in place (Chromatic optional, not added)
+- [x] Visual regression — Chromatic workflow added (requires CHROMATIC_PROJECT_TOKEN)
 - [x] Coverage command available
 
 ## Phase 5 — Performance & Security Hardening
 - [x] Bundle analyzer — wired in CI (artifact: dist/stats.html)
-- [x] Lighthouse audit workflow added (see .github/workflows/lighthouse.yml)
+- [x] Lighthouse audit workflow added (see .github/workflows/lighthouse.yml) with budgets & failing thresholds
 - [x] npm audit --production — added to CI
 - [x] Web‑vitals reporting — basic client reporter added (console)
+- [x] CSP tightened — removed 'unsafe-inline' from style-src in index.html
 
 ## Phase 6 — Documentation & Release
 - [x] VitePress docs site scaffolding
