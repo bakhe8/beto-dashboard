@@ -5,6 +5,7 @@ import "./js/ui-manager";
 import "./components/Modal";
 import "./components/Table";
 import "./components/Loader";
+import "./components/ThemeSwitcher";
 
 import { mountAll } from "./components/runtime";
 
