@@ -11,14 +11,14 @@
     <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
-    <div class="global-error hidden">
-      <p>An unexpected error occurred. Please refresh the page.</p>
-    </div>
-
-    <div data-component="Sidebar"></div>
+    <aside data-component="Sidebar"></aside>
 
     <main class="main-content">
       <h1>BetoDashboard Components</h1>
+
+      <div class="global-error hidden">
+        <p>An unexpected error occurred. Please refresh the page.</p>
+      </div>
 
       <h2>Theme Switcher</h2>
       <div data-component="ThemeSwitcher"></div>
@@ -39,10 +39,25 @@
         </template>
       </div>
 
+      <div
+        id="empty-table-container"
+        data-component="Table"
+        data-props='{
+          "columns": [{"key": "name", "label": "Name"}, {"key": "role", "label": "Role"}],
+          "data": []
+        }'
+      >
+        <template data-slot="empty">
+          <p>No users were found for this query.</p>
+        </template>
+      </div>
+
       <h2>Modal</h2>
+      <button id="open-modal-btn">Open Modal</button>
+
       <div
         data-component="Modal"
-        data-props='{"title": "Confirm Action", "size": "sm"}'
+        data-props='{"size": "sm"}'
       >
         <template data-slot="default">
           <p>Are you sure you want to proceed with this action?</p>

@@ -22,20 +22,30 @@ function applyTheme(theme: State["theme"]) {
   }
 }
 
-// Apply theme on initial load
-applyTheme(store.get("theme"));
+const themeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-// Re-apply theme when the store value changes
-store.on((key, value) => key === "theme" && applyTheme(value as State["theme"]));
+const handleThemeChange = () => {
+  applyTheme(store.get("theme"));
+};
 
-// Listen for system theme changes to make "auto" mode reactive
-window
-  .matchMedia("(prefers-color-scheme: dark)")
-  .addEventListener("change", () => {
-    if (store.get("theme") === "auto") {
-      applyTheme("auto");
-    }
-  });
+// 1. Apply theme on initial load
+handleThemeChange();
+
+// 2. Re-apply theme when the store value changes
+store.on((key) => key === "theme" && handleThemeChange());
+
+// 3. Listen for system theme changes ONLY if the mode is "auto"
+themeMediaQuery.addEventListener("change", () => {
+  if (store.get("theme") === "auto") {
+    handleThemeChange();
+  }
+});
 
 // Mount all components declared in the HTML
 mountAll();
+
+// --- Add interactive modal logic ---
+document.getElementById("open-modal-btn")?.addEventListener("click", () => {
+  // Update the store to open the modal; the component will reactively render itself.
+  store.set("modal", { open: true, title: "Confirm Action" });
+});

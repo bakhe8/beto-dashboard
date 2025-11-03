@@ -4,6 +4,7 @@ export type State = {
   sidebar: "default" | "collapsed";
   user: null | { id: string; name: string };
   cache: Record<string, unknown>;
+  modal: { open: boolean; title: string };
 };
 
 const PERSIST_KEY = "beto-state";
@@ -11,7 +12,7 @@ const persistedKeys: (keyof State)[] = ["theme", "dir", "sidebar"];
 
 const getInitialState = (): State => {
   const persisted = JSON.parse(localStorage.getItem(PERSIST_KEY) || "{}");
-  return { theme: "auto", dir: "ltr", sidebar: "default", user: null, cache: {}, ...persisted };
+  return { theme: "auto", dir: "ltr", sidebar: "default", user: null, cache: {}, modal: { open: false, title: "" }, ...persisted };
 };
 
 let state: State = getInitialState();

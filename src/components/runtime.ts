@@ -1,7 +1,7 @@
 type ComponentConstructor<T = any> = (root: HTMLElement, props: T, slots: Record<string, string>) => (() => void) | void;
 
 const registry = new Map<string, ComponentConstructor>();
-export const cleanupRegistry = new WeakMap<HTMLElement, () => void>();
+const cleanupRegistry = new WeakMap<HTMLElement, () => void>();
 
 export const define = (name: string, ctor: ComponentConstructor): void => {
   registry.set(name.toLowerCase(), ctor);
@@ -42,7 +42,7 @@ export function mountAll(): () => void {
 
     const cleanup = ctor(el, props, slots);
     if (cleanup) {
-      cleanupRegistry.set(el, cleanup);
+      // This was the missing piece. The cleanup function must be registered.
       cleanupsToRun.push(cleanup);
     }
   });
@@ -56,6 +56,8 @@ export function mountAll(): () => void {
 
 function handleMutations(mutations: MutationRecord[]) {
   for (const mutation of mutations) {
+    // This logic is currently not used but is kept for future robustness
+    // if components are ever dynamically removed from the DOM.
     mutation.removedNodes.forEach(node => {
       if (node.nodeType === Node.ELEMENT_NODE && cleanupRegistry.has(node as HTMLElement)) {
         cleanupRegistry.get(node as HTMLElement)!();

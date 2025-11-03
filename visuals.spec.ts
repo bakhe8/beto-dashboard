@@ -1,0 +1,76 @@
+import { test, expect } from "@playwright/test";
+
+test.describe("BetoDashboard Visual Regression", () => {
+  // Run setup before each test in the suite
+  test.beforeEach(async ({ page }) => {
+    // Disable all CSS transitions and animations for stable snapshots
+    await page.addStyleTag({
+      content: `*, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }`,
+    });
+  });
+
+  test("Sidebar component should match snapshots", async ({ page }) => {
+    await page.goto("/");
+    const sidebar = page.locator('aside[data-component="Sidebar"]');
+
+    // Wait for sidebar to be stable and visible
+    await expect(sidebar).toBeVisible();
+
+    // Snapshot of the expanded sidebar
+    await expect(sidebar).toHaveScreenshot("sidebar-expanded.png");
+
+    // Click the toggle button to collapse the sidebar
+    await page.getByRole("button", { name: "Toggle sidebar" }).click();
+
+    // Snapshot of the collapsed sidebar
+    await expect(sidebar).toHaveScreenshot("sidebar-collapsed.png");
+  });
+
+  test("Modal component should match snapshots in light and dark themes", async ({
+    page,
+  }) => {
+    await page.goto("/");
+
+    // Wait for the initial theme to be applied before starting interactions
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+
+    // --- Light Mode Snapshot ---
+    await page.getByRole("button", { name: "Open Modal" }).click();
+    const modal = page.locator('.modal[role="dialog"]');
+    await expect(modal).toBeVisible();
+    await expect(modal).toHaveScreenshot("modal-light.png");
+
+    // Close the modal before changing the theme
+    await page.getByRole("button", { name: "Close" }).click();
+    await expect(modal).not.toBeVisible();
+
+    // --- Dark Mode Snapshot ---
+    // Switch to dark mode using the ThemeSwitcher component
+    await page.getByRole("radio", { name: "Dark" }).click();
+    // Wait for the UI to reflect the change before checking the global attribute
+    await expect(page.getByRole("radio", { name: "Dark" })).toBeChecked();
+
+    // Ensure the theme has been applied before re-opening the modal
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    await page.getByRole("button", { name: "Open Modal" }).click();
+    await expect(modal).toBeVisible();
+    await expect(modal).toHaveScreenshot("modal-dark.png");
+  });
+
+  test("Table component should match snapshots for both data and empty states", async ({
+    page,
+  }) => {
+    await page.goto("/");
+
+    // Snapshot of the table with data
+    const tableWithData = page.locator('div[data-component="Table"]').first();
+    await expect(tableWithData).toHaveScreenshot("table-with-data.png");
+
+    // Snapshot of the table in its empty state
+    const emptyTable = page.locator("#empty-table-container");
+    await expect(emptyTable).toHaveScreenshot("table-empty-state.png");
+  });
+});

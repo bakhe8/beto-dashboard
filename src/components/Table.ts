@@ -6,7 +6,7 @@ type Props = {
   data: Record<string, any>[];
 };
 
-define("Table", (root, props: Props, slots) => {
+export const Table = (root: HTMLElement, props: Props, slots: Record<string, string>) => {
   const { columns, data } = props;
 
   if (!data || data.length === 0) {
@@ -25,4 +25,6 @@ define("Table", (root, props: Props, slots) => {
     .join("")}</tbody>`;
 
   root.innerHTML = sanitize(`<table>${header}${body}</table>`);
-});
+};
+
+define("Table", Table);
