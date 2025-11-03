@@ -4,7 +4,9 @@
 [![Lighthouse](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml)
 [![CodeQL](https://github.com/bakhe8/beto-dashboard/actions/workflows/codeql.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/codeql.yml)
 [![Chromatic](https://github.com/bakhe8/beto-dashboard/actions/workflows/chromatic.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/chromatic.yml)
-[![Docs Site](https://img.shields.io/badge/docs-live-brightgreen?logo=githubpages)](https://bakhe8.github.io/beto-dashboard/)\n[![Docs](https://github.com/bakhe8/beto-dashboard/actions/workflows/docs-deploy.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/docs-deploy.yml)
+[![Docs Site](https://img.shields.io/badge/docs-live-brightgreen?logo=githubpages)](https://bakhe8.github.io/beto-dashboard/)
+[![Docs](https://github.com/bakhe8/beto-dashboard/actions/workflows/docs-deploy.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/docs-deploy.yml)
+[![Docs Uptime](https://img.shields.io/website?label=docs&url=https%3A%2F%2Fbakhe8.github.io%2Fbeto-dashboard%2F)](https://bakhe8.github.io/beto-dashboard/)
 
 A Modern, Type-Safe Dashboard Framework built with TypeScript, zero dependencies, and a focus on performance and accessibility.
 
@@ -69,3 +71,5 @@ Every doc page links back to the docs index and this README for easy navigation 
 
 
 [![Coverage](https://raw.githubusercontent.com/bakhe8/beto-dashboard/main/badges/coverage.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/badges.yml) [![Bundle](https://raw.githubusercontent.com/bakhe8/beto-dashboard/main/badges/bundle.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/badges.yml)
+
+

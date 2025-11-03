@@ -31,6 +31,9 @@ jobs:
       - name: Unit tests
         run: npm test -- --run
 
+      - name: Coverage (thresholds)
+        run: npm run test:coverage
+
       - name: Build
         run: npm run build
 
@@ -45,6 +48,9 @@ jobs:
         with:
           name: bundle-stats
           path: dist/stats.html
+
+      - name: Bundle size gate (gzip <= 60 kB)
+        run: node scripts/check-bundle.mjs --max-kb 60
 
   docs:
     runs-on: ubuntu-latest
