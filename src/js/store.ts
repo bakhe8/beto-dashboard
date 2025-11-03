@@ -16,23 +16,30 @@ const getInitialState = (): State => {
 };
 
 let state: State = getInitialState();
-let listeners = new Set<(k: keyof State, v: State[keyof State]) => void>();
+const listeners = new Map<keyof State, Set<(value: any) => void>>();
 
 export const store = {
   get: <K extends keyof State>(k: K) => state[k],
   set: <K extends keyof State>(k: K, v: State[K]): void => {
     state[k] = v;
     if (persistedKeys.includes(k)) {
-      const persistedState = persistedKeys.reduce((acc, key) => {
-        acc[key] = state[key];
-        return acc;
-      }, {} as Partial<State>);
+      const persistedState = persistedKeys.reduce(
+        (acc, key) => {
+          acc[key] = state[key];
+          return acc;
+        },
+        {} as Partial<State>
+      );
       localStorage.setItem(PERSIST_KEY, JSON.stringify(persistedState));
     }
-    listeners.forEach(l => l(k, v));
+    // Notify only the listeners for the key that changed
+    listeners.get(k)?.forEach(fn => fn(v));
   },
-  on: (fn: (k: keyof State, v: State[keyof State]) => void) => {
-    listeners.add(fn);
+  on: <K extends keyof State>(key: K, fn: (value: State[K]) => void) => {
+    if (!listeners.has(key)) {
+      listeners.set(key, new Set());
+    }
+    listeners.get(key)!.add(fn);
     return () => listeners.delete(fn);
   },
   // Method for test environments to reset the store state

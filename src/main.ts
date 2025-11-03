@@ -32,7 +32,7 @@ const handleThemeChange = () => {
 handleThemeChange();
 
 // 2. Re-apply theme when the store value changes
-store.on((key) => key === "theme" && handleThemeChange());
+store.on("theme", handleThemeChange);
 
 // 3. Listen for system theme changes ONLY if the mode is "auto"
 themeMediaQuery.addEventListener("change", () => {

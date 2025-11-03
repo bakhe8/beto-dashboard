@@ -25,7 +25,7 @@ export const ThemeSwitcher = (root: HTMLElement) => {
   root.addEventListener("click", handleClick);
 
   // Subscribe to store changes and re-render if the theme key is updated
-  const unsubscribe = store.on((key) => key === "theme" && render());
+  const unsubscribe = store.on("theme", render);
   render(); // Initial render
 
   // Return a cleanup function to remove the listener and the store subscription

@@ -38,7 +38,7 @@ export const Sidebar = (root: HTMLElement) => {
 
   root.addEventListener("click", handleClick);
 
-  const unsubscribe = store.on((key) => key === "sidebar" && render());
+  const unsubscribe = store.on("sidebar", render);
   render();
 
   return () => {

@@ -41,7 +41,7 @@ export const Modal = (root: HTMLElement, props: Props, slots: Record<string, str
     root.addEventListener("click", handleClose);
   };
 
-  const unsubscribe = store.on((key) => key === "modal" && render());
+  const unsubscribe = store.on("modal", render);
   render();
   return () => {
     // Final cleanup for the component
