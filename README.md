@@ -62,6 +62,7 @@ You can browse the documentation in this repository directly via Markdown:
 - Testing: [docs/testing.md](docs/testing.md)
 - Code style: [docs/code-style.md](docs/code-style.md)
 - BetoDashboard v2: [docs/BetoDashboard_v2.md](docs/BetoDashboard_v2.md)
+ - Tradeoffs & Scaling Strategy: [docs/BetoDashboard_Tradeoffs_and_Scaling_Strategy.md](docs/BetoDashboard_Tradeoffs_and_Scaling_Strategy.md)
 
 Every doc page links back to the docs index and this README for easy navigation on GitHub.
 

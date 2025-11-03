@@ -1,3 +1,5 @@
+[Docs Index](./index.md) | [Project README](../README.md) | [BetoDashboard v2](./BetoDashboard_v2.md) | [BetoDashboard v1](./BetoDashboard_v1.md)
+
 # BetoDashboard — Trade-Off Mitigation & Scaling Strategy
 
 ## Table of Contents

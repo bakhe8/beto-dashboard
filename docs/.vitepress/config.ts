@@ -53,7 +53,8 @@ export default defineConfig({
         text: 'Handbook',
         items: [
           { text: 'BetoDashboard v2', link: '/BetoDashboard_v2' },
-          { text: 'BetoDashboard v1', link: '/BetoDashboard_v1' }
+          { text: 'BetoDashboard v1', link: '/BetoDashboard_v1' },
+          { text: 'Tradeoffs & Scaling Strategy', link: '/BetoDashboard_Tradeoffs_and_Scaling_Strategy' }
         ]
       }
     ],

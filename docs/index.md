@@ -35,6 +35,7 @@ hero:
   - [BetoDashboard v1](./BetoDashboard_v1.md)
   - [Handbook (work in progress)](./handbook/BetoDashboard.md)
   - [Roadmap Status (v1 + v2)](./roadmap-status.md)
+  - [Tradeoffs & Scaling Strategy](./BetoDashboard_Tradeoffs_and_Scaling_Strategy.md)
 
 Tip: Every page now includes quick navigation links back to this index and the project README for easy browsing on GitHub.
 
