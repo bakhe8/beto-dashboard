@@ -14,7 +14,8 @@ body {
   transition: background-color var(--speed) var(--ease), color var(--speed) var(--ease);
 }
 
-.sr-only {
+/* For screen-reader only content, consistent with Loader.ts */
+.visually-hidden {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -114,25 +115,44 @@ th[aria-sort] {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 250px;
+  width: var(--sidebar-width, 250px);
   background-color: var(--color-bg-muted);
   border-right: 1px solid var(--color-border);
-  transition: width var(--speed) var(--ease);
+  transition: width var(--speed) var(--ease), padding var(--speed) var(--ease);
   padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
 }
 
 [data-component="Sidebar"][data-state="collapsed"] {
-  width: 80px;
+  --sidebar-width: 80px;
+  padding: var(--space-md) var(--space-sm);
 }
 
 .sidebar-header {
   margin-bottom: var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-title {
+  transition: opacity var(--speed) var(--ease), transform var(--speed) var(--ease);
+}
+
+[data-component="Sidebar"][data-state="collapsed"] .sidebar-title {
+  opacity: 0;
+  transform: translateX(-10px);
+  pointer-events: none;
 }
 
 .sidebar-nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
 }
 
 .sidebar-nav li a {
@@ -143,9 +163,18 @@ th[aria-sort] {
   border-radius: var(--radius);
 }
 
+.sidebar-nav li a, .sidebar-nav li a > * {
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .sidebar-nav li a:hover {
   background-color: var(--color-bg);
   color: var(--color-text);
+}
+
+[data-component="Sidebar"][data-state="collapsed"] .sidebar-toggle {
+  margin: 0 auto;
 }
 
 /* ---
@@ -156,8 +185,8 @@ th[aria-sort] {
 }
 
 body:has([data-component="Sidebar"][data-state="default"]) .main-content {
-  margin-inline-start: 250px;
+  margin-inline-start: var(--sidebar-width, 250px);
 }
 body:has([data-component="Sidebar"][data-state="collapsed"]) .main-content {
-  margin-inline-start: 80px;
+  margin-inline-start: var(--sidebar-width, 80px);
 }

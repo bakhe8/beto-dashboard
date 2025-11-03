@@ -1,43 +1,50 @@
 import { define } from "./runtime";
-import { store } from "../js/store";
+import { store, State } from "../js/store";
+import { sanitize } from "../js/utils/sanitize";
 
-define("Sidebar", (root) => {
+const navItems = [
+  { href: "#", label: "Dashboard" },
+  { href: "#", label: "Users" },
+  { href: "#", label: "Settings" },
+];
+
+export const Sidebar = (root: HTMLElement) => {
   const render = () => {
-    const sidebarState = store.get("sidebar");
-    root.dataset.state = sidebarState;
-
-    root.innerHTML = `
-      <div class="sidebar-header">
-        <button data-action="toggle-sidebar" aria-label="Toggle Sidebar">
-          <!-- Icon would go here -->
-          <span>☰</span>
-        </button>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li><a href="#">Dashboard</a></li>
-          <li><a href="#">Users</a></li>
-          <li><a href="#">Settings</a></li>
-        </ul>
-      </nav>
-    `;
-  };
-
-  const handleToggle = () => {
     const currentState = store.get("sidebar");
-    const nextState = currentState === "default" ? "collapsed" : "default";
-    store.set("sidebar", nextState);
+    root.dataset.state = currentState;
+
+    const navLinks = navItems
+      .map(item => `<li><a href="${item.href}">${item.label}</a></li>`)
+      .join("");
+
+    root.innerHTML = sanitize(`
+      <header class="sidebar-header">
+        <h2 class="sidebar-title">Beto</h2>
+        <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+      </header>
+      <nav class="sidebar-nav">
+        <ul>${navLinks}</ul>
+      </nav>
+    `);
   };
 
+  const handleClick = (e: Event) => {
+    if ((e.target as HTMLElement).closest(".sidebar-toggle")) {
+      const current = store.get("sidebar");
+      const nextState = current === "collapsed" ? "default" : "collapsed";
+      store.set("sidebar", nextState);
+    }
+  };
+
+  root.addEventListener("click", handleClick);
+
+  const unsubscribe = store.on((key) => key === "sidebar" && render());
   render();
 
-  root.addEventListener("click", (e) => {
-    if ((e.target as HTMLElement).closest("[data-action='toggle-sidebar']")) {
-      handleToggle();
-    }
-  });
+  return () => {
+    root.removeEventListener("click", handleClick);
+    unsubscribe();
+  };
+};
 
-  return store.on((key) => {
-    if (key === "sidebar") render();
-  });
-});
+define("Sidebar", Sidebar);

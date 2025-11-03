@@ -63,3 +63,12 @@
   --color-text-muted: #a0aec0;
   --color-border: #30363d;
 }
+
+/* Manual override for light mode */
+:root[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-bg-muted: #f9fafb;
+  --color-text: #11224e;
+  --color-text-muted: #4b5563;
+  --color-border: #e5e7eb;
+}

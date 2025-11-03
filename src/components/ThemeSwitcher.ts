@@ -1,33 +1,38 @@
 import { define } from "./runtime";
-import { store } from "../js/store";
+import { store, State } from "../js/store";
+import { sanitize } from "../js/utils/sanitize";
 
-define("ThemeSwitcher", (root) => {
+export const ThemeSwitcher = (root: HTMLElement) => {
   const render = () => {
     const currentTheme = store.get("theme");
-    root.innerHTML = `
-      <div class="theme-switcher">
-        <button data-theme="light" aria-pressed="${currentTheme === "light"}">Light</button>
-        <button data-theme="dark" aria-pressed="${currentTheme === "dark"}">Dark</button>
-        <button data-theme="auto" aria-pressed="${currentTheme === "auto"}">Auto</button>
+    root.innerHTML = sanitize(`
+      <div class="theme-switcher" role="radiogroup" aria-label="Theme">
+        <button role="radio" data-theme="light" aria-checked="${currentTheme === 'light'}">Light</button>
+        <button role="radio" data-theme="dark" aria-checked="${currentTheme === 'dark'}">Dark</button>
+        <button role="radio" data-theme="auto" aria-checked="${currentTheme === 'auto'}">Auto</button>
       </div>
-    `;
+    `);
   };
 
-  render();
-
-  root.addEventListener("click", (e) => {
-    const target = e.target as HTMLElement;
-    const theme = target.dataset.theme;
-
-    if (theme === "light" || theme === "dark" || theme === "auto") {
-      store.set("theme", theme);
+  const handleClick = (e: Event) => {
+    // Use .closest() to ensure the click is captured even if it's on a child element of the button.
+    const target = (e.target as HTMLElement).closest<HTMLButtonElement>("button[data-theme]");
+    if (target) {
+      store.set("theme", target.dataset.theme as State["theme"]);
     }
-  });
+  };
 
-  // Re-render the component when the theme changes from another source
-  const unsubscribe = store.on((key) => {
-    if (key === "theme") render();
-  });
+  root.addEventListener("click", handleClick);
 
-  return unsubscribe;
-});
+  // Subscribe to store changes and re-render if the theme key is updated
+  const unsubscribe = store.on((key) => key === "theme" && render());
+  render(); // Initial render
+
+  // Return a cleanup function to remove the listener and the store subscription
+  return () => {
+    root.removeEventListener("click", handleClick);
+    unsubscribe();
+  };
+};
+
+define("ThemeSwitcher", ThemeSwitcher);
