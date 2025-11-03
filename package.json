@@ -19,10 +19,16 @@
     "docs:preview": "vitepress preview docs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "bootstrap:ps1": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/bootstrap_betodashboard.ps1 -InPlace",
+    "bootstrap:sh": "bash scripts/bootstrap_betodashboard_inplace.sh",
     "prepare": "husky",
     "serve:prod": "node scripts/serve.js",
     "test:e2e:prod": "npm run build && playwright test -c playwright.config.prod.ts"
   },
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
     "@playwright/test": "^1.45.0",
@@ -46,7 +52,8 @@
     "typescript": "^5.4.5",
     "vite": "^7.1.12",
     "vitepress": "^1.5.0",
-    "vitest": "^4.0.6"
+    "vitest": "^4.0.6",
+    "turbo": "^2.0.0"
   },
   "dependencies": {
     "autoprefixer": "^10.4.19",

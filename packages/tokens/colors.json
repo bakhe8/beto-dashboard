@@ -1,0 +1,12 @@
+{
+  "primary": {
+    "50": "#f0f5ff",
+    "500": "#0046FF",
+    "900": "#11224E"
+  },
+  "mode": {
+    "light": { "background": "#FFFFFF", "text": "#0D1117" },
+    "dark": { "background": "#0D1117", "text": "#FFFFFF" }
+  }
+}
+
