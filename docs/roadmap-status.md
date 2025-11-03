@@ -52,7 +52,7 @@ This checklist reflects the current state of the repository against the v1 Handb
 - [x] CSP tightened — removed 'unsafe-inline' from style-src in index.html
 
 ## Phase 6 — Documentation & Release
-- [x] VitePress docs site scaffolding
+- [x] VitePress docs site scaffolding + auto-deploy (gh-pages)
 - [x] Local docs navigation + index
 - [x] CHANGELOG.md
 - [x] Automated npm publish on tag — release workflow added (requires NPM_TOKEN secret)
@@ -66,5 +66,6 @@ This checklist reflects the current state of the repository against the v1 Handb
 ## Notes
 - Items marked [~] are partially complete or intentionally deferred.
 - Branch protection and some release automation require repository settings that cannot be committed via code.
+
 
 

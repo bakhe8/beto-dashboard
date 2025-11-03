@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/html';
+import '../src/css/base.css';
 
 const preview: Preview = {
   parameters: {
@@ -8,4 +9,3 @@ const preview: Preview = {
 };
 
 export default preview;
-
