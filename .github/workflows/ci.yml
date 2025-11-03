@@ -52,6 +52,15 @@ jobs:
       - name: Bundle size gate (gzip <= 60 kB)
         run: node scripts/check-bundle.mjs --max-kb 60
 
+      - name: Collect engineering metrics (placeholder)
+        run: npm run metrics:collect
+
+      - name: Upload engineering metrics
+        uses: actions/upload-artifact@v4
+        with:
+          name: engineering-metrics
+          path: test-results/metrics.json
+
   docs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' }}

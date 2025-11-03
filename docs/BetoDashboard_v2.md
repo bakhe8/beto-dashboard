@@ -22,6 +22,8 @@ The BetoDashboard Execution Roadmap transforms the Handbook into a living, enfor
 ### 1.4 Mission Statement
 Deliver a scalable, accessible, developer-friendly dashboard framework that empowers teams to build enterprise interfaces faster, safer, and with design consistency — while becoming a commercially sustainable product family.
 
+> See also: [Engineering Process Behind Our Analysis](./BetoDashboard_Engineering_Process.md) for the methodology guiding decisions in this roadmap.
+
 ## 2. Governance & Structure
 
 ### 2.1 Project Ownership
@@ -387,4 +389,3 @@ Next Review: Q2 2026 (Architecture + Commercial sync).
 Prev: [Recipes](./recipes.md) | Next: [BetoDashboard v1](./BetoDashboard_v1.md)
 
 See also: [Docs Index](./index.md) | [Project README](../README.md)
-

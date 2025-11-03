@@ -112,6 +112,7 @@ Next commands after bootstrapping:
 - E2E (dev preview on 5174): `npm run test:e2e`
 - E2E (prod preview on 5173): `npm run test:e2e:prod`
 - Open last E2E report: `npm run report:e2e` (random free port)
+- Collect engineering metrics (placeholder): `npm run metrics:collect` → see `test-results/metrics.json`
 - Preview demo (5174): `npm run demo:preview:5174` → visit `/src/pages/app.html`
 - Clean artifacts: `npm run clean`
 - Full reset (incl. node_modules): `npm run reset`
@@ -123,3 +124,4 @@ Notes
 - Playwright report: `npx playwright show-report` opens the latest HTML report.
   - When tests finish, CLI prints a local report URL (e.g., `http://localhost:58983/`).
   - If the default report port is busy, use `npm run report:e2e`.
+ - Engineering metrics: CI uploads `engineering-metrics` artifact with `test-results/metrics.json`.

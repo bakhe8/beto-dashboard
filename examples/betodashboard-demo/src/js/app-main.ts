@@ -47,3 +47,23 @@ document.getElementById('open-basic-modal-btn')?.addEventListener('click', () =>
     ModalBasic(basicRoot, { open: true, title: 'Basic Modal', onClose: () => {} });
   }
 });
+// E2E metrics instrumentation (enabled with ?metrics=1)
+const params = new URLSearchParams(location.search);
+if (params.get('metrics') === '1') {
+  (window as any).__BD_COLLECT = true;
+  (window as any).__BD_METRICS = { fragmentDiffMs: 0, renderCycles: 0, reflows: 0 };
+  // MutationObserver as a proxy for render cycles
+  const mo = new MutationObserver((muts) => {
+    (window as any).__BD_METRICS.renderCycles += muts.filter(m => m.type === 'childList').length;
+  });
+  mo.observe(document.body, { childList: true, subtree: true });
+  // Layout Shift observer as a proxy for reflow count
+  try {
+    const po = new PerformanceObserver((list) => {
+      const entries = list.getEntries() as any[];
+      (window as any).__BD_METRICS.reflows += entries.length;
+    });
+    po.observe({ type: 'layout-shift', buffered: true } as any);
+  } catch {}
+  (window as any).getMetrics = () => ({ ...(window as any).__BD_METRICS });
+}

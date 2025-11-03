@@ -1,4 +1,4 @@
-[Docs Index](./index.md) | [Project README](../README.md) | [BetoDashboard v2](./BetoDashboard_v2.md) | [Tradeoffs & Scaling](./BetoDashboard_Tradeoffs_and_Scaling_Strategy.md)
+[Docs Index](../index.md) | [Project README](../../README.md) | [BetoDashboard v2](../BetoDashboard_v2.md) | [Tradeoffs & Scaling](../BetoDashboard_Tradeoffs_and_Scaling_Strategy.md)
 
 # Engineering Process Behind Our Analysis
 
@@ -8,7 +8,7 @@ This chapter documents how we frame problems, derive requirements, design soluti
 
 We ground every architectural decision in a concrete pain we observed during development.
 
-### Manual DOM Management → Fragility and Reflows
+### 1) Manual DOM Management → Fragility and Reflows
 - Problem: Components were mutating `innerHTML` directly, duplicating event binding, and causing layout thrash during updates.
 - Requirement: Safe, minimal-change DOM updates with centralized event wiring.
 - Solution: Introduced DOM helpers and event delegation.
@@ -27,18 +27,21 @@ export function on(root: Document | HTMLElement, type: string, selector: string,
 
 Adoption example:
 ```ts
-// Sidebar now uses setHTML (sanitized)
-setHTML(root, `<header class="sidebar-header">...</header>`);
+// Sidebar component now uses setHTML (sanitized) instead of raw innerHTML
+setHTML(root, `
+  <header class="sidebar-header">...</header>
+  <nav id="sidebar-nav">...</nav>
+`);
 
-// Delegated events
+// ThemeSwitcher & ToastContainer use delegated events
 on(root, 'click', 'button[role=radio]', (_ev, target) => { /* ... */ });
 on(root, 'click', '.toast-close', (_ev, btn) => { /* ... */ });
 ```
 
 💭 Note: Centralized delegation avoids per-node listeners and allowed us to remove multiple `addEventListener` calls, reducing listener count and GC pressure.
 
-### Boilerplate for Complex UIs → Repeated Logic
-- Problem: Repeated patterns for derived values, async status, and single-key store access.
+### 2) Boilerplate for Complex UIs → Repeated Logic
+- Problem: Repeated patterns for derived values, async status, and “single-key” store access.
 - Requirement: Small, composable primitives to compose behavior without framework lock-in.
 - Solution: `createDerived`, `createAsyncAction`, and `createSlice` utilities.
 
@@ -56,19 +59,22 @@ export function createSlice(key) { /* get/set/on for a single store key */ }
 
 Usage examples:
 ```ts
+// Derived theme+dir composite (feeds UI attributes)
 const themeDir = createDerived(['theme', 'dir'], (s) => `${s.theme}:${s.dir}`);
 themeDir.subscribe(v => document.documentElement.dataset.themeDir = v);
 
+// Slice avoids repeating store plumbing
 const sidebar = createSlice('sidebar');
 sidebar.set('collapsed');
 
+// Async action normalizes loading states
 const loadUsers = createAsyncAction(async () => fetch('/api/users').then(r => r.json()));
 await loadUsers.run();
 ```
 
 💭 Note: Converting repeated patterns to primitives lowered component LOC and made status handling consistent across modules.
 
-### Learning Curve → Inconsistent Patterns
+### 3) Learning Curve → Inconsistent Patterns
 - Problem: Custom ad-hoc patterns made it harder for new engineers to navigate the code.
 - Requirement: Familiar structures (delegation, minimal base class, explicit store APIs) with strong typing.
 - Solution: `BaseComponent` with scoped delegation and effects; explicit exports from `@betodashboard/core`.
@@ -80,6 +86,8 @@ export class BaseComponent {
   protected on(type: any, selector: string, handler: (ev: any, target: Element) => void) { /* ... */ }
   protected effect(setup: () => (() => void) | void) { /* lifecycle-registered disposer */ }
 }
+
+// Modal and ThemeSwitcher now extend BaseComponent behaviorally (composition-style lifecycle)
 ```
 
 💭 Note: The base class is intentionally small. It standardizes lifecycle without forcing a framework-level component model.
@@ -220,6 +228,5 @@ themeDir.subscribe(v => document.documentElement.dataset.themeDir = v);
 
 ---
 
-Next: See the [Tradeoffs & Scaling Strategy](./BetoDashboard_Tradeoffs_and_Scaling_Strategy.md) for long-term architectural paths and the [Execution Roadmap v2](./BetoDashboard_v2.md) for phase gates and KPIs.
+Next: See the [Tradeoffs & Scaling Strategy](../BetoDashboard_Tradeoffs_and_Scaling_Strategy.md) for long-term architectural paths and the [Execution Roadmap v2](../BetoDashboard_v2.md) for phase gates and KPIs.
 
-Also see: [Engineering Metrics & Validation](./architecture/metrics.md) for how we collect and track measurable signals.

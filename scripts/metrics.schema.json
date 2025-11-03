@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BetoDashboard Metrics",
+  "type": "object",
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "env": { "type": "string", "enum": ["dev", "ci", "prod"] },
+    "bundle": {
+      "type": "object",
+      "properties": {
+        "totalGzipKb": { "type": ["number", "null"] },
+        "vendorGzipKb": { "type": ["number", "null"] }
+      }
+    },
+    "lighthouse": {
+      "type": "object",
+      "properties": {
+        "performance": { "type": ["number", "null"] },
+        "accessibility": { "type": ["number", "null"] },
+        "bestPractices": { "type": ["number", "null"] },
+        "seo": { "type": ["number", "null"] }
+      }
+    },
+    "dom": {
+      "type": "object",
+      "properties": {
+        "renderCycles": { "type": ["number", "null"] },
+        "fragmentDiffMs": { "type": ["number", "null"] },
+        "reflows": { "type": ["number", "null"] }
+      }
+    },
+    "state": {
+      "type": "object",
+      "properties": {
+        "updateLatencyMs": { "type": ["number", "null"] },
+        "transactions": { "type": ["number", "null"] }
+      }
+    },
+    "dx": {
+      "type": "object",
+      "properties": {
+        "avgOnboardingMins": { "type": ["number", "null"] },
+        "avgLocPerComponent": { "type": ["number", "null"] },
+        "eventBindingsPerComponent": { "type": ["number", "null"] }
+      }
+    }
+  },
+  "required": ["timestamp", "env"],
+  "additionalProperties": true
+}
+
