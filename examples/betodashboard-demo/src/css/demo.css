@@ -21,6 +21,7 @@ main.demo-main { padding:16px; }
 .chart-title { font-weight:600; margin:4px 0 8px; }
 .event-log { border:1px dashed #ccc; padding:8px; min-height:60px; }
 .list .list-item { color: var(--color-primary); text-decoration: underline; }
+*:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
 /* Table visuals */
 table { width:100%; border-collapse: collapse; background:#fff; }

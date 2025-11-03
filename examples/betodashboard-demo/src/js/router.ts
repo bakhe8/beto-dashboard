@@ -52,6 +52,9 @@ function renderUsers(root: HTMLElement) {
     </div>
   `;
   mountAll();
+  // ConfirmDialog host
+  const dialogs = document.getElementById('dialogs') as HTMLElement | null;
+  let pendingDeleteId: number | null = null;
   // Add Edit buttons next to Delete and wire handlers
   root.querySelectorAll<HTMLButtonElement>('.row-delete').forEach(btn => {
     if (!btn.previousElementSibling || !btn.previousElementSibling.classList.contains('row-edit')) {
@@ -75,11 +78,29 @@ function renderUsers(root: HTMLElement) {
   root.querySelectorAll<HTMLButtonElement>('.row-delete').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = Number(btn.dataset.id);
-      if (confirm('Delete this user?')) {
-        state.users = state.users.filter(u => u.id !== id);
-        toast.success('User deleted');
-        renderUsers(root);
+      if (!dialogs) return;
+      pendingDeleteId = id;
+      dialogs.innerHTML = `
+        <div data-component="ConfirmDialog" data-props='{"title":"Delete user","message":"Are you sure you want to delete this user?","confirmLabel":"Delete","cancelLabel":"Cancel"}'></div>
+      `;
+      mountAll();
+      const onOk = () => {
+        if (pendingDeleteId != null) {
+          state.users = state.users.filter(u => u.id !== pendingDeleteId);
+          toast.success('User deleted');
+          renderUsers(root);
+        }
+        cleanup();
+      };
+      const onCancel = () => { cleanup(); };
+      function cleanup() {
+        dialogs.innerHTML = '';
+        dialogs.removeEventListener('confirm:ok' as any, onOk as any);
+        dialogs.removeEventListener('confirm:cancel' as any, onCancel as any);
+        pendingDeleteId = null;
       }
+      dialogs.addEventListener('confirm:ok' as any, onOk as any, { once: true });
+      dialogs.addEventListener('confirm:cancel' as any, onCancel as any, { once: true });
     });
   });
   root.querySelector<HTMLButtonElement>('#sort-name')?.addEventListener('click', () => {
