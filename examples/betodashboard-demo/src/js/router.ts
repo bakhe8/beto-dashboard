@@ -1,7 +1,15 @@
-import { mountAll } from '@core/components/runtime';
+﻿import { mountAll } from '@core/components/runtime';
 import '@core/components/Table';
 import '@core/components/Card';
 import '@core/components/ChartWidget';
+// Advanced widgets are omitted in this worktree to avoid missing-module build failures.
+// If/when they exist under packages/core/src/components, re-enable these imports.
+// import '@core/components/AdaptiveGrid';
+// import '@core/components/WidgetHost';
+// import '@core/components/ThemeLab';
+// import '@core/components/InsightWidget';
+// import '@core/components/StreamChartWidget';
+// import '@core/components/SplitPane';
 import { toast } from '@core';
 import { getUsers, getAnalytics } from './api';
 import type { User } from './schemas';
@@ -52,29 +60,59 @@ function renderUsers(root: HTMLElement) {
     </div>
   `;
   mountAll();
-  // ConfirmDialog host
+  // Dialog host and state for destructive actions / edit modal
   const dialogs = document.getElementById('dialogs') as HTMLElement | null;
   let pendingDeleteId: number | null = null;
-  // Add Edit buttons next to Delete and wire handlers
-  root.querySelectorAll<HTMLButtonElement>('.row-delete').forEach(btn => {
-    if (!btn.previousElementSibling || !btn.previousElementSibling.classList.contains('row-edit')) {
-      const id = btn.getAttribute('data-id') || '';
-      btn.insertAdjacentHTML('beforebegin', `<button class="row-edit" data-id="${id}">Edit</button> `);
-    }
-  });
+
+  // Inline edit via modal dialog (ConfirmDialog with inputs)
   root.querySelectorAll<HTMLButtonElement>('.row-edit').forEach(btn => {
     btn.addEventListener('click', () => {
+      if (!dialogs) return;
       const id = Number(btn.dataset.id);
       const user = state.users.find(u => u.id === id);
       if (!user) return;
-      const name = prompt('Edit name:', user.name);
-      if (name && name.trim()) {
-        user.name = name.trim();
-        toast.success('User updated');
-        renderUsers(root);
+      dialogs.innerHTML = `
+        <div data-component=\"ConfirmDialog\" data-props='{"title":"Edit user","confirmLabel":"Save","cancelLabel":"Cancel"}'>
+          <template data-slot=\"default\">
+            <div class=\"cd-form\">
+              <label>Name <input id=\"edit-name\" value=\"${user.name}\" /></label>
+              <label>Role
+                <select id=\"edit-role\">${['Admin','Editor','Viewer'].map(r => `<option value=\"${r}\" ${r===user.role?'selected':''}>${r}</option>`).join('')}</select>
+              </label>
+            </div>
+          </template>
+        </div>`;
+      mountAll();
+      const onOk = () => {
+        const nameEl = dialogs.querySelector('#edit-name') as HTMLInputElement | null;
+        const roleEl = dialogs.querySelector('#edit-role') as HTMLSelectElement | null;
+        if (nameEl && roleEl) {
+          const nm = nameEl.value.trim();
+          const rl = roleEl.value;
+          if (nm) {
+            user.name = nm;
+            user.role = rl as any;
+            toast.success('User updated');
+            renderUsers(root);
+          } else {
+            toast.warning('Name is required');
+          }
+        }
+        cleanup();
+      };
+      const onCancel = () => cleanup();
+      function cleanup() {
+        if (!dialogs) return;
+        dialogs.innerHTML = '';
+        dialogs.removeEventListener('confirm:ok' as any, onOk as any);
+        dialogs.removeEventListener('confirm:cancel' as any, onCancel as any);
       }
+      dialogs.addEventListener('confirm:ok' as any, onOk as any, { once: true });
+      dialogs.addEventListener('confirm:cancel' as any, onCancel as any, { once: true });
     });
   });
+  // (Removed) legacy inline injection of an Edit button; edit is handled by the ConfirmDialog modal above.
+  // (Removed) legacy prompt-based edit flow; we now use a modal editor.
   root.querySelectorAll<HTMLButtonElement>('.row-delete').forEach(btn => {
     btn.addEventListener('click', () => {
       const id = Number(btn.dataset.id);
@@ -170,6 +208,19 @@ function renderSettings(root: HTMLElement) {
   });
 }
 
+function renderLab(root: HTMLElement) {
+  // Minimal placeholder Lab route (advanced widgets disabled in this worktree)
+  root.innerHTML = `
+    <h2>Lab</h2>
+    <div data-component="Card" data-props='{"title":"Experimental"}'>
+      <template data-slot="default">
+        <p>Experimental widgets will appear here when enabled.</p>
+      </template>
+    </div>
+  `;
+  mountAll();
+}
+
 function setBreadcrumb(route: string[]) {
   const el = document.getElementById('breadcrumb');
   if (!el) return;
@@ -199,6 +250,9 @@ export async function startRouter() {
         break;
       case 'settings':
         renderSettings(content);
+        break;
+      case 'lab':
+        renderLab(content);
         break;
       default:
         renderOverview(content);

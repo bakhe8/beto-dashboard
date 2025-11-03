@@ -1,14 +1,18 @@
 import { AnalyticsSchema, UsersSchema } from './schemas';
+// Import JSON at build-time so preview/dist does not rely on runtime fetch paths
+// Vite handles JSON import natively
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import usersData from '../data/users.json';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import analyticsData from '../data/analytics.json';
 
 export async function getUsers() {
-  const res = await fetch('../data/users.json');
-  const json = await res.json();
-  return UsersSchema.parse(json);
+  return UsersSchema.parse(usersData);
 }
 
 export async function getAnalytics() {
-  const res = await fetch('../data/analytics.json');
-  const json = await res.json();
-  return AnalyticsSchema.parse(json);
+  return AnalyticsSchema.parse(analyticsData);
 }
 

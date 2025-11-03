@@ -92,26 +92,22 @@
         data-props='{"name":"username","label":"Username","minLength":3,"maxLength":12,"placeholder":"yourname"}'
       ></div>
 
-      <h2>ConfirmDialog</h2>
-      <div
-        data-component="ConfirmDialog"
-        data-props='{"title":"Delete item","message":"Are you sure?","confirmLabel":"Yes, delete","cancelLabel":"Cancel"}'
-      ></div>
+      <!-- ConfirmDialog demo removed to avoid multiple active dialogs during tests -->
+
+      <section>
+        <h2>Notice</h2>
+        <div
+          data-component="Notice"
+          data-props='{"type":"info","message":"Welcome to BetoDashboard"}'
+        ></div>
+      </section>
+
+      <section aria-label="Event log" role="region">
+        <h2>Event Log</h2>
+        <div id="event-log" class="event-log"></div>
+      </section>
+
+      <div data-component="ToastContainer" class="toast-container"></div>
     </main>
-
-    <section>
-      <h2>Notice</h2>
-      <div
-        data-component="Notice"
-        data-props='{"type":"info","message":"Welcome to BetoDashboard"}'
-      ></div>
-    </section>
-
-    <section>
-      <h2>Event Log</h2>
-      <div id="event-log" class="event-log"></div>
-    </section>
-
-    <div data-component="ToastContainer" class="toast-container"></div>
   </body>
 </html>

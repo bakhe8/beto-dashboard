@@ -25,15 +25,16 @@ const ChartWidget = ComponentMorph.create<Props>("ChartWidget", {
     const w = canvas.width, h = canvas.height;
     ctx.clearRect(0, 0, w, h);
     // axes
+    const marginL = 40, marginB = 30, marginT = 20, marginR = 10;
     ctx.strokeStyle = '#ddd';
-    ctx.beginPath(); ctx.moveTo(40, 10); ctx.lineTo(40, h-30); ctx.lineTo(w-10, h-30); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(marginL, marginT); ctx.lineTo(marginL, h - marginB); ctx.lineTo(w - marginR, h - marginB); ctx.stroke();
     // plot
     const vals = props.data || [];
     const labels = props.labels || vals.map((_, i) => String(i+1));
     const max = Math.max(1, ...vals);
     const color = props.color || '#0046FF';
     ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.beginPath();
-    const left = 40, bottom = h-30, right = w-10, top = 20;
+    const left = marginL, bottom = h - marginB, right = w - marginR, top = marginT;
     const step = (right - left) / Math.max(1, vals.length - 1);
     vals.forEach((v, i) => {
       const x = left + i * step;
@@ -48,6 +49,19 @@ const ChartWidget = ComponentMorph.create<Props>("ChartWidget", {
       const y = bottom - (v / max) * (bottom - top);
       ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI*2); ctx.fill();
     });
+    // x-axis labels
+    ctx.fillStyle = '#555'; ctx.font = '12px system-ui, sans-serif'; ctx.textAlign = 'center';
+    labels.forEach((lab, i) => {
+      const x = left + i * step;
+      ctx.fillText(lab, x, h - 8);
+    });
+    // legend
+    if (props.title) {
+      ctx.fillStyle = '#111'; ctx.font = 'bold 13px system-ui, sans-serif'; ctx.textAlign = 'left';
+      ctx.fillText(props.title, left, top - 4);
+    }
+    ctx.fillStyle = color; ctx.fillRect(right - 100, top - 14, 10, 10);
+    ctx.fillStyle = '#333'; ctx.textAlign = 'left'; ctx.fillText('Series', right - 85, top - 5);
   }
 });
 
