@@ -36,3 +36,9 @@ store.set("theme", "light");
 // or
 store.set("theme", "auto");
 ```
+
+---
+
+Prev: [Table](./table.md) | Next: [Sidebar](./sidebar.md)
+
+See also: [Docs Index](../index.md) | [All Components](../index.md#components)

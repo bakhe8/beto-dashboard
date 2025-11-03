@@ -43,3 +43,9 @@ We use a GitFlow-like branching model:
 | UX Engineer      | Components, design tokens, accessibility |
 | Infrastructure   | Build, CI/CD, performance reports        |
 | QA Lead          | Tests, coverage, regression results      |
+
+---
+
+Prev: [Security](./security.md) | Next: [Deployment](./deployment.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)

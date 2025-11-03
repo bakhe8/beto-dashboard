@@ -35,3 +35,9 @@ hero:
   - [Handbook (work in progress)](./handbook/BetoDashboard.md)
 
 Tip: Every page now includes quick navigation links back to this index and the project README for easy browsing on GitHub.
+
+---
+
+Next: [Getting Started](./getting-started.md)
+
+See also: [Project README](../README.md)

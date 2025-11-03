@@ -54,3 +54,9 @@ The configuration `{ SAFE_FOR_TEMPLATES: true }` is used to ensure that HTML `<t
 ## Runtime Schema Validation
 
 The project uses **Zod** to validate the structure of data at runtime, particularly for API responses. This prevents malformed or unexpected data from propagating through the application, which could otherwise lead to security vulnerabilities or crashes. All data contracts are defined in `src/schemas.ts`.
+
+---
+
+Prev: [API Fetching](./api.md) | Next: [Contribution Guide](./contributing.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)

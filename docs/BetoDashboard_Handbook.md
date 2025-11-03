@@ -1930,3 +1930,9 @@ procedural, and architectural element required for the project:
 
 This document is now **developer-complete**---no stage of the project
 requires external clarification.
+
+---
+
+Prev: [Recipes](./recipes.md) | Next: [Handbook (WIP)](./handbook/BetoDashboard.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)

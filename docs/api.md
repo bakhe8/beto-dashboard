@@ -43,3 +43,9 @@ async function fetchUser(userId: string) {
 -   **`url`** (`string`): The URL of the API endpoint to fetch.
 -   **`schema`** (`z.ZodTypeAny`): A Zod schema to validate the structure of the JSON response. If validation fails, the function will throw an error.
 -   **`ttl`** (`number`, optional): The "time-to-live" for the cache in milliseconds. If a cached entry is older than the TTL, the function will still return the stale data but will wait for the revalidation to complete. Defaults to `60000` (60 seconds).
+
+---
+
+Prev: [Architecture](./architecture.md) | Next: [Security](./security.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)

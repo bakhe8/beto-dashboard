@@ -61,3 +61,9 @@ The DCE (`src/components/runtime.ts`) is a tiny runtime that discovers and mount
   <template data-slot="empty"><p>No data available.</p></template>
 </div>
 ```
+
+---
+
+Prev: [Getting Started](./getting-started.md) | Next: [API Fetching](./api.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)

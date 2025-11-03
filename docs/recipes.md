@@ -60,3 +60,9 @@ async function loadUserTable() {
 // Kick off the process
 loadUserTable();
 ```
+
+---
+
+Prev: [Toast](./components/toast.md) | Next: [BetoDashboard Handbook](./BetoDashboard_Handbook.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)

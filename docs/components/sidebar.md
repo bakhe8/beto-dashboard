@@ -34,3 +34,9 @@ store.set("sidebar", "collapsed");
 // Expand
 store.set("sidebar", "default");
 ```
+
+---
+
+Prev: [ThemeSwitcher](./themeswitcher.md) | Next: [Loader](./loader.md)
+
+See also: [Docs Index](../index.md) | [All Components](../index.md#components)

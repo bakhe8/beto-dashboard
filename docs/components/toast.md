@@ -49,3 +49,9 @@ Toasts can be dismissed by the user by clicking the close button (×). This acti
 
 -   Each toast has `role="status"` and `aria-live="polite"` to ensure that screen readers announce the message as it appears.
 -   The close button includes an `aria-label="Close"` for clarity.
+
+---
+
+Prev: [Loader](./loader.md) | Next: [Recipes](../recipes.md)
+
+See also: [Docs Index](../index.md) | [All Components](../index.md#components)

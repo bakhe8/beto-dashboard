@@ -37,3 +37,9 @@ npm run dev
 ```
 
 The application will now be running at `http://localhost:5173`.
+
+---
+
+Prev: [Index](./index.md) | Next: [Architecture](./architecture.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)

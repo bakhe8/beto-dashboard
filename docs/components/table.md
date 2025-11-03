@@ -52,3 +52,9 @@ el!.dataset.props = JSON.stringify({
 unmount();
 mount(el as HTMLElement, Table);
 ```
+
+---
+
+Prev: [Modal](./modal.md) | Next: [ThemeSwitcher](./themeswitcher.md)
+
+See also: [Docs Index](../index.md) | [All Components](../index.md#components)

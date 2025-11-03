@@ -41,3 +41,9 @@ Apply the spinner style variant via a data attribute:
   [data-component="Loader"] .loader[data-type="spinner"] { /* variant */ }
 }</style>
 ```
+
+---
+
+Prev: [Sidebar](./sidebar.md) | Next: [Toast](./toast.md)
+
+See also: [Docs Index](../index.md) | [All Components](../index.md#components)

@@ -33,3 +33,9 @@ npm run format
 This project uses **Husky** and **lint-staged** to automatically format your code before you commit. When you run `git commit`, Prettier will automatically run on all staged files (`.js`, `.ts`, `.css`, `.md`).
 
 This ensures that all code contributed to the repository adheres to the same formatting standards without any manual effort. The configuration can be found in the `lint-staged` section of `package.json`.
+
+---
+
+Prev: [Deployment](./deployment.md) | Next: [Testing](./testing.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)

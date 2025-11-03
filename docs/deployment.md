@@ -65,3 +65,9 @@ Finally, configure your repository to serve the documentation from the `gh-pages
 2.  Under "Build and deployment", select **GitHub Actions** as the source.
 
 Now, every push to the `main` branch will trigger the workflow and update your live documentation site.
+
+---
+
+Prev: [Contribution Guide](./contributing.md) | Next: [Code Style](./code-style.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)

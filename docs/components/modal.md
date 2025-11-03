@@ -60,3 +60,9 @@ Close on custom buttons using the `data-close` attribute:
   
 </template>
 ```
+
+---
+
+Prev: [Testing](../testing.md) | Next: [Table](./table.md)
+
+See also: [Docs Index](../index.md) | [All Components](../index.md#components)

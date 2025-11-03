@@ -80,3 +80,9 @@ Accessibility is a core requirement. We use **axe-core** integrated with Playwri
 
 - Dev server config: `playwright.config.ts:1` (uses Vite dev server)
 - Production server config (strict CSP): `playwright.config.prod.ts:1` (serves `dist` via Express + Helmet)
+
+---
+
+Prev: [Code Style](./code-style.md) | Next: [Modal](./components/modal.md)
+
+See also: [Docs Index](./index.md) | [Project README](../README.md)
