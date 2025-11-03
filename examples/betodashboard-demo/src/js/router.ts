@@ -1,7 +1,10 @@
 import { mountAll } from '@core/components/runtime';
 import '@core/components/Table';
-
-type User = { id: number; name: string; role: string };
+import '@core/components/Card';
+import '@core/components/ChartWidget';
+import { toast } from '@core';
+import { getUsers, getAnalytics } from './api';
+import type { User } from './schemas';
 
 const state = {
   users: [] as User[],
@@ -12,11 +15,7 @@ const state = {
   search: ''
 };
 
-async function loadUsers() {
-  if (state.users.length) return;
-  const res = await fetch('../data/users.json');
-  state.users = await res.json();
-}
+async function loadUsers() { if (!state.users.length) state.users = await getUsers(); }
 
 function sortedFiltered(): User[] {
   const { users, sortKey, sortDir, search } = state;
@@ -44,7 +43,7 @@ function renderUsers(root: HTMLElement) {
     </div>
     <div
       data-component="Table"
-      data-props='${JSON.stringify({ columns: [{ key: "name", label: "Name" }, { key: "role", label: "Role" }], data: slice })}'
+      data-props='${JSON.stringify({ columns: [{ key: "name", label: "Name" }, { key: "role", label: "Role" }, { key: "actions", label: "Actions" }], data: slice.map(u => ({...u, actions: `<button class="row-delete" data-id="${u.id}">Delete</button>`})) })}'
     ></div>
     <div class="pager">
       <button id="prev" ${state.page === 1 ? 'disabled' : ''}>Prev</button>
@@ -53,6 +52,16 @@ function renderUsers(root: HTMLElement) {
     </div>
   `;
   mountAll();
+  root.querySelectorAll<HTMLButtonElement>('.row-delete').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = Number(btn.dataset.id);
+      if (confirm('Delete this user?')) {
+        state.users = state.users.filter(u => u.id !== id);
+        toast.success('User deleted');
+        renderUsers(root);
+      }
+    });
+  });
   root.querySelector<HTMLButtonElement>('#sort-name')?.addEventListener('click', () => {
     state.sortKey = 'name';
     state.sortDir = state.sortDir === 'asc' ? 'desc' : 'asc';
@@ -72,11 +81,20 @@ function renderUsers(root: HTMLElement) {
   root.querySelector<HTMLButtonElement>('#next')?.addEventListener('click', () => { state.page += 1; renderUsers(root); });
 }
 
-function renderOverview(root: HTMLElement) {
+async function renderOverview(root: HTMLElement) {
+  const analytics = await getAnalytics();
+  const k = analytics.kpis;
   root.innerHTML = `
     <h2>Overview</h2>
-    <p>Welcome — this is a placeholder. Charts and KPIs arrive in Wave 2.</p>
+    <div class="cards">
+      <div data-component="Card" data-props='{"title":"Users"}'><template data-slot="default"><strong>${k.users}</strong></template></div>
+      <div data-component="Card" data-props='{"title":"Active"}'><template data-slot="default"><strong>${k.active}</strong></template></div>
+      <div data-component="Card" data-props='{"title":"Sales"}'><template data-slot="default"><strong>${k.sales}</strong></template></div>
+      <div data-component="Card" data-props='{"title":"Conversion"}'><template data-slot="default"><strong>${k.conversion}%</strong></template></div>
+    </div>
+    <div data-component="ChartWidget" data-props='${JSON.stringify({ labels: analytics.series.labels, data: analytics.series.values, title: "Weekly Activity" })}'></div>
   `;
+  mountAll();
 }
 
 function renderSettings(root: HTMLElement) {
@@ -115,4 +133,3 @@ export async function startRouter() {
   window.addEventListener('hashchange', nav);
   nav();
 }
-
