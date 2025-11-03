@@ -24,13 +24,11 @@ export const store = {
   set: <K extends keyof State>(k: K, v: State[K]): void => {
     state[k] = v;
     if (persistedKeys.includes(k)) {
-      const persistedState = persistedKeys.reduce(
-        (acc, key) => {
-          acc[key] = state[key];
-          return acc;
-        },
-        {} as Partial<State>
-      );
+      const persistedState: Partial<State> = {};
+      for (const key of persistedKeys) {
+        // Persist only whitelisted keys
+        (persistedState as any)[key] = state[key];
+      }
       localStorage.setItem(PERSIST_KEY, JSON.stringify(persistedState));
     }
     // Notify only the listeners for the key that changed

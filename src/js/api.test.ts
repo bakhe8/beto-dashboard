@@ -4,6 +4,7 @@ import { swr } from './api';
 
 describe('api.swr', () => {
   const schema = z.object({ ok: z.boolean() });
+  type Result = z.infer<typeof schema>;
 
   beforeEach(() => {
     vi.restoreAllMocks();
@@ -20,8 +21,8 @@ describe('api.swr', () => {
       statusText: 'OK',
     } as any);
 
-    const res = await swr('k1', '/api/test', schema, 60000);
-    expect(res.ok).toBe(true);
+    const res = await swr<Result>('k1', '/api/test', schema, 60000);
+    expect((res as Result).ok).toBe(true);
 
     expect(fetchMock).toHaveBeenCalledTimes(1);
     const [, init] = fetchMock.mock.calls[0] as any;
@@ -34,14 +35,13 @@ describe('api.swr', () => {
     const fetchMock = vi.spyOn(globalThis, 'fetch' as any)
       .mockResolvedValue({ ok: true, json: async () => ({ ok: true }), statusText: 'OK' } as any);
 
-    const v1 = await swr('k2', '/api/test2', schema, 60000);
-    expect(v1.ok).toBe(true);
+    const v1 = await swr<Result>('k2', '/api/test2', schema, 60000);
+    expect((v1 as Result).ok).toBe(true);
     expect(fetchMock).toHaveBeenCalledTimes(1);
 
-    const v2 = await swr('k2', '/api/test2', schema, 60000);
-    expect(v2.ok).toBe(true);
+    const v2 = await swr<Result>('k2', '/api/test2', schema, 60000);
+    expect((v2 as Result).ok).toBe(true);
     // Background revalidate triggers another fetch
     expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 });
-

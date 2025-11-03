@@ -43,12 +43,14 @@ describe("ToastContainer Component", () => {
 
   it("should remove a toast when its close button is clicked", async () => {
     store.set("toasts", [{ id: 123, message: "A toast to close", type: "info" }]);
-    expect(getByText(container, "A toast to close")).not.toBeNull();
+    const host = container.querySelector('[data-component="ToastContainer"]') as HTMLElement;
+    expect(getByText(host, "A toast to close")).not.toBeNull();
 
-    const closeButton = getByLabelText(container, "Close");
+    const closeButton = getByLabelText(host, "Close");
     await fireEvent.click(closeButton);
-
-    expect(queryByText(container, "A toast to close")).toBeNull();
+    // Wait a tick to allow store listeners + DOM updates to flush
+    await new Promise(r => setTimeout(r, 0));
+    expect(queryByText(host, "A toast to close")).toBeNull();
     expect(store.get("toasts").length).toBe(0);
   });
 });

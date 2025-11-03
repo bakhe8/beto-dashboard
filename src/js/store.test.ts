@@ -15,12 +15,14 @@ describe("Global Store", () => {
 
   it("should notify listeners when state changes", () => {
     const listener = vi.fn();
-    store.on(listener);
+    const unsubscribe = store.on("theme", listener);
 
     store.set("theme", "dark");
 
     expect(listener).toHaveBeenCalledOnce();
-    expect(listener).toHaveBeenCalledWith("theme", "dark");
+    expect(listener).toHaveBeenCalledWith("dark");
+
+    unsubscribe();
   });
 
   it("should persist state to localStorage for whitelisted keys", () => {
