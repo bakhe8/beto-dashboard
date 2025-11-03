@@ -18,6 +18,7 @@ export default defineConfig({
         items: [
           { text: 'Getting Started', link: '/getting-started' },
           { text: 'Architecture', link: '/architecture' },
+          { text: 'API Fetching', link: '/api' },
           { text: 'Security', link: '/security' },
           { text: 'Contributing', link: '/contributing' },
           { text: 'Deployment', link: '/deployment' },
@@ -40,6 +41,12 @@ export default defineConfig({
         text: 'Recipes',
         items: [
           { text: 'Dynamic Data Table', link: '/recipes' }
+        ]
+      },
+      {
+        text: 'Handbook',
+        items: [
+          { text: 'BetoDashboard Handbook', link: '/BetoDashboard_Handbook' }
         ]
       }
     ],

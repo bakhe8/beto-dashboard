@@ -2,6 +2,8 @@
 title: ThemeSwitcher
 ---
 
+[Docs Index](../index.md) | [Project README](../../README.md)
+
 # ThemeSwitcher
 
 Radio-style UI to switch between light, dark, and auto themes.

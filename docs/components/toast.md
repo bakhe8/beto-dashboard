@@ -1,3 +1,5 @@
+[Docs Index](../index.md) | [Project README](../../README.md)
+
 # Toast
 
 The Toast component provides a system for displaying non-blocking, ephemeral notifications to the user.

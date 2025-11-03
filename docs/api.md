@@ -1,3 +1,5 @@
+[Docs Index](./index.md) | [Project README](../README.md)
+
 # API Fetching
 
 This project includes a lightweight, built-in data fetching utility that implements a **stale-while-revalidate (SWR)** caching strategy. This utility, exported from `src/js/api.ts`, provides a simple way to fetch, cache, and validate data from your backend.

@@ -1,3 +1,5 @@
+[Docs Index](./index.md) | [Project README](../README.md)
+
 # Getting Started
 
 Welcome to the BetoDashboard framework! This guide will walk you through setting up your local development environment.

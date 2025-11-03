@@ -1,3 +1,5 @@
+[Docs Index](./index.md) | [Project README](../README.md)
+
 # Security
 
 This project ships with a strong default security posture, including DOMPurify for HTML sanitization, Zod for schema validation, and a Content Security Policy (CSP) meta tag for baseline protection. This guide explains how to harden the CSP for production.

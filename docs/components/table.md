@@ -2,6 +2,8 @@
 title: Table
 ---
 
+[Docs Index](../index.md) | [Project README](../../README.md)
+
 # Table
 
 Simple, declarative table driven by props and an optional empty slot.

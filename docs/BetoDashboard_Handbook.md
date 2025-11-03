@@ -1,3 +1,5 @@
+[Docs Index](./index.md) | [Project README](../README.md)
+
 **BetoDashboard Handbook**
 
 *Version 1 --- Unified Developer & Architecture Manual*\

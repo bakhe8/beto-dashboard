@@ -1,3 +1,5 @@
+[Docs Index](./index.md) | [Project README](../README.md)
+
 # Recipes
 
 This section provides practical examples for common patterns you'll encounter when building applications with BetoDashboard.

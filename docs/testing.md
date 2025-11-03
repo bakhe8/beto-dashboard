@@ -1,3 +1,5 @@
+[Docs Index](./index.md) | [Project README](../README.md)
+
 # Testing
 
 This project follows a comprehensive testing strategy to ensure code quality, prevent regressions, and maintain accessibility standards. Our testing philosophy is "No feature is done until it's tested, accessible, and typed."

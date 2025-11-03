@@ -2,6 +2,8 @@
 title: Sidebar
 ---
 
+[Docs Index](../index.md) | [Project README](../../README.md)
+
 # Sidebar
 
 Collapsible app navigation bound to the global `sidebar` state.

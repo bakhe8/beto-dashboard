@@ -2,6 +2,8 @@
 title: Loader
 ---
 
+[Docs Index](../index.md) | [Project README](../../README.md)
+
 # Loader
 
 Minimal loading indicator with accessible status text.

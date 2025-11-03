@@ -1,3 +1,5 @@
+[Docs Index](./index.md) | [Project README](../README.md)
+
 # Deployment
 
 This guide covers how to deploy the VitePress documentation site to GitHub Pages.

@@ -1,3 +1,5 @@
+[Docs Index](./index.md) | [Project README](../README.md)
+
 # Architecture
 
 BetoDashboard is built on a few simple, powerful concepts that prioritize performance, type-safety, and developer experience without relying on a heavy framework.

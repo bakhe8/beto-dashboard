@@ -2,6 +2,8 @@
 title: Modal
 ---
 
+[Docs Index](../index.md) | [Project README](../../README.md)
+
 # Modal
 
 Lightweight, accessible dialog with slots and a global store.
