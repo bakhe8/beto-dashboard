@@ -1,0 +1,23 @@
+{
+  "name": "betodashboard",
+  "version": "1.0.0",
+  "description": "dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "hello"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bakhe8/beto-dashboard.git"
+  },
+  "keywords": [
+    "beto",
+    "dashboard"
+  ],
+  "author": "Bakheet",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/bakhe8/beto-dashboard/issues"
+  },
+  "homepage": "https://github.com/bakhe8/beto-dashboard#readme"
+}
