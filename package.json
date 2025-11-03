@@ -28,6 +28,8 @@
     "demo:build": "vite build --config examples/betodashboard-demo/vite.config.ts",
     "demo:preview:5174": "npm run demo:build && vite preview --config examples/betodashboard-demo/vite.config.ts --port 5174 --strictPort",
     "demo:preview:5173": "npm run demo:build && vite preview --config examples/betodashboard-demo/vite.config.ts --port 5173 --strictPort",
+    "clean": "rimraf dist examples/betodashboard-demo/dist storybook-static .turbo \"**/.vite\" coverage playwright-report test-results stats.html",
+    "reset": "npm run clean && rimraf node_modules && npm ci",
     "bootstrap:ps1": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/bootstrap_betodashboard.ps1 -InPlace",
     "bootstrap:sh": "bash scripts/bootstrap_betodashboard_inplace.sh",
     "prepare": "husky",
