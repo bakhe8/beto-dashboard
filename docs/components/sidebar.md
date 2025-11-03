@@ -18,3 +18,17 @@ Collapsible app navigation bound to the global `sidebar` state.
 
 ## Accessibility
 - Toggle button has `aria-expanded` and `aria-controls` pointing to the nav.
+
+## Examples
+
+Programmatically collapse/expand via the global store:
+
+```ts
+import { store } from "../../src/js/store";
+
+// Collapse
+store.set("sidebar", "collapsed");
+
+// Expand
+store.set("sidebar", "default");
+```

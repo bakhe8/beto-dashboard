@@ -41,6 +41,40 @@ To run all E2E tests, use the following command:
 npm run test:e2e
 ```
 
+Run against the production build with strict CSP headers (recommended before release):
+
+```bash
+npm run build
+npm run test:e2e:prod
+```
+
+Update visual snapshots when intentional UI changes occur:
+
+```bash
+# Update all snapshots
+npm run test:e2e -- --update-snapshots
+
+# Update only matching tests
+npm run test:e2e -- --grep "Modal component should match snapshots" --update-snapshots
+```
+
+Stabilize screenshots across machines:
+
+- Disable animations (already done in tests via `page.addStyleTag`).
+- Consider pinning `deviceScaleFactor: 1` and a fixed `viewport` in `playwright.config.ts` under `use`.
+- Force a deterministic font in tests if you see reflow: add a global `font-family` via `page.addStyleTag`.
+
 ## Accessibility Tests
 
 Accessibility is a core requirement. We use **axe-core** integrated with Playwright to automatically scan for WCAG (Web Content Accessibility Guidelines) violations. These tests are part of our E2E suite (`accessibility.spec.ts`) and run automatically in CI, failing the build if any serious or critical violations are detected.
+
+## Unit Test Configuration
+
+- Config: `vitest.config.ts:1` (jsdom, setup file, exclusions)
+- Setup: `src/test-setup.ts:1` registers components and custom matchers
+- Run coverage: `npm run test:coverage`
+
+## E2E Configuration
+
+- Dev server config: `playwright.config.ts:1` (uses Vite dev server)
+- Production server config (strict CSP): `playwright.config.prod.ts:1` (serves `dist` via Express + Helmet)

@@ -20,3 +20,17 @@ Radio-style UI to switch between light, dark, and auto themes.
 - Uses `role="radiogroup"` and `role="radio"`.
 - Supports keyboard navigation with Arrow keys (roving tabindex).
 - `aria-checked` reflects the current selection.
+
+## Examples
+
+Programmatically set the theme:
+
+```ts
+import { store } from "../../src/js/store";
+
+store.set("theme", "dark");
+// or
+store.set("theme", "light");
+// or
+store.set("theme", "auto");
+```

@@ -43,3 +43,18 @@ store.set("modal", { open: true, title: "Confirm Action" });
 
 ## Notes
 - Content is sanitized via DOMPurify.
+
+## Examples
+
+Close on custom buttons using the `data-close` attribute:
+
+```html
+<template data-slot="footer">
+  <button data-close>Cancel</button>
+  <button data-close>Confirm</button>
+  <!-- Any element matching .modal-close or [data-close] will close the modal -->
+  <!-- The component also traps focus and closes on Escape. -->
+  <!-- Focus returns to the opener after closing. -->
+  
+</template>
+```

@@ -4,6 +4,10 @@ node_modules/
 # Build artifacts
 dist/
 stats.html
+playwright-report/
+test-results/
+coverage/
+docs/.vitepress/cache/
 
 # Logs
 npm-debug.log*

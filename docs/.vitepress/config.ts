@@ -4,6 +4,7 @@ export default defineConfig({
   base: '/beto-dashboard/',
   title: "BetoDashboard",
   description: "BetoDashboard Framework Documentation",
+  ignoreDeadLinks: [/^https?:\/\/localhost/],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -31,7 +32,8 @@ export default defineConfig({
           { text: 'Table', link: '/components/table' },
           { text: 'ThemeSwitcher', link: '/components/themeswitcher' },
           { text: 'Sidebar', link: '/components/sidebar' },
-          { text: 'Loader', link: '/components/loader' }
+          { text: 'Loader', link: '/components/loader' },
+          { text: 'Toast', link: '/components/toast' }
         ]
       },
       {
