@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Walking Skeleton</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; padding: 24px; }
+      #app { padding: 12px; border: 1px solid #ddd; border-radius: 6px; }
+      button { margin-top: 12px; padding: 8px 12px; }
+    </style>
+  </head>
+  <body>
+    <h1>Walking Skeleton</h1>
+    <div id="app"></div>
+    <button id="update">Update Text</button>
+
+    <script type="module">
+      import { DOMRenderer } from '../core/dom/DOMRenderer.js';
+
+      const app = document.getElementById('app');
+      const renderer = new DOMRenderer(app);
+
+      // First visible render
+      renderer.render('<div data-domrenderer-text>Hello World</div>');
+
+      // Proof: update() changes visible text
+      document.getElementById('update').addEventListener('click', () => {
+        renderer.update('Updated!');
+      });
+    </script>
+  </body>
+  </html>
+
