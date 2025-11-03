@@ -44,7 +44,7 @@ jobs:
         run: npm run analyze
 
       - name: Upload bundle stats artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: bundle-stats
           path: dist/stats.html
@@ -56,7 +56,7 @@ jobs:
         run: npm run metrics:collect
 
       - name: Upload engineering metrics
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: engineering-metrics
           path: test-results/metrics.json
@@ -99,13 +99,13 @@ jobs:
       - name: Run E2E (dev preview)
         run: npm run test:e2e
       - name: Upload Playwright report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: playwright-report
           path: playwright-report
       - name: Upload DOM metrics
         if: ${{ hashFiles('test-results/dom-metrics.json') != '' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: dom-metrics
           path: test-results/dom-metrics.json
@@ -114,7 +114,7 @@ jobs:
       - name: Validate engineering metrics (E2E)
         run: node scripts/validate-metrics.mjs
       - name: Upload engineering metrics (E2E)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: engineering-metrics-e2e
           path: test-results/metrics.json
