@@ -22,9 +22,9 @@ export default defineConfig({
 
   // Run your local dev server before starting the tests.
   webServer: {
-    command: "npm run demo:dev:5174",
+    command: "vite preview --config examples/betodashboard-demo/vite.config.ts --port 5174 --strictPort",
     url: "http://localhost:5174",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     stdout: "ignore",
     stderr: "pipe",
     timeout: 120000,

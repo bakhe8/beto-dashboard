@@ -11,11 +11,12 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   webServer: {
-    command: "npm run serve:prod",
+    command: "vite preview --config examples/betodashboard-demo/vite.config.ts --port 5173 --strictPort",
     url: "http://localhost:5173",
     reuseExistingServer: !process.env.CI,
     stdout: "ignore",
     stderr: "pipe",
   },
 });
+
 
