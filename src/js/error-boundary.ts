@@ -7,5 +7,4 @@ export const withErrorBoundary = (fn: () => Promise<void>) =>
 
 window.addEventListener("error", e => {
   document.body.dataset.appError = "true";
-  console.error("Global error:", e.error);
 });

@@ -42,7 +42,7 @@ export function mountAll(): () => void {
 
     const cleanup = ctor(el, props, slots);
     if (cleanup) {
-      // This was the missing piece. The cleanup function must be registered.
+      cleanupRegistry.set(el, cleanup);
       cleanupsToRun.push(cleanup);
     }
   });

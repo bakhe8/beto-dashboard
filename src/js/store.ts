@@ -32,7 +32,11 @@ export const store = {
     listeners.forEach(l => l(k, v));
   },
   on: (fn: (k: keyof State, v: State[keyof State]) => void) => {
-    listeners.add(fn); return () => listeners.delete(fn);
+    listeners.add(fn);
+    // Return a new function instance for each subscription. This is critical to
+    // ensure that when one component unsubscribes, it does not accidentally
+    // remove the listener for another component that might share the same function reference.
+    return () => listeners.delete(fn);
   },
   // Method for test environments to reset the store state
   _resetForTesting: () => {
