@@ -1,104 +1,54 @@
----
-title: Security
----
-
 # Security
 
-This project ships with a strong default posture: DOMPurify HTML sanitization, Zod validation, and a CSP meta tag. Use this guide to harden CSP in production and apply nonces if you must keep inline content.
+This project ships with a strong default security posture, including DOMPurify for HTML sanitization, Zod for schema validation, and a Content Security Policy (CSP) meta tag for baseline protection. This guide explains how to harden the CSP for production.
 
-## CSP Overview
+## Content Security Policy (CSP)
 
-- Dev: Vite injects styles and uses WebSocket HMR — requires `style-src 'unsafe-inline'` and `connect-src ws:`.
-- Prod: No inline scripts/styles are needed. Use a strict header-based CSP.
+The project includes a `<meta>` tag in `index.html` with a default CSP. While this is great for development, it is **highly recommended** to implement a stricter policy via HTTP headers in a production environment.
+
+### Development vs. Production
+
+-   **Development:** The default CSP is more permissive to allow for Vite's Hot Module Replacement (HMR), which uses WebSockets (`connect-src ws:`) and injects styles (`style-src 'unsafe-inline'`).
+-   **Production:** The production build generates static assets with no inline scripts or styles, allowing for a much stricter policy.
 
 ### Recommended Production CSP
 
-Set via HTTP response headers (prefer this over `<meta>`):
+You should configure your web server to send the `Content-Security-Policy` HTTP header. This is more secure than using a meta tag.
 
-Nginx example:
+**Nginx Example:**
 
+```nginx
+add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none';" always;
 ```
-add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'" always;
-```
 
-Express example:
+**Express.js Example (with `helmet`):**
 
-```ts
+```javascript
 import helmet from 'helmet';
+
 app.use(helmet.contentSecurityPolicy({
-  useDefaults: false,
   directives: {
-    'default-src': ["'self'"],
-    'script-src': ["'self'"],
-    'style-src': ["'self'"],
-    'img-src': ["'self'", 'data:'],
-    'font-src': ["'self'", 'data:'],
-    'connect-src': ["'self'"],
-    'object-src': ["'none'"],
-    'base-uri': ["'self'"],
-    'frame-ancestors': ["'none'"],
+    defaultSrc: ["'self'"],
+    scriptSrc: ["'self'"],
+    styleSrc: ["'self'"],
+    imgSrc: ["'self'", "data:"],
+    fontSrc: ["'self'", "data:"],
+    connectSrc: ["'self'"],
+    objectSrc: ["'none'"],
+    baseUri: ["'self'"],
+    frameAncestors: ["'none'"],
   },
 }));
 ```
 
-If you rely on CDNs, whitelist them explicitly instead of using wildcards.
+> **Note:** If you use external assets (e.g., from a CDN), you must explicitly whitelist those origins in the appropriate directives (e.g., `script-src`, `style-src`).
 
-## Using Nonces (if you must use inline)
+## HTML Sanitization
 
-This app avoids inline scripts/styles by default. If you need inline blocks, use nonces instead of `'unsafe-inline'`.
+All dynamic HTML rendered by components is passed through a `sanitize` utility, which uses **DOMPurify**. This is a critical defense against Cross-Site Scripting (XSS) attacks by ensuring that any potentially malicious code is stripped from user-provided or API-sourced content before it is injected into the DOM.
 
-1. Generate a random nonce per response (base64).
-2. Add it to your CSP as `'nonce-<value>'` in `script-src` or `style-src`.
-3. Add the same `nonce` attribute to the inline `<script>`/`<style>` tags.
+The configuration `{ SAFE_FOR_TEMPLATES: true }` is used to ensure that HTML `<template>` elements, which are used by the component engine for slots, are preserved.
 
-Express example:
+## Runtime Schema Validation
 
-```ts
-app.use((req, res, next) => {
-  res.locals.nonce = crypto.randomBytes(16).toString('base64');
-  next();
-});
-
-app.use((req, res, next) => {
-  const nonce = res.locals.nonce;
-  res.setHeader('Content-Security-Policy', [
-    "default-src 'self'",
-    `script-src 'self' 'nonce-${nonce}'`,
-    `style-src 'self' 'nonce-${nonce}'`,
-    "img-src 'self' data:",
-    "font-src 'self' data:",
-    "connect-src 'self'",
-    "object-src 'none'",
-    "base-uri 'self'",
-    "frame-ancestors 'none'",
-  ].join('; '));
-  next();
-});
-```
-
-Then render inline tags as:
-
-```html
-<script nonce="{{nonce}}">/* inline js */</script>
-<style nonce="{{nonce}}">/* inline css */</style>
-```
-
-## Trusted Types (advanced)
-
-To further mitigate DOM XSS, enable Trusted Types and configure DOMPurify:
-
-```html
-<!-- Add to CSP -->
-<meta http-equiv="Content-Security-Policy" content="...; require-trusted-types-for 'script'; trusted-types dompurify;" />
-```
-
-```ts
-// Example: create policy name 'dompurify' to match CSP trusted-types list.
-// DOMPurify integrates with Trusted Types automatically when available.
-// Ensure all HTML insertion flows pass through DOMPurify.sanitize().
-```
-
-## Playwright & Dev
-
-- For local dev and E2E, a more permissive CSP may be necessary to allow HMR (`connect-src ws:`) and injected styles (`style-src 'unsafe-inline'`).
-- Keep production CSP strict via server headers; do not rely on `<meta>` in prod.
+The project uses **Zod** to validate the structure of data at runtime, particularly for API responses. This prevents malformed or unexpected data from propagating through the application, which could otherwise lead to security vulnerabilities or crashes. All data contracts are defined in `src/schemas.ts`.

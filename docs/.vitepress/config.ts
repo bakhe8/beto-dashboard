@@ -1,7 +1,7 @@
-import { defineConfig } from 'vitepress'
-
+import { defineConfig } from 'vitepress';
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  base: '/beto-dashboard/',
   title: "BetoDashboard",
   description: "BetoDashboard Framework Documentation",
   themeConfig: {
@@ -16,7 +16,12 @@ export default defineConfig({
         text: 'Introduction',
         items: [
           { text: 'Getting Started', link: '/getting-started' },
-          { text: 'Architecture', link: '/architecture' }
+          { text: 'Architecture', link: '/architecture' },
+          { text: 'Security', link: '/security' },
+          { text: 'Contributing', link: '/contributing' },
+          { text: 'Deployment', link: '/deployment' },
+          { text: 'Code Style', link: '/code-style' },
+          { text: 'Testing', link: '/testing' }
         ]
       },
       {
@@ -27,6 +32,12 @@ export default defineConfig({
           { text: 'ThemeSwitcher', link: '/components/themeswitcher' },
           { text: 'Sidebar', link: '/components/sidebar' },
           { text: 'Loader', link: '/components/loader' }
+        ]
+      },
+      {
+        text: 'Recipes',
+        items: [
+          { text: 'Dynamic Data Table', link: '/recipes' }
         ]
       }
     ],
