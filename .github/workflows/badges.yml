@@ -1,0 +1,40 @@
+name: Badges
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci || npm install
+
+      - name: Run coverage
+        run: npm run test:coverage
+
+      - name: Build to compute bundle size
+        run: npm run build
+
+      - name: Generate badges
+        run: node scripts/generate-badges.mjs
+
+      - name: Commit badges
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'badges/*.svg'
+          message: 'chore(badges): update coverage and bundle badges'
+          default_author: github_actions
+
