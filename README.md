@@ -1,5 +1,12 @@
 # BetoDashboard
 
+> Proof Phase (Walking Skeleton) — Documentation freeze in effect. We are prioritizing running code over new docs until the skeleton is validated.
+
+Quick proof entry points:
+- Minimal DOMRenderer + StateSlice demo: `examples/demo.html`
+- Serve locally: `npm run demo:skeleton` (opens a static server for the demo)
+- Definition of Working: see `PROOF.md`
+
 [![CI](https://github.com/bakhe8/beto-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/ci.yml)
 [![Lighthouse](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml)
 [![CodeQL](https://github.com/bakhe8/beto-dashboard/actions/workflows/codeql.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/codeql.yml)
@@ -33,6 +40,15 @@ To get the project running locally:
     ```
 
 The application will be available at `http://localhost:5173`.
+
+## Proof Phase (14-day focus)
+
+- Primary files for the walking skeleton:
+  - `core/dom/DOMRenderer.ts`
+  - `core/state/StateSlice.ts`
+  - `examples/demo.html`
+- Run the skeleton: `npm run demo:skeleton` (or open `examples/demo.html` directly)
+- Checklist and cadence: see `PROOF.md`
 
 ## Browser Support
 

@@ -38,6 +38,7 @@
     "bootstrap:sh": "bash scripts/bootstrap_betodashboard_inplace.sh",
     "prepare": "husky",
     "serve:prod": "node scripts/serve.js",
+    "demo:skeleton": "node scripts/serve-skeleton.mjs",
     "test:e2e:prod": "npm run build && playwright test -c playwright.config.prod.ts",
     "metrics:collect": "node scripts/collect-metrics.mjs",
     "metrics:report": "type test-results\\metrics.json",
