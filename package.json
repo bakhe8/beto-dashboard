@@ -14,6 +14,7 @@
     "test": "turbo run test",
     "test:core": "turbo run test --filter=@betodashboard/core",
     "test:e2e": "start-server-and-test \"npm run demo:preview:5174\" http://localhost:5174/src/pages/app.html \"playwright test\"",
+    "test:e2e:clean": "npm run ports:kill && npm run test:e2e",
     "report:e2e": "playwright show-report --port 0",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
