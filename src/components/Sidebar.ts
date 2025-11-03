@@ -20,9 +20,9 @@ export const Sidebar = (root: HTMLElement) => {
     root.innerHTML = sanitize(`
       <header class="sidebar-header">
         <h2 class="sidebar-title">Beto</h2>
-        <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+        <button class="sidebar-toggle" aria-label="Toggle sidebar" aria-controls="sidebar-nav" aria-expanded="${currentState !== 'collapsed'}">☰</button>
       </header>
-      <nav class="sidebar-nav">
+      <nav id="sidebar-nav" class="sidebar-nav">
         <ul>${navLinks}</ul>
       </nav>
     `);

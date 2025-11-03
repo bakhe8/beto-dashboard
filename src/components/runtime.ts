@@ -1,4 +1,8 @@
-type ComponentConstructor<T = any> = (root: HTMLElement, props: T, slots: Record<string, string>) => (() => void) | void;
+type ComponentConstructor<T = any> = (
+  root: HTMLElement,
+  props: T,
+  slots: Record<string, string>
+) => (() => void) | void;
 
 const registry = new Map<string, ComponentConstructor>();
 const cleanupRegistry = new WeakMap<HTMLElement, () => void>();
@@ -29,22 +33,9 @@ export function mountAll(): () => void {
   observer.observe(document.body, { childList: true, subtree: true });
   const cleanupsToRun: (() => void)[] = [];
 
+  // Initial mount for any declared components
   document.querySelectorAll<HTMLElement>("[data-component]").forEach(el => {
-    const name = el.dataset.component!.toLowerCase();
-    const ctor = registry.get(name);
-    if (!ctor) return;
-
-    const props = el.dataset.props ? JSON.parse(el.dataset.props) : {};
-    const slots: Record<string, string> = {};
-    el.querySelectorAll("template[data-slot]").forEach(t => {
-      slots[(t as HTMLElement).dataset.slot!] = (t as HTMLTemplateElement).innerHTML;
-    });
-
-    const cleanup = ctor(el, props, slots);
-    if (cleanup) {
-      cleanupRegistry.set(el, cleanup);
-      cleanupsToRun.push(cleanup);
-    }
+    tryMountElement(el, cleanupsToRun);
   });
 
   // Return a cleanup function for the test environment
@@ -56,11 +47,57 @@ export function mountAll(): () => void {
 
 function handleMutations(mutations: MutationRecord[]) {
   for (const mutation of mutations) {
-    // This logic is flawed. It incorrectly assumes that if a component's child nodes
-    // are removed (e.g., via `innerHTML = ""`), the component itself is being unmounted.
-    // This causes components like the Modal to inadvertently trigger the cleanup of
-    // other components by breaking their store subscriptions. Disabling this is the
-    // correct fix to ensure component lifecycles are properly isolated.
-    // A more robust implementation would check if the component's root element itself is disconnected.
+    if (mutation.type !== "childList") continue;
+
+    // Handle added nodes: mount any components found
+    mutation.addedNodes.forEach(node => {
+      if (!(node instanceof HTMLElement)) return;
+      if (node.matches && node.matches("[data-component]")) {
+        tryMountElement(node);
+      }
+      node.querySelectorAll?.("[data-component]")?.forEach(el => {
+        tryMountElement(el as HTMLElement);
+      });
+    });
+
+    // Handle removed nodes: cleanup components whose roots were removed
+    mutation.removedNodes.forEach(node => {
+      if (!(node instanceof HTMLElement)) return;
+      tryCleanupElement(node);
+      node.querySelectorAll?.("[data-component]")?.forEach(el => {
+        tryCleanupElement(el as HTMLElement);
+      });
+    });
+  }
+}
+
+function tryMountElement(el: HTMLElement, collect?: (() => void)[]) {
+  const name = el.dataset.component?.toLowerCase();
+  if (!name) return;
+  if (cleanupRegistry.has(el)) return; // already mounted
+  const ctor = registry.get(name);
+  if (!ctor) return;
+
+  const props = el.dataset.props ? JSON.parse(el.dataset.props) : {};
+  const slots: Record<string, string> = {};
+  el.querySelectorAll("template[data-slot]").forEach(t => {
+    slots[(t as HTMLElement).dataset.slot!] = (t as HTMLTemplateElement).innerHTML;
+  });
+
+  const cleanup = ctor(el, props, slots);
+  if (cleanup) {
+    cleanupRegistry.set(el, cleanup);
+    if (collect) collect.push(cleanup);
+  }
+}
+
+function tryCleanupElement(el: HTMLElement) {
+  const cleanup = cleanupRegistry.get(el);
+  if (cleanup) {
+    try {
+      cleanup();
+    } finally {
+      cleanupRegistry.delete(el);
+    }
   }
 }

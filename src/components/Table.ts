@@ -10,7 +10,7 @@ export const Table = (root: HTMLElement, props: Props, slots: Record<string, str
   const { columns, data } = props;
 
   if (!data || data.length === 0) {
-    root.innerHTML = slots.empty || "<p>No data available</p>";
+    root.innerHTML = sanitize(slots.empty || "<p>No data available</p>");
     return;
   }
 

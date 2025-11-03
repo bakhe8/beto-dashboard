@@ -8,7 +8,8 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Components', link: '/components/modal' }
+      { text: 'Components', link: '/components/modal' },
+      { text: 'Security', link: '/security' }
     ],
 
     sidebar: [
@@ -20,6 +21,12 @@ export default defineConfig({
           { text: 'ThemeSwitcher', link: '/components/themeswitcher' },
           { text: 'Sidebar', link: '/components/sidebar' },
           { text: 'Loader', link: '/components/loader' }
+        ]
+      },
+      {
+        text: 'Guides',
+        items: [
+          { text: 'Security', link: '/security' }
         ]
       }
     ],
