@@ -10,3 +10,4 @@ export * from './js/error-boundary';
 export * from './js/utils/sanitize';
 export * from './schemas';
 export const version = '0.0.1';
+export { default as ModalBasic } from './components/ModalBasic';
