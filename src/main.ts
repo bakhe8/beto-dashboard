@@ -1,6 +1,6 @@
 import "./css/base.css";
 import { withErrorBoundary } from "./js/error-boundary";
-
+import "./js/ui-manager";
 // Import all components to register them with the runtime
 import "./components/Modal";
 import "./components/Table";

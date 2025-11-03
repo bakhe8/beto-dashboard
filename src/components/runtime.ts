@@ -1,4 +1,4 @@
-type ComponentConstructor<T = any> = (root: HTMLElement, props: T, slots: Record<string, string>) => void;
+type ComponentConstructor<T = any> = (root: HTMLElement, props: T, slots: Record<string, string>) => (() => void) | void;
 
 const registry = new Map<string, ComponentConstructor>();
 
