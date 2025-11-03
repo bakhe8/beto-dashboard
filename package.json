@@ -1,23 +1,19 @@
 {
-  "name": "betodashboard",
+  "name": "betodashboard-fresh-start",
   "version": "1.0.0",
-  "description": "dashboard",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "hello"
+    "dev": "vite",
+    "build": "vite build",
+    "docs": "pandoc \"docs/handbook/BetoDashboard.docx\" -t markdown -o \"docs/handbook/BetoDashboard.md\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bakhe8/beto-dashboard.git"
+  "devDependencies": {
+    "vite": "^5.3.1"
   },
-  "keywords": [
-    "beto",
-    "dashboard"
-  ],
-  "author": "Bakheet",
-  "license": "UNLICENSED",
-  "bugs": {
-    "url": "https://github.com/bakhe8/beto-dashboard/issues"
-  },
-  "homepage": "https://github.com/bakhe8/beto-dashboard#readme"
+  "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "postcss-nesting": "^12.1.5",
+    "vite-plugin-include-html": "^1.0.0"
+  }
 }
