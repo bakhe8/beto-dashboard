@@ -7,6 +7,9 @@ Quick proof entry points:
 - Serve locally: `npm run demo:skeleton` (opens a static server for the demo)
 - Definition of Working: see `PROOF.md`
 
+Live Demo (Pages)
+- After CI deploy, the demo will be available at: `https://bakhe8.github.io/beto-dashboard/demo/src/pages/demo-dashboard.html`
+
 [![CI](https://github.com/bakhe8/beto-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/ci.yml)
 [![Lighthouse](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml)
 [![CodeQL](https://github.com/bakhe8/beto-dashboard/actions/workflows/codeql.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/codeql.yml)
