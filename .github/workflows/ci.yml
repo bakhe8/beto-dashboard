@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test -- --run
+
+      - name: Build
+        run: npm run build
+
+      - name: Security audit (production)
+        run: npm run audit:prod
+
+      - name: Analyze bundle (stats)
+        run: npm run analyze
+
+      - name: Upload bundle stats artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bundle-stats
+          path: dist/stats.html
+
+  docs:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'pull_request' || github.ref == 'refs/heads/main' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build docs
+        run: npm run docs:build

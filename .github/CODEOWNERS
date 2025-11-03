@@ -1,0 +1,7 @@
+# Code owners for BetoDashboard
+# Lines are matched against file paths in the repo. The last matching pattern takes precedence.
+
+*       @bakhe8
+docs/** @bakhe8
+src/**  @bakhe8
+

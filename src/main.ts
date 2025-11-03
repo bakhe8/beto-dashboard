@@ -6,9 +6,12 @@ import "./components/Modal";
 import "./components/Table";
 import "./components/ThemeSwitcher";
 import "./components/Sidebar";
+import "./components/ToastContainer";
 
 import { mountAll } from "./components/runtime";
 import { store, State } from "./js/store";
+import "./js/error-boundary";
+import { initWebVitals } from "./js/web-vitals";
 
 function applyTheme(theme: State["theme"]) {
   const root = document.documentElement;
@@ -49,3 +52,6 @@ document.getElementById("open-modal-btn")?.addEventListener("click", () => {
   // Update the store to open the modal; the component will reactively render itself.
   store.set("modal", { open: true, title: "Confirm Action" });
 });
+
+// Initialize basic web-vitals reporting (console)
+initWebVitals();
