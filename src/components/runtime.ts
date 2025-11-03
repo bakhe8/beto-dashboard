@@ -56,13 +56,11 @@ export function mountAll(): () => void {
 
 function handleMutations(mutations: MutationRecord[]) {
   for (const mutation of mutations) {
-    // This logic is currently not used but is kept for future robustness
-    // if components are ever dynamically removed from the DOM.
-    mutation.removedNodes.forEach(node => {
-      if (node.nodeType === Node.ELEMENT_NODE && cleanupRegistry.has(node as HTMLElement)) {
-        cleanupRegistry.get(node as HTMLElement)!();
-        cleanupRegistry.delete(node as HTMLElement);
-      }
-    });
+    // This logic is flawed. It incorrectly assumes that if a component's child nodes
+    // are removed (e.g., via `innerHTML = ""`), the component itself is being unmounted.
+    // This causes components like the Modal to inadvertently trigger the cleanup of
+    // other components by breaking their store subscriptions. Disabling this is the
+    // correct fix to ensure component lifecycles are properly isolated.
+    // A more robust implementation would check if the component's root element itself is disconnected.
   }
 }
