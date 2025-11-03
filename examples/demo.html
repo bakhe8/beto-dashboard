@@ -16,6 +16,7 @@
     <div style="margin-top:8px; display:flex; gap:8px;">
       <button id="inc">Increment</button>
       <button id="reset">Reset</button>
+      <button id="toggle-btn">Toggle</button>
     </div>
 
     <script type="module">
@@ -38,6 +39,18 @@
       });
       document.getElementById('reset').addEventListener('click', () => {
         counter.set(0);
+      });
+
+      // Toggle example (second renderer)
+      const toggleRoot = document.createElement('div');
+      toggleRoot.id = 'toggle-root';
+      document.body.appendChild(toggleRoot);
+      const toggleRenderer = new DOMRenderer(toggleRoot);
+      const toggled = new StateSlice(false);
+      toggleRenderer.render('<div data-domrenderer-text>Toggled: OFF</div>');
+      toggled.subscribe(v => toggleRenderer.update(`Toggled: ${v ? 'ON' : 'OFF'}`));
+      document.getElementById('toggle-btn').addEventListener('click', () => {
+        toggled.set(!toggled.get());
       });
     </script>
   </body>
