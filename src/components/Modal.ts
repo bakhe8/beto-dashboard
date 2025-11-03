@@ -1,6 +1,6 @@
 import { define } from "./runtime";
 import { sanitize } from "../js/utils/sanitize";
-import { store, State } from "../js/store";
+import { store } from "../js/store";
 
 type Props = {
   size?: "sm" | "md" | "lg";

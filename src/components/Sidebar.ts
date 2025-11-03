@@ -1,5 +1,5 @@
 import { define } from "./runtime";
-import { store, State } from "../js/store";
+import { store } from "../js/store";
 import { sanitize } from "../js/utils/sanitize";
 
 const navItems = [

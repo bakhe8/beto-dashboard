@@ -1,5 +1,7 @@
 [Docs Index](./index.md) | [Project README](../README.md)
 
+<div v-pre>
+
 **BetoDashboard Handbook**
 
 *Version 1 --- Unified Developer & Architecture Manual*\
@@ -478,14 +480,16 @@ export const store = {
     listeners.get(key)?.forEach(fn => fn(value));
   },
 
-  on: <K extends StateKeys>(key: K, fn: Listener): UnsubscribeFn => {
-    if (!listeners.has(key)) {
-      listeners.set(key, new Set());
-    }
-    listeners.get(key)!.add(fn);
-    return () => listeners.get(key)!.delete(fn);
+```ts
+on: <K extends StateKeys>(key: K, fn: Listener): UnsubscribeFn => {
+  if (!listeners.has(key)) {
+    listeners.set(key, new Set());
   }
+  listeners.get(key)!.add(fn);
+  return () => listeners.get(key)!.delete(fn);
+}
 };
+```
 
 **4.3 API Fetcher (src/js/api.ts)**
 
@@ -1915,3 +1919,5 @@ This document is now **developer-complete**---no stage of the project requires e
 Prev: [BetoDashboard v2](./BetoDashboard_v2.md) | Next: [Handbook (WIP)](./handbook/BetoDashboard.md)
 
 See also: [Docs Index](./index.md) | [Project README](../README.md)
+
+</div>

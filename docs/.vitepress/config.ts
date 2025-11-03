@@ -4,7 +4,13 @@ export default defineConfig({
   base: '/beto-dashboard/',
   title: "BetoDashboard",
   description: "BetoDashboard Framework Documentation",
-  ignoreDeadLinks: [/^https?:\/\/localhost/],
+  ignoreDeadLinks: [/^https?:\/\/localhost/, /README/],
+  markdown: {
+    config: (md) => {
+      // Disable raw HTML in Markdown to avoid Vue parse errors in long docs with generics/angle brackets
+      md.set({ html: false });
+    }
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
