@@ -1,0 +1,8 @@
+{
+  "name": "@betodashboard/tokens",
+  "version": "0.0.1",
+  "main": "colors.json",
+  "files": ["*.json"],
+  "publishConfig": { "access": "public" }
+}
+

@@ -1,0 +1,74 @@
+:root {
+  /* --- Colors --- */
+  --color-primary: #0046ff;
+  --color-primary-600: #1f6feb;
+  --color-bg: #ffffff;
+  --color-bg-muted: #f9fafb;
+  --color-text: #11224e;
+  --color-text-muted: #4b5563;
+  --color-border: #e5e7eb;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+
+  /* --- Typography --- */
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: "Tajawal", "Inter", sans-serif;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+
+  /* --- Spacing & Radii --- */
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --radius: 10px;
+
+  /* --- Elevation --- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 3px 6px rgba(0, 0, 0, 0.1);
+
+  /* --- Breakpoints --- */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+
+  /* --- Motion --- */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --speed: 220ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0d1117;
+    --color-bg-muted: #111827;
+    --color-text: #e6edf3;
+    --color-text-muted: #a0aec0;
+    --color-border: #30363d;
+  }
+}
+
+/* Manual override for dark mode */
+:root[data-theme="dark"] {
+  --color-bg: #0d1117;
+  --color-bg-muted: #111827;
+  --color-text: #e6edf3;
+  --color-text-muted: #a0aec0;
+  --color-border: #30363d;
+}
+
+/* Manual override for light mode */
+:root[data-theme="light"] {
+  --color-bg: #ffffff;
+  --color-bg-muted: #f9fafb;
+  --color-text: #11224e;
+  --color-text-muted: #4b5563;
+  --color-border: #e5e7eb;
+}

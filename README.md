@@ -72,4 +72,24 @@ Every doc page links back to the docs index and this README for easy navigation 
 
 [![Coverage](https://raw.githubusercontent.com/bakhe8/beto-dashboard/main/badges/coverage.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/badges.yml) [![Bundle](https://raw.githubusercontent.com/bakhe8/beto-dashboard/main/badges/bundle.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/badges.yml)
 
+## Bootstrap Monorepo
 
+You can scaffold a Turborepo-based monorepo (packages, demo, docs) directly from this repo using the provided scripts:
+
+- Windows PowerShell (in-place):
+  - `npm run bootstrap:ps1`
+- Bash (macOS/Linux/WSL, in-place):
+  - `npm run bootstrap:sh`
+
+What it creates:
+- `packages/core` (sample `Modal` component + TS build)
+- `packages/tokens` (shared design tokens)
+- `examples/betodashboard-demo` (Vite app wired to `@betodashboard/*` workspaces)
+- `docs/` (stub index)
+- `.github/workflows/ci.yml` (basic CI)
+- `turbo.json` and workspace `package.json`
+
+Next commands after bootstrapping:
+- `npm install`
+- `npm run dev -w examples/betodashboard-demo`
+- Open `http://localhost:5173/pages/dashboard.html`

@@ -1,13 +1,18 @@
 {
   "name": "betodashboard",
+  "private": true,
   "version": "1.0.0",
   "type": "module",
+  "packageManager": "npm@10.9.0",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "turbo run dev --parallel",
+    "dev:demo": "turbo run dev --filter=betodashboard-demo",
+    "build": "turbo run build",
+    "build:core": "turbo run build --filter=@betodashboard/core",
     "analyze": "vite build --mode analyze",
     "preview": "vite preview",
-    "test": "vitest",
+    "test": "turbo run test",
+    "test:core": "turbo run test --filter=@betodashboard/core",
     "test:e2e": "playwright test",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint .",
@@ -19,10 +24,18 @@
     "docs:preview": "vitepress preview docs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
+    "demo:dev:5174": "vite --config examples/betodashboard-demo/vite.config.ts --port 5174",
+    "demo:build": "vite build --config examples/betodashboard-demo/vite.config.ts",
+    "bootstrap:ps1": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/bootstrap_betodashboard.ps1 -InPlace",
+    "bootstrap:sh": "bash scripts/bootstrap_betodashboard_inplace.sh",
     "prepare": "husky",
     "serve:prod": "node scripts/serve.js",
     "test:e2e:prod": "npm run build && playwright test -c playwright.config.prod.ts"
   },
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
     "@playwright/test": "^1.45.0",
@@ -46,7 +59,9 @@
     "typescript": "^5.4.5",
     "vite": "^7.1.12",
     "vitepress": "^1.5.0",
-    "vitest": "^4.0.6"
+    "vitest": "^4.0.6",
+    "turbo": "^2.0.0",
+    "tailwindcss": "^3.4.13"
   },
   "dependencies": {
     "autoprefixer": "^10.4.19",
