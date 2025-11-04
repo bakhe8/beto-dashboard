@@ -8,7 +8,9 @@ Quick proof entry points:
 - Definition of Working: see `PROOF.md`
 
 Live Demo (Pages)
-- After CI deploy, the demo will be available at: `https://bakhe8.github.io/beto-dashboard/demo/src/pages/demo-dashboard.html`
+- After CI deploy, open:
+  - Demo App: `https://bakhe8.github.io/beto-dashboard/demo/app.html`
+  - Demo Dashboard: `https://bakhe8.github.io/beto-dashboard/demo/demo-dashboard.html`
 
 [![CI](https://github.com/bakhe8/beto-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/ci.yml)
 [![Lighthouse](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml)

@@ -53,3 +53,7 @@ Next: [Getting Started](./getting-started.md)
 
 See also: [Project README](../README.md)
 
+Live Demos (GitHub Pages)
+- Demo App: https://bakhe8.github.io/beto-dashboard/demo/app.html
+- Demo Dashboard: https://bakhe8.github.io/beto-dashboard/demo/demo-dashboard.html
+
