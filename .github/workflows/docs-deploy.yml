@@ -30,16 +30,16 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Build docs
-        run: npm run docs:build
-
-      - name: Build demo
+      - name: Build demo first
         run: npm run demo:build
 
-      - name: Copy demo into docs site
+      - name: Stage demo into docs/public (copied by VitePress)
         run: |
-          mkdir -p docs/.vitepress/dist/demo
-          cp -R examples/betodashboard-demo/dist/* docs/.vitepress/dist/demo/
+          mkdir -p docs/public/demo
+          cp -R examples/betodashboard-demo/dist/* docs/public/demo/
+
+      - name: Build docs (includes public/ assets)
+        run: npm run docs:build
 
       - name: List site contents (debug)
         run: |
