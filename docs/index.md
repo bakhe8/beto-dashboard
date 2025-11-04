@@ -21,7 +21,7 @@ hero:
   - [Core Utilities](./architecture/utilities.md)
   - [API Fetching](./api.md)
   - [Security](./security.md)
-  - [Contributing](./contributing.md)
+  - [Contributing](./contributing.md)\n  - [Governance & CI Gates](./governance.md)
   - [Deployment](./deployment.md)
   - [Code Style](./code-style.md)
   - [Testing](./testing.md)
