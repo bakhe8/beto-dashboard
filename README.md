@@ -44,6 +44,29 @@ To get the project running locally:
 
 The application will be available at `http://localhost:5173`.
 
+## Monorepo Workflow
+
+- Dev (all packages): `npm run dev`
+- Dev Demo only: `npm run dev:demo`
+- Build (all): `npm run build`
+- Build Core only: `npm run build:core`
+- Test (unit): `npm run test`
+- Test Core only: `npm run test:core`
+- Test E2E (dev preview): `npm run test:e2e`
+- Test E2E (clean + ports kill): `npm run test:e2e:clean`
+- Test E2E (prod preview): `npm run test:e2e:prod`
+- Open last E2E HTML report: `npm run report:e2e`
+- Lint / Typecheck: `npm run lint` / `npm run typecheck`
+- Docs dev/build/preview: `npm run docs:dev` / `npm run docs:build` / `npm run docs:preview`
+- Storybook: `npm run storybook` / `npm run build-storybook`
+- Ports utilities: `npm run ports:kill` / `npm run ports:who`
+- Demo preview (5174): `npm run demo:preview:5174`
+
+Notes
+- Dev server defaults: app `5173`, demo preview often uses `5174`.
+- If ports stick, run `npm run ports:kill` and retry.
+- E2E starts/stops its own preview server; prefer `test:e2e:clean` for a fresh run.
+
 ## Proof Phase (14-day focus)
 
 - Primary files for the walking skeleton:
