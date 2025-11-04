@@ -48,7 +48,8 @@ jobs:
           mkdir -p site/demo
           cp -Rf examples/betodashboard-demo/dist/* site/demo/
           # write clean demo index and redirects so /demo/* works
-          cat > site/demo/index.html <<'HTML'
+          BUILD_TS=2025-11-04T10:22:41Z
+          cat > site/demo/index.html <<HTML
           <!doctype html>
           <html lang="en">
             <head>
@@ -67,8 +68,7 @@ jobs:
               <ul>
                 <li><a href="./src/pages/app.html">Demo App (components)</a></li>
                 <li><a href="./src/pages/demo-dashboard.html">Demo Dashboard (routes)</a></li>
-              </ul>
-            </body>
+              </ul>\n              <footer style='margin-top:2rem;color:#667'>Last deployed:  (UTC)</footer>\n            </body>
           </html>
           HTML
           cat > site/demo/app.html <<'HTML'
@@ -117,3 +117,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+
+
