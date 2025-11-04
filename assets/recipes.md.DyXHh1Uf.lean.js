@@ -1,0 +1,1 @@
+import{_ as i,c as a,o as n,aj as t}from"./chunks/framework.D3ayZeS-.js";const o=JSON.parse('{"title":"Recipes","description":"","frontmatter":{},"headers":[],"relativePath":"recipes.md","filePath":"recipes.md"}'),h={name:"recipes.md"};function l(e,s,p,k,r,E){return n(),a("div",null,[...s[0]||(s[0]=[t("",15)])])}const g=i(h,[["render",l]]);export{o as __pageData,g as default};

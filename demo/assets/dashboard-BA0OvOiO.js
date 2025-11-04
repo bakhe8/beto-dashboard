@@ -1,0 +1,1 @@
+import"./ChartWidget-DSiWwCac.js";import"./demo-Bm_NOEom.js";import{version as o}from"./index-C6T8AfKs.js";import"./ModalBasic-hXqThWwD.js";const r=document.getElementById("modal-root");r.innerHTML=`<p>Core version: ${o}</p>`;

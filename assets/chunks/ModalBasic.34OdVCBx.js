@@ -1,0 +1,8 @@
+function c(r,a){if(!a.open)return null;const i=document.activeElement,e=document.createElement("div");e.setAttribute("role","dialog"),e.setAttribute("aria-modal","true"),e.className="fixed inset-0 bg-black/50 flex items-center justify-center z-50",e.tabIndex=-1;const l=`modalbasic-title-${Math.random().toString(36).slice(2)}`;e.setAttribute("aria-labelledby",l),e.innerHTML=`
+    <div class="bg-white rounded-lg p-6 shadow-xl w-96 max-w-full mx-4 relative" role="document">
+      <h2 id="${l}" class="text-xl font-semibold mb-4">${a.title||"Modal"}</h2>
+      <div class="modal-content">
+        <slot></slot>
+      </div>
+      <button class="absolute top-4 right-4 text-gray-500 hover:text-gray-900 transition-colors" aria-label="Close modal">&times;</button>
+    </div>`;const t=e.querySelector("button"),d=()=>{e.remove(),a.onClose(),document.removeEventListener("keydown",n),window.removeEventListener("keydown",n);const o=document.getElementById("open-basic-modal-btn");setTimeout(()=>{let s=!1;try{i&&typeof i.focus=="function"&&(i.focus(),s=document.activeElement===i)}catch{}if(!s)try{o==null||o.focus()}catch{}},0)},n=o=>{o.key==="Escape"&&(o.preventDefault(),d())};return document.addEventListener("keydown",n,!0),window.addEventListener("keydown",n,!0),t==null||t.addEventListener("click",d),e.addEventListener("click",o=>{o.target===e&&d()}),r.appendChild(e),setTimeout(()=>{try{e.focus()}catch{}t==null||t.focus()},100),{close:()=>{e.remove(),t==null||t.removeEventListener("click",d),document.removeEventListener("keydown",n),window.removeEventListener("keydown",n)}}}export{c as default};

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BetoDashboard</title>
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' ws:; object-src 'none'; base-uri 'self'; frame-ancestors 'none';"
+    />
+    <script type="module" crossorigin src="../../assets/app-BuyKqW5z.js"></script>
+    <link rel="modulepreload" crossorigin href="../../assets/ChartWidget-DSiWwCac.js">
+    <link rel="modulepreload" crossorigin href="../../assets/inspector-mkY6tFMU.js">
+    <link rel="modulepreload" crossorigin href="../../assets/ModalBasic-hXqThWwD.js">
+    <link rel="stylesheet" crossorigin href="../../assets/inspector-CoRiyC_W.css">
+  </head>
+  <body>
+    <aside data-component="Sidebar"></aside>
+
+    <main class="main-content">
+      <h1>BetoDashboard Components</h1>
+
+      <div class="global-error hidden">
+        <p>An unexpected error occurred. Please refresh the page.</p>
+      </div>
+
+      <h2>Theme Switcher</h2>
+      <div data-component="ThemeSwitcher"></div>
+
+      <h2>Loader</h2>
+      <div data-component="Loader"></div>
+
+      <h2>Table</h2>
+      <div
+        data-component="Table"
+        data-props='{
+          "columns": [{"key": "name", "label": "Name"}, {"key": "role", "label": "Role"}],
+          "data": [{"name": "John Doe", "role": "Admin"}, {"name": "Jane Smith", "role": "Editor"}]
+        }'
+      >
+        <template data-slot="empty">
+          <p>No users found.</p>
+        </template>
+      </div>
+
+      <div
+        id="empty-table-container"
+        data-component="Table"
+        data-props='{
+          "columns": [{"key": "name", "label": "Name"}, {"key": "role", "label": "Role"}],
+          "data": []
+        }'
+      >
+        <template data-slot="empty">
+          <p>No users were found for this query.</p>
+        </template>
+      </div>
+
+      <h2>Modal</h2>
+      <button id="open-modal-btn">Open Modal</button>
+      <div id="modal-basic-root" class="mt-4"></div>
+      <button id="open-basic-modal-btn">Open Basic Modal</button>
+
+      <div
+        data-component="Modal"
+        data-props='{"size": "sm"}'
+      >
+        <template data-slot="default">
+          <p>Are you sure you want to proceed with this action?</p>
+        </template>
+        <template data-slot="footer">
+          <button data-close>Cancel</button>
+          <button data-close>Confirm</button>
+        </template>
+      </div>
+
+      <h2>List</h2>
+      <div
+        data-component="List"
+        data-props='{"items":["Alpha","Beta","Gamma"]}'
+      >
+        <template data-slot="empty">
+          <p>No entries</p>
+        </template>
+      </div>
+
+      <h2>FormGroup</h2>
+      <div
+        data-component="FormGroup"
+        data-props='{"name":"email","label":"Email","type":"email","placeholder":"you@example.com"}'
+      ></div>
+
+      <h2>FormGroupValidated</h2>
+      <div
+        data-component="FormGroupValidated"
+        data-props='{"name":"username","label":"Username","minLength":3,"maxLength":12,"placeholder":"yourname"}'
+      ></div>
+
+      <!-- ConfirmDialog demo removed to avoid multiple active dialogs during tests -->
+
+      <section role="region" aria-label="Notice">
+        <h2>Notice</h2>
+        <div
+          data-component="Notice"
+          data-props='{"type":"info","message":"Welcome to BetoDashboard"}'
+        ></div>
+      </section>
+
+      <section role="region" aria-label="Event log">
+        <h2>Event Log</h2>
+        <div id="event-log" class="event-log"></div>
+      </section>
+
+      <div data-component="ToastContainer" class="toast-container"></div>
+    </main>
+  </body>
+</html>

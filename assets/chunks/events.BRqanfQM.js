@@ -1,0 +1,1 @@
+function a(e,t,r,s){const n=o=>{const c=o.target;if(!c)return;const i=c.closest(r);i&&(e===document?document.documentElement.contains(i):e.contains(i))&&s(o,i)};return e.addEventListener(t,n,{passive:!0}),()=>e.removeEventListener(t,n)}function d(e,t,r){const s=n=>{n.key===t&&r(n)};return e.addEventListener("keydown",s),()=>e.removeEventListener("keydown",s)}export{a,d as o};
