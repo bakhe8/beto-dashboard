@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
+  // Use relative base so assets resolve correctly under GitHub Pages subpath
+  base: './',
   root: __dirname,
   build: {
     outDir: 'dist',

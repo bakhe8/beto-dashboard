@@ -35,6 +35,13 @@ jobs:
           mkdir -p docs/.vitepress/dist/demo
           cp -R examples/betodashboard-demo/dist/* docs/.vitepress/dist/demo/
 
+      - name: List site contents (debug)
+        run: |
+          echo '--- docs/.vitepress/dist ---'
+          ls -la docs/.vitepress/dist
+          echo '--- docs/.vitepress/dist/demo ---'
+          ls -la docs/.vitepress/dist/demo
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
