@@ -13,6 +13,11 @@ hero:
 
 ## Documentation Index
 
+- Live Demo
+  - Demo Index: https://bakhe8.github.io/beto-dashboard/demo/
+  - Components: https://bakhe8.github.io/beto-dashboard/demo/app.html
+  - Dashboard: https://bakhe8.github.io/beto-dashboard/demo/demo-dashboard.html
+
 - Introduction
   - [Getting Started](./getting-started.md)
   - [Architecture](./architecture.md)
