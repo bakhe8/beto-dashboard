@@ -21,16 +21,16 @@ if (fs.existsSync(filePath)) {
   process.exit(2);
 }
 
-const content = `import { define } from "./runtime";
+const content = String.raw`import { define } from "./runtime";
 import { ComponentMorph } from "../js/morph";
 
 type Props = Record<string, unknown>;
 
 const ${Name} = ComponentMorph.create<Props>("${Name}", {
-  stateKeys: [],
-  render: ({ props, slots }) => {
-    return \
-`<div class=\"${Name}\">${Name} component<slot>${'${slots.default || \"\"}'}</slot></div>`;
+  render: ({ slots }) => {
+    return ` + "`" + `<div class="${Name}">${Name} component
+  <div class="slot-default">${'${slots.default || ""}'}</div>
+</div>` + "`" + `;
   },
 });
 
