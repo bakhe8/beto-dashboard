@@ -33,6 +33,56 @@ jobs:
         run: |
           mkdir -p docs/.vitepress/dist/demo
           cp -R examples/betodashboard-demo/dist/* docs/.vitepress/dist/demo/
+          # write clean demo index and redirects so /demo/* works
+          cat > docs/.vitepress/dist/demo/index.html <<'HTML'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <title>BetoDashboard Demo Index</title>
+              <style>
+                body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:2rem;color:#11224E}
+                a{color:#0046FF;text-decoration:none}
+                a:hover{text-decoration:underline}
+                ul{line-height:1.9}
+              </style>
+            </head>
+            <body>
+              <h1>BetoDashboard Demos</h1>
+              <ul>
+                <li><a href="./src/pages/app.html">Demo App (components)</a></li>
+                <li><a href="./src/pages/demo-dashboard.html">Demo Dashboard (routes)</a></li>
+              </ul>
+            </body>
+          </html>
+          HTML
+          cat > docs/.vitepress/dist/demo/app.html <<'HTML'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <meta http-equiv="refresh" content="0; url=./src/pages/app.html" />
+              <title>Redirecting…</title>
+            </head>
+            <body>
+              <p>Redirecting to <a href="./src/pages/app.html">demo app</a>…</p>
+            </body>
+          </html>
+          HTML
+          cat > docs/.vitepress/dist/demo/demo-dashboard.html <<'HTML'
+          <!doctype html>
+          <html lang="en">
+            <head>
+              <meta charset="utf-8" />
+              <meta http-equiv="refresh" content="0; url=./src/pages/demo-dashboard.html" />
+              <title>Redirecting…</title>
+            </head>
+            <body>
+              <p>Redirecting to <a href="./src/pages/demo-dashboard.html">demo dashboard</a>…</p>
+            </body>
+          </html>
+          HTML
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
