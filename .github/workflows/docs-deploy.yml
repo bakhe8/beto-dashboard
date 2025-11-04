@@ -33,7 +33,6 @@ jobs:
       - name: Build demo
         run: npm run demo:build
 
-      - name: Build docs (optional)`r`n        run: npm run docs:build
       - name: Build docs (optional)
         run: npm run docs:build
 
