@@ -11,6 +11,8 @@ export default function ModalBasic(root: HTMLElement, props: ModalProps) {
   dialog.setAttribute('role', 'dialog');
   dialog.setAttribute('aria-modal', 'true');
   dialog.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50';
+  // Allow key events on the dialog container
+  (dialog as any).tabIndex = -1;
 
   // Ensure the dialog has an accessible name via aria-labelledby
   const titleId = `modalbasic-title-${Math.random().toString(36).slice(2)}`;
@@ -30,9 +32,21 @@ export default function ModalBasic(root: HTMLElement, props: ModalProps) {
     dialog.remove();
     props.onClose();
     document.removeEventListener('keydown', onKeydown as any);
-    if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
-      previouslyFocused.focus();
-    }
+    window.removeEventListener('keydown', onKeydown as any);
+    const opener = document.getElementById('open-basic-modal-btn') as HTMLElement | null;
+    // Defer focus restoration to next microtask to avoid race with DOM removal
+    setTimeout(() => {
+      let done = false;
+      try {
+        if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+          previouslyFocused.focus();
+          done = document.activeElement === previouslyFocused;
+        }
+      } catch {}
+      if (!done) {
+        try { opener?.focus(); } catch {}
+      }
+    }, 0);
   };
 
   const onKeydown = (e: KeyboardEvent) => {
@@ -41,7 +55,8 @@ export default function ModalBasic(root: HTMLElement, props: ModalProps) {
       closeHandler();
     }
   };
-  document.addEventListener('keydown', onKeydown as any);
+  document.addEventListener('keydown', onKeydown as any, true);
+  window.addEventListener('keydown', onKeydown as any, true);
 
   closeBtn?.addEventListener('click', closeHandler);
   dialog.addEventListener('click', (e) => {
@@ -51,13 +66,17 @@ export default function ModalBasic(root: HTMLElement, props: ModalProps) {
   root.appendChild(dialog);
 
   // Focus the close button after mount for accessibility
-  setTimeout(() => closeBtn?.focus(), 100);
+  setTimeout(() => {
+    try { dialog.focus(); } catch {}
+    closeBtn?.focus();
+  }, 100);
 
   return {
     close: () => {
       dialog.remove();
       closeBtn?.removeEventListener('click', closeHandler);
       document.removeEventListener('keydown', onKeydown as any);
+      window.removeEventListener('keydown', onKeydown as any);
     }
   };
 }

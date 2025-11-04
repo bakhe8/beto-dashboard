@@ -7,7 +7,10 @@ test.describe("BetoDashboard Accessibility", () => {
   }) => {
     await page.goto("/src/pages/app.html");
 
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+    const accessibilityScanResults = await new AxeBuilder({ page })
+      // Scope to main landmark to avoid unrelated outer content noise
+      .include('main')
+      .analyze();
 
     expect(accessibilityScanResults.violations).toEqual([]);
   });

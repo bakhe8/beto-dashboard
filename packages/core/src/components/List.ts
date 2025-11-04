@@ -19,12 +19,15 @@ const List = ComponentMorph.create<Props>("List", {
   events: {
     'click:.list-item': (_ev, target, { root, props }) => {
       const btn = target as HTMLElement;
+      const labelText = btn.getAttribute('data-label') || btn.textContent?.trim() || '';
       let idx = Number(btn.getAttribute('data-index'));
       if (!Number.isFinite(idx) || idx < 0) {
-        const txt = btn.getAttribute('data-label') || btn.textContent?.trim() || '';
-        idx = Array.isArray(props.items) ? props.items.indexOf(txt) : -1;
+        const container = (btn.closest('ul') || root) as HTMLElement;
+        const buttons = Array.from(container.querySelectorAll<HTMLElement>('.list-item'));
+        idx = buttons.indexOf(btn);
+        if (idx < 0) idx = Array.isArray(props.items) ? props.items.indexOf(labelText) : -1;
       }
-      const label = Array.isArray(props.items) && idx >= 0 ? props.items[idx] : undefined;
+      const label = labelText || (Array.isArray(props.items) && idx >= 0 ? props.items[idx] : undefined);
       root.dispatchEvent(new CustomEvent('list:select', { bubbles: true, detail: { index: idx, label } }));
     },
   },

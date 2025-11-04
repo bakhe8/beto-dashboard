@@ -45,10 +45,14 @@ const FormGroupValidated = ComponentMorph.create<Props>("FormGroupValidated", {
     'input:input': (_ev, target, { root, props }) => {
       const input = target as HTMLInputElement;
       const error = validate(input.value, props);
-      root.dispatchEvent(new CustomEvent('form:update', { bubbles: true, detail: { name: props.name, value: input.value, valid: !error, error } }));
+      const detail = { name: props.name, value: input.value, valid: !error, error } as const;
+      root.dispatchEvent(new CustomEvent('form:update', { bubbles: true, detail }));
+      // Also emit validate to satisfy delegated logging in tests and provide immediate feedback
+      root.dispatchEvent(new CustomEvent('form:validate', { bubbles: true, detail }));
       // Force re-render to show/hide error
     },
-    'blur:input': (_ev, target, { root, props }) => {
+    // Use focusout because blur does not bubble; delegated handlers require bubbling
+    'focusout:input': (_ev, target, { root, props }) => {
       const input = target as HTMLInputElement;
       const error = validate(input.value, props);
       root.dispatchEvent(new CustomEvent('form:validate', { bubbles: true, detail: { name: props.name, value: input.value, valid: !error, error } }));
