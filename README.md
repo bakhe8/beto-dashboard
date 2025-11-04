@@ -101,6 +101,20 @@ You can browse the documentation in this repository directly via Markdown:
 - Architecture: [docs/architecture.md](docs/architecture.md)
 - Components: [docs/components/](docs/components/)
 - API fetching: [docs/api.md](docs/api.md)
+
+## How to Contribute
+
+- Use feature branches and open Pull Requests targeting `main`.
+- Required before merge:
+  - All checks green (CI, E2E, Lighthouse, Chromatic, Docs, CodeQL).
+  - At least 1 approving review; all review threads resolved.
+  - Linear history (no merge commits; use rebase if needed).
+- Status checks enforced (set in repo settings):
+  - Analyze (javascript), build, build-deploy, build-test, chromatic-deployment,
+    deploy, docs, e2e, generate, lhci, report-build-status.
+ - Pages is configured to deploy via Actions workflow.
+
+If you hit port conflicts locally, run `npm run ports:kill` and retry.
 - Testing: [docs/testing.md](docs/testing.md)
 - Code style: [docs/code-style.md](docs/code-style.md)
 - BetoDashboard v2: [docs/BetoDashboard_v2.md](docs/BetoDashboard_v2.md)
