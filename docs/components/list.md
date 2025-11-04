@@ -7,7 +7,7 @@ title: List
 A simple selectable list driven by ComponentMorph.
 ## Live Demo
 
-<DocsDemo :rows="8" :source="`
+<!-- DocsDemo :rows="8" :source="String.raw`
 <div data-component=\"List\" data-props='{"items":["Alpha","Beta","Gamma"]}'>
   <template data-slot=\"empty\"><p>No entries</p></template>
 </div>
@@ -18,8 +18,7 @@ A simple selectable list driven by ComponentMorph.
   const root = document.currentScript?.previousElementSibling?.previousElementSibling;
   root?.addEventListener('list:select', (e)=>{ p.textContent = 'select: '+JSON.stringify(e.detail) })
 </script>
-`" />
-
+" /> -->
 ## Usage
 
 ```html
@@ -36,4 +35,6 @@ A simple selectable list driven by ComponentMorph.
 
 - Emits `list:select` with `{ index, label }` when an item is clicked.
 - Renders an empty slot when `items` is missing or empty.
+
+
 

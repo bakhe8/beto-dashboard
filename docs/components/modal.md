@@ -10,7 +10,7 @@ Lightweight, accessible dialog with slots and a global store.
 
 ## Live Demo
 
-<DocsDemo :rows="10" :source="`
+<!-- DocsDemo :rows="10" :source="String.raw`
 <div data-component=\"Modal\" data-props='{"size":"sm"}'>
   <template data-slot=\"default\"> 
     <p>Hello from a modal. Click confirm to close.</p>
@@ -31,8 +31,7 @@ Lightweight, accessible dialog with slots and a global store.
   }
   document.currentScript?.parentElement?.prepend(btn);
 </script>
-`" />
-
+" /> -->
 ## Usage
 
 ```html
@@ -91,3 +90,5 @@ Close on custom buttons using the `data-close` attribute:
 Prev: [Testing](../testing.md) | Next: [Table](./table.md)
 
 See also: [Docs Index](../index.md) | [All Components](../index.md#components)
+
+

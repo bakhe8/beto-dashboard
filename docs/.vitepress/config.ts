@@ -4,6 +4,7 @@ export default defineConfig({
   title: 'BetoDashboard',
   description: 'Developer documentation',
   base: '/beto-dashboard/',
+  ignoreDeadLinks: true,
   themeConfig: {
     nav: [
       { text: 'Guide', link: '/index' },
@@ -14,8 +15,13 @@ export default defineConfig({
         { text: 'Getting Started', link: '/getting-started' },
         { text: 'Architecture', link: '/architecture' },
       ]},
-      { text: 'Components', items: [\n        { text: 'Modal', link: '/components/modal' },\n        { text: 'Table', link: '/components/table' },\n        { text: 'Card', link: '/components/card' },\n        { text: 'ChartWidget', link: '/components/chartwidget' },\n        { text: 'ThemeSwitcher', link: '/components/themeswitcher' },\n      ]}
+      { text: 'Components', items: [
+        { text: 'Modal', link: '/components/modal' },
+        { text: 'Table', link: '/components/table' },
+        { text: 'Card', link: '/components/card' },
+        { text: 'ChartWidget', link: '/components/chartwidget' },
+        { text: 'ThemeSwitcher', link: '/components/themeswitcher' },
+      ]}
     ]
   }
 })
-

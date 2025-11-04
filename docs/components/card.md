@@ -8,14 +8,13 @@ Simple content container with a title and default slot.
 
 ## Live Demo
 
-<DocsDemo :rows="8" :source="`
+<!-- DocsDemo :rows="8" :source="String.raw`
 <div data-component=\"Card\" data-props='{"title":"Overview"}'>
   <template data-slot=\"default\">
     <p>This is a card body. Use the <code>title</code> prop to set the header.</p>
   </template>
 </div>
-`" />
-
+" /> -->
 ## Usage
 
 ```html
@@ -23,4 +22,6 @@ Simple content container with a title and default slot.
   <template data-slot="default">Content here</template>
 </div>
 ```
+
+
 

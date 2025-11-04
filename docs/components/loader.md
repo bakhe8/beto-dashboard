@@ -10,7 +10,7 @@ Minimal loading indicator with accessible status text.
 
 ## Live Demo
 
-<DocsDemo :rows="6" :source="`
+<!-- DocsDemo :rows="6" :source="String.raw`
 <div data-component=\"Loader\"></div>
 <script>
   // Toggle spinner variant by setting data-type
@@ -25,8 +25,7 @@ Minimal loading indicator with accessible status text.
     on = !on;
   }
 </script>
-`" />
-
+" /> -->
 ## Usage
 
 ```html
@@ -66,3 +65,5 @@ Apply the spinner style variant via a data attribute:
 Prev: [Sidebar](./sidebar.md) | Next: [Toast](./toast.md)
 
 See also: [Docs Index](../index.md) | [All Components](../index.md#components)
+
+

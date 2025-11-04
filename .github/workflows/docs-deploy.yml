@@ -3,12 +3,19 @@ name: Deploy Docs
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,9 +41,25 @@ jobs:
           mkdir -p docs/.vitepress/dist/demo
           cp -R examples/betodashboard-demo/dist/* docs/.vitepress/dist/demo/
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: List site contents (debug)
+        run: |
+          echo '--- docs/.vitepress/dist ---'
+          ls -la docs/.vitepress/dist
+          echo '--- docs/.vitepress/dist/demo ---'
+          ls -la docs/.vitepress/dist/demo
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/.vitepress/dist
-          force_orphan: true
+          path: docs/.vitepress/dist
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
