@@ -49,8 +49,8 @@ jobs:
           name: bundle-stats
           path: dist/stats.html
 
-      - name: Bundle size gate (gzip <= 60 kB)
-        run: node scripts/check-bundle.mjs --max-kb 60
+      - name: Bundle size gate (gzip <= 50 kB)
+        run: node scripts/check-bundle.mjs --max-kb 50
 
       - name: Collect engineering metrics (placeholder)
         run: npm run metrics:collect

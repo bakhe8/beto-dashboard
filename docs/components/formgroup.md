@@ -7,7 +7,7 @@ title: FormGroup
 An accessible label + input pair, implemented via ComponentMorph.
 ## Live Demo
 
-<DocsDemo :rows="8" :source="`
+<!-- DocsDemo :rows="8" :source="String.raw`
 <div data-component=\"FormGroup\" data-props='{"name":"email","label":"Email","type":"email","placeholder":"you@example.com","required":true}'></div>
 <script>
   const p = document.createElement('p'); p.id='fg-readout'; p.style.marginTop='8px';
@@ -15,8 +15,7 @@ An accessible label + input pair, implemented via ComponentMorph.
   const root = document.currentScript?.previousElementSibling;
   root?.addEventListener('form:update', (e)=>{ p.textContent = 'update: '+JSON.stringify(e.detail) })
 </script>
-`" />
-
+" /> -->
 ## Usage
 
 ```html
@@ -30,4 +29,6 @@ An accessible label + input pair, implemented via ComponentMorph.
 
 - Emits `form:update` with `{ name, value }` on input events.
 - Accepts props: `name`, `label`, `type`, `value`, `placeholder`, `required`.
+
+
 

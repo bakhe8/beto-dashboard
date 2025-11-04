@@ -87,7 +87,7 @@ BetoDashboard is built for modern browsers and officially supports the following
 
 ## Developer Resources
 
--   [📘 BetoDashboard v1](docs/BetoDashboard_v1.md)
+-   [📘 BetoDashboard v1](BetoDashboard_v1.md)
 
 This handbook is the single source of truth for the project's architecture, component specifications, and development workflows. All contributors are expected to be familiar with its contents.
 
