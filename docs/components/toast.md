@@ -55,3 +55,5 @@ Toasts can be dismissed by the user by clicking the close button (×). This acti
 Prev: [Loader](./loader.md) | Next: [Recipes](../recipes.md)
 
 See also: [Docs Index](../index.md) | [All Components](../index.md#components)
+
+

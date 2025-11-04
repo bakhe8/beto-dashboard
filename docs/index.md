@@ -44,7 +44,7 @@ hero:
   - [ConfirmDialog](./components/confirmdialog.md)
 - Handbook
   - [BetoDashboard v2](./BetoDashboard_v2.md)
-  - [BetoDashboard v1](./BetoDashboard_v1.md)
+  - [BetoDashboard v1 (GitHub)](https://github.com/bakhe8/beto-dashboard/blob/main/BetoDashboard_v1.md)
   - [Engineering Process](./BetoDashboard_Engineering_Process.md)
   - [Handbook (work in progress)](./handbook/BetoDashboard.md)
   - [Roadmap Status (v1 + v2)](./roadmap-status.md)
@@ -57,4 +57,8 @@ Tip: Every page now includes quick navigation links back to this index and the p
 Next: [Getting Started](./getting-started.md)
 
 See also: [Project README](../README.md)
+
+Live Demos (GitHub Pages)
+- Demo App: https://bakhe8.github.io/beto-dashboard/demo/app.html
+- Demo Dashboard: https://bakhe8.github.io/beto-dashboard/demo/demo-dashboard.html
 
