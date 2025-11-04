@@ -14,11 +14,7 @@ export default defineConfig({
         { text: 'Getting Started', link: '/getting-started' },
         { text: 'Architecture', link: '/architecture' },
       ]},
-      { text: 'Components', items: [
-        { text: 'Modal', link: '/components/modal' },
-        { text: 'Table', link: '/components/table' },
-        { text: 'ThemeSwitcher', link: '/components/themeswitcher' },
-      ]}
+      { text: 'Components', items: [\n        { text: 'Modal', link: '/components/modal' },\n        { text: 'Table', link: '/components/table' },\n        { text: 'Card', link: '/components/card' },\n        { text: 'ChartWidget', link: '/components/chartwidget' },\n        { text: 'ThemeSwitcher', link: '/components/themeswitcher' },\n      ]}
     ]
   }
 })

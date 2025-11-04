@@ -14,7 +14,8 @@ test.describe('Collect DOM metrics', () => {
 
     // Interact: open and close modal
     await page.getByRole('button', { name: 'Open Modal' }).click();
-    await expect(page.getByRole('dialog')).toBeVisible();
+    const modal = page.locator('.modal[role="dialog"]');
+    await expect(modal).toBeVisible();
     await page.locator('.modal-close').click();
 
     // Read exposed metrics

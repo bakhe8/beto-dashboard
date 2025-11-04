@@ -19,11 +19,12 @@ test.describe("BetoDashboard Accessibility", () => {
 
     // Open the modal
     await page.getByRole("button", { name: "Open Modal" }).click();
-    await expect(page.getByRole("dialog")).toBeVisible();
+    const modal = page.locator('.modal[role="dialog"]');
+    await expect(modal).toBeVisible();
 
     // Scan only the modal dialog for accessibility issues
     const accessibilityScanResults = await new AxeBuilder({ page })
-      .include('[role="dialog"]')
+      .include('.modal[role="dialog"]')
       .analyze();
 
     expect(accessibilityScanResults.violations).toEqual([]);

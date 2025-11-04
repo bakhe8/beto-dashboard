@@ -1,5 +1,10 @@
 <template>
   <div class="docs-demo">
+    <div class="demo-badge">
+      <a href="/demo/src/pages/app.html" target="_blank" rel="noopener">Open in Demo (local)</a>
+      <span> · </span>
+      <a href="https://bakhe8.github.io/beto-dashboard/demo/src/pages/app.html" target="_blank" rel="noopener">Pages</a>
+    </div>
     <div class="demo-stage" ref="stage" v-html="code"></div>
     <div class="demo-panels">
       <div class="demo-editor">
@@ -33,10 +38,14 @@
           <div class="hint-title">Hint for {{ currentName }}</div>
           <pre class="bd-mono">{{ hintText }}</pre>
         </div>
-      </div>
-    </div>
+      </div></div></div>
+  <div class="demo-links">
+    <a href="/demo/src/pages/app.html" target="_blank" rel="noopener">Open in Demo App (local)</a>
+    <span> · </span>
+    <a href="https://bakhe8.github.io/beto-dashboard/demo/src/pages/app.html" target="_blank" rel="noopener">Open in Demo App (Pages)</a>
+    <span> · </span>
+    <a href="https://bakhe8.github.io/beto-dashboard/demo/src/pages/demo-dashboard.html" target="_blank" rel="noopener">Demo Dashboard (Pages)</a>
   </div>
-  
 </template>
 
 <script setup lang="ts">
@@ -153,6 +162,8 @@ function loadHint(){
     ThemeSwitcher: {},
     ConfirmDialog: { title: 'Delete', message: 'Are you sure?', confirmLabel: 'OK', cancelLabel: 'Cancel' },
     List: { items: ['Alpha','Beta','Gamma'] },
+    Sidebar: {},
+    Loader: { type: 'spinner' },
     FormGroup: { name: 'email', label: 'Email', type: 'email', placeholder: 'you@example.com' },
     FormGroupValidated: { name: 'username', label: 'Username', minLength: 3, maxLength: 12, placeholder: 'yourname' }
   }
@@ -167,6 +178,9 @@ watch(code, ()=>{ /* re-render occurs via v-html */ })
 
 <style scoped>
 .docs-demo { border:1px solid var(--vp-c-divider); border-radius:8px; overflow:hidden; }
+.demo-badge { padding:6px 8px; border-bottom:1px solid var(--vp-c-divider); background:var(--vp-c-bg); font-size:12px; text-align:right }
+.demo-badge a { color: var(--vp-c-brand-1); text-decoration: none; }
+.demo-badge a:hover { text-decoration: underline; }
 .demo-stage { padding:12px; background: var(--vp-c-bg-soft); }
 .demo-panels { display:grid; grid-template-columns: 1fr 1fr; gap:8px; padding:8px; background: var(--vp-c-bg); align-items: start; }
 .demo-editor, .demo-props { display:grid; grid-template-rows: auto 1fr auto auto; gap:8px; }
@@ -181,5 +195,5 @@ select { font-size:12px; padding:2px 6px; }
 .mini { background: var(--vp-c-bg-soft); color: var(--vp-c-text-2); border:1px solid var(--vp-c-divider); padding:2px 6px; border-radius:6px; }
 .error { color: #dc2626; font-size: 12px; margin: 0; }
 .hint { margin-top:8px; border:1px dashed var(--vp-c-divider); border-radius:6px; padding:6px; }
-.bd-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; }
+.bd-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; } .demo-links { padding: 8px; border-top: 1px solid var(--vp-c-divider); background: var(--vp-c-bg); font-size: 12px; } .demo-links a { color: var(--vp-c-brand-1); text-decoration: none; } .demo-links a:hover { text-decoration: underline; }
 </style>

@@ -6,7 +6,7 @@ test.describe("ModalBasic Accessibility", () => {
     await page.goto("/src/pages/app.html");
 
     await page.getByRole("button", { name: "Open Basic Modal" }).click();
-    const dialog = page.getByRole("dialog");
+    const dialog = page.getByRole("dialog", { name: "Basic Modal" });
     await expect(dialog).toBeVisible();
 
     const results = await new AxeBuilder({ page })

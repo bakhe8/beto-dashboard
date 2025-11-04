@@ -47,7 +47,7 @@ test.describe("BetoDashboard Visual Regression", () => {
     await expect(modal).toHaveScreenshot("modal-light.png");
 
     // Close the modal before changing the theme
-    await page.getByRole("button", { name: "Close" }).click();
+    await page.locator('.modal-close').click();
     await expect(modal).not.toBeVisible();
 
     // --- Dark Mode Snapshot ---

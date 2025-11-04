@@ -16,9 +16,10 @@ test.describe('State persistence and focus behavior', () => {
     const trigger = page.getByRole('button', { name: 'Open Modal' });
     await trigger.focus();
     await trigger.click();
-    await expect(page.getByRole('dialog')).toBeVisible();
+    const modal = page.locator('.modal[role="dialog"]');
+    await expect(modal).toBeVisible();
     await page.locator('.modal-close').click();
-    await expect(page.getByRole('dialog')).toHaveCount(0);
+    await expect(modal).toHaveCount(0);
     // Focus should return to the trigger
     await expect(trigger).toBeFocused();
 
@@ -26,7 +27,7 @@ test.describe('State persistence and focus behavior', () => {
     const basic = page.getByRole('button', { name: 'Open Basic Modal' });
     await basic.focus();
     await basic.click();
-    const dialog = page.getByRole('dialog');
+    const dialog = page.getByRole('dialog', { name: 'Basic Modal' });
     await expect(dialog).toBeVisible();
     // Close via ESC
     await page.keyboard.press('Escape');
