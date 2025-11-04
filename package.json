@@ -55,7 +55,7 @@
                             "@axe-core/playwright":  "^4.9.1",
                             "@playwright/test":  "^1.45.0",
                             "@storybook/addon-essentials":  "^8.3.6",
-                            "@storybook/html":  "^8.3.6",
+                            "@storybook/html":  "^10.0.3",
                             "@storybook/html-vite":  "^8.3.6",
                             "@testing-library/dom":  "^10.1.0",
                             "@types/node":  "^20.14.2",
