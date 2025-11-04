@@ -30,6 +30,13 @@ jobs:
       - name: Install deps
         run: npm ci
 
+<<<<<<< HEAD
+      - name: Build demo
+        run: npm run demo:build
+
+      - name: Build docs (optional)
+        run: npm run docs:build
+=======
       - name: Build demo first
         run: npm run demo:build
 
@@ -47,18 +54,28 @@ jobs:
           cp -f examples/betodashboard-demo/dist/*.html docs/.vitepress/dist/demo/ || true
           mkdir -p docs/.vitepress/dist/demo/assets
           cp -Rf examples/betodashboard-demo/dist/assets/* docs/.vitepress/dist/demo/assets/ || true
+>>>>>>> origin/main
 
-      - name: List site contents (debug)
+      - name: Compose final site artifact (docs + demo)
         run: |
-          echo '--- docs/.vitepress/dist ---'
-          ls -la docs/.vitepress/dist
-          echo '--- docs/.vitepress/dist/demo ---'
-          ls -la docs/.vitepress/dist/demo
+          rm -rf site
+          mkdir -p site
+          # copy docs site if it exists
+          if [ -d docs/.vitepress/dist ]; then
+            cp -R docs/.vitepress/dist/* site/
+          fi
+          # ensure demo under /demo regardless of docs
+          mkdir -p site/demo
+          cp -Rf examples/betodashboard-demo/dist/* site/demo/
+          echo '--- site root ---'
+          ls -la site | sed -e 's/^/  /'
+          echo '--- site/demo ---'
+          ls -la site/demo | sed -e 's/^/  /'
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/.vitepress/dist
+          path: site
 
   deploy:
     environment:
