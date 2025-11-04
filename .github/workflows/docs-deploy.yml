@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: 'pages'
+  group: pages
   cancel-in-progress: true
 
 jobs:
@@ -30,16 +30,23 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Build docs
-        run: npm run docs:build
-
-      - name: Build demo
+      - name: Build demo first
         run: npm run demo:build
 
-      - name: Copy demo into docs site
+      - name: Stage demo into docs/public (copied by VitePress)
+        run: |
+          mkdir -p docs/public/demo
+          cp -R examples/betodashboard-demo/dist/* docs/public/demo/
+
+      - name: Build docs (includes public/ assets)
+        run: npm run docs:build
+
+      - name: Ensure demo HTML present in final site
         run: |
           mkdir -p docs/.vitepress/dist/demo
-          cp -R examples/betodashboard-demo/dist/* docs/.vitepress/dist/demo/
+          cp -f examples/betodashboard-demo/dist/*.html docs/.vitepress/dist/demo/ || true
+          mkdir -p docs/.vitepress/dist/demo/assets
+          cp -Rf examples/betodashboard-demo/dist/assets/* docs/.vitepress/dist/demo/assets/ || true
 
       - name: List site contents (debug)
         run: |
@@ -63,3 +70,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
