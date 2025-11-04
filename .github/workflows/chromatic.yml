@@ -22,11 +22,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Note when Chromatic token is missing
+        if: ${{ !secrets.CHROMATIC_PROJECT_TOKEN }}
+        run: |
+          echo "Chromatic token not set; skipping Chromatic step with success."
+
       - name: Publish to Chromatic
+        if: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: .
           onlyChanged: true
           exitZeroOnChanges: false
-

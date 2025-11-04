@@ -7,7 +7,7 @@ title: FormGroupValidated
 An input with inline validation messages.
 ## Live Demo
 
-<DocsDemo :rows="10" :source="`
+<!-- DocsDemo :rows="10" :source="String.raw`
 <div data-component=\"FormGroupValidated\" data-props='{"name":"username","label":"Username","minLength":3,"maxLength":12,"placeholder":"yourname"}'></div>
 <script>
   const p = document.createElement('p'); p.id='fgv-readout'; p.style.marginTop='8px';
@@ -16,8 +16,7 @@ An input with inline validation messages.
   root?.addEventListener('form:update', (e)=>{ p.textContent = 'update: '+JSON.stringify(e.detail) })
   root?.addEventListener('form:validate', (e)=>{ p.textContent = 'validate: '+JSON.stringify(e.detail) })
 </script>
-`" />
-
+" /> -->
 ## Usage
 
 ```html
@@ -31,4 +30,6 @@ An input with inline validation messages.
 
 - Validates on input and blur; adds aria-invalid and error message with role=alert.
 - Emits `form:update` on input and `form:validate` on blur with `{ name, value, valid, error }`.
+
+
 

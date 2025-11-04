@@ -3,12 +3,19 @@ name: Deploy Docs
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,18 +30,25 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Build docs
-        run: npm run docs:build
-
       - name: Build demo
         run: npm run demo:build
 
-      - name: Copy demo into docs site
+      - name: Build docs (optional)
+        run: npm run docs:build
+
+      - name: Compose final site artifact (docs + demo)
         run: |
-          mkdir -p docs/.vitepress/dist/demo
-          cp -R examples/betodashboard-demo/dist/* docs/.vitepress/dist/demo/
+          rm -rf site
+          mkdir -p site
+          # copy docs site if it exists
+          if [ -d docs/.vitepress/dist ]; then
+            cp -R docs/.vitepress/dist/* site/
+          fi
+          # ensure demo under /demo regardless of docs
+          mkdir -p site/demo
+          cp -Rf examples/betodashboard-demo/dist/* site/demo/
           # write clean demo index and redirects so /demo/* works
-          cat > docs/.vitepress/dist/demo/index.html <<'HTML'
+          cat > site/demo/index.html <<'HTML'
           <!doctype html>
           <html lang="en">
             <head>
@@ -57,7 +71,7 @@ jobs:
             </body>
           </html>
           HTML
-          cat > docs/.vitepress/dist/demo/app.html <<'HTML'
+          cat > site/demo/app.html <<'HTML'
           <!doctype html>
           <html lang="en">
             <head>
@@ -70,7 +84,7 @@ jobs:
             </body>
           </html>
           HTML
-          cat > docs/.vitepress/dist/demo/demo-dashboard.html <<'HTML'
+          cat > site/demo/demo-dashboard.html <<'HTML'
           <!doctype html>
           <html lang="en">
             <head>
@@ -83,10 +97,23 @@ jobs:
             </body>
           </html>
           HTML
+          echo '--- site root ---'
+          ls -la site | sed -e 's/^/  /'
+          echo '--- site/demo ---'
+          ls -la site/demo | sed -e 's/^/  /'
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/.vitepress/dist
-          force_orphan: true
+          path: site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

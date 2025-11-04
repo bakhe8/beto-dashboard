@@ -2,6 +2,8 @@ import { defineConfig } from 'vite';
 import path from 'path';
 
 export default defineConfig({
+  // Use relative base so assets resolve correctly under GitHub Pages subpath
+  base: './',
   root: __dirname,
   build: {
     outDir: 'dist',
@@ -10,7 +12,7 @@ export default defineConfig({
       input: {
         app: path.resolve(__dirname, 'src/pages/app.html'),
         dashboard: path.resolve(__dirname, 'src/pages/dashboard.html'),
-        demo: path.resolve(__dirname, 'src/pages/demo-dashboard.html'),
+        'demo-dashboard': path.resolve(__dirname, 'src/pages/demo-dashboard.html'),
       }
     }
   },
