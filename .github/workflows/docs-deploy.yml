@@ -30,31 +30,11 @@ jobs:
       - name: Install deps
         run: npm ci
 
-<<<<<<< HEAD
       - name: Build demo
         run: npm run demo:build
 
       - name: Build docs (optional)
         run: npm run docs:build
-=======
-      - name: Build demo first
-        run: npm run demo:build
-
-      - name: Stage demo into docs/public (copied by VitePress)
-        run: |
-          mkdir -p docs/public/demo
-          cp -R examples/betodashboard-demo/dist/* docs/public/demo/
-
-      - name: Build docs (includes public/ assets)
-        run: npm run docs:build
-
-      - name: Ensure demo HTML present in final site
-        run: |
-          mkdir -p docs/.vitepress/dist/demo
-          cp -f examples/betodashboard-demo/dist/*.html docs/.vitepress/dist/demo/ || true
-          mkdir -p docs/.vitepress/dist/demo/assets
-          cp -Rf examples/betodashboard-demo/dist/assets/* docs/.vitepress/dist/demo/assets/ || true
->>>>>>> origin/main
 
       - name: Compose final site artifact (docs + demo)
         run: |
@@ -87,4 +67,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
