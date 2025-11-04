@@ -84,7 +84,7 @@
                          "autoprefixer":  "^10.4.19",
                          "dompurify":  "^3.1.5",
                          "postcss":  "^8.4.38",
-                         "postcss-nesting":  "^12.1.5",
+                         "postcss-nesting":  "^13.0.2",
                          "zod":  "^3.23.8"
                      },
     "overrides":  {
