@@ -8,6 +8,34 @@ title: Table
 
 Simple, declarative table driven by props and an optional empty slot.
 
+## Live Demo
+
+<DocsDemo :rows="12" :source="`
+<div
+  data-component=\"Table\"
+  data-props='{"columns":[{"key":"name","label":"Name"},{"key":"role","label":"Role"}],"data":[{"name":"John","role":"Admin"},{"name":"Jane","role":"Editor"}]}'
+>
+  <template data-slot=\"empty\"><p>No rows.</p></template>
+</div>
+<script>
+  // Add a button to toggle between data and empty state
+  const btn = document.createElement('button');
+  btn.textContent = 'Toggle Empty';
+  let empty = false;
+  btn.onclick = ()=>{
+    const el = document.querySelector('[data-component="Table"]');
+    const props = empty
+      ? { columns:[{key:'name',label:'Name'},{key:'role',label:'Role'}], data:[{name:'John',role:'Admin'},{name:'Jane',role:'Editor'}] }
+      : { columns:[{key:'name',label:'Name'},{key:'role',label:'Role'}], data:[] };
+    el?.setAttribute('data-props', JSON.stringify(props));
+    // re-mount via exposed runtime
+    try { window['__BD_RUNTIME']?.mountAll?.() } catch {}
+    empty = !empty;
+  };
+  document.currentScript?.parentElement?.prepend(btn);
+</script>
+`" />
+
 ## Usage
 
 ```html

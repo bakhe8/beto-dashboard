@@ -17,6 +17,8 @@ import "@core/components/List";
 import "@core/components/FormGroup";
 import "@core/components/FormGroupValidated";
 import "@core/components/ConfirmDialog";
+// Devtools are inert unless enabled via ?devtools=1 or localStorage.bdDevtools
+import "@core/devtools/inspector";
 
 function applyTheme(theme: State["theme"]) {
   const root = document.documentElement;

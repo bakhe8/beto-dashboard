@@ -39,3 +39,5 @@ store.on('theme', (t) => applyTheme(t as any));
 // react to system changes when in auto
 const mql = window.matchMedia('(prefers-color-scheme: dark)');
 mql.addEventListener('change', () => { if (store.get('theme') === 'auto') applyTheme('auto'); });
+
+import '@core/devtools/inspector';

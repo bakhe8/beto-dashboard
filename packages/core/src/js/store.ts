@@ -12,6 +12,11 @@ const PERSIST_KEY = "beto-state";
 const persistedKeys: (keyof State)[] = ["theme", "dir", "sidebar"];
 
 const getInitialState = (): State => {
+  // HMR restore: prefer module hot data when present
+  const hotData: any = (import.meta as any)?.hot?.data?.__BD_STATE;
+  if (hotData) {
+    return hotData as State;
+  }
   const persisted = JSON.parse(localStorage.getItem(PERSIST_KEY) || "{}");
   return { theme: "auto", dir: "ltr", sidebar: "default", user: null, cache: {}, modal: { open: false, title: "" }, toasts: [], ...persisted };
 };
@@ -47,3 +52,12 @@ export const store = {
     listeners.clear();
   },
 };
+
+// Save state across HMR updates (dev only)
+try {
+  if ((import.meta as any).hot) {
+    (import.meta as any).hot.dispose((data: any) => {
+      data.__BD_STATE = state;
+    });
+  }
+} catch {}

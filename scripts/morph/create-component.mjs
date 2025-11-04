@@ -41,3 +41,11 @@ export default ${Name};
 fs.writeFileSync(filePath, content);
 console.log(`Created component: ${filePath}`);
 
+// Also scaffold docs and a minimal test placeholder
+const docsDir = path.resolve('docs/components');
+const docPath = path.join(docsDir, `${Name.toLowerCase()}.md`);
+if (!fs.existsSync(docsDir)) fs.mkdirSync(docsDir, { recursive: true });
+const md = `---\ntitle: ${Name}\n---\n\n# ${Name}\n\nLive demo:\n\n<DocsDemo :rows="6" :source="\`<div data-component=\\\"${Name}\\\"></div>\`" />\n\nUsage:\n\n\`\`\`html\n<div data-component="${Name}"></div>\n\`\`\`\n`;
+fs.writeFileSync(docPath, md);
+console.log(`Created docs page: ${docPath}`);
+

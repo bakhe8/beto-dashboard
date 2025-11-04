@@ -8,6 +8,31 @@ title: Modal
 
 Lightweight, accessible dialog with slots and a global store.
 
+## Live Demo
+
+<DocsDemo :rows="10" :source="`
+<div data-component=\"Modal\" data-props='{"size":"sm"}'>
+  <template data-slot=\"default\"> 
+    <p>Hello from a modal. Click confirm to close.</p>
+  </template>
+  <template data-slot=\"footer\">
+    <button data-close>Cancel</button>
+    <button data-close>Confirm</button>
+  </template>
+</div>
+<script>
+  const btn = document.createElement('button');
+  btn.textContent = 'Open Modal';
+  btn.onclick = ()=>{
+    const root = document.querySelector('[data-component="Modal"]');
+    if (root) root.setAttribute('data-open','1');
+    // Best-effort: try global store if available
+    try { import('../../../packages/core/src/js/store').then(m=>m.store.set('modal',{open:true,title:'Demo'})) } catch {}
+  }
+  document.currentScript?.parentElement?.prepend(btn);
+</script>
+`" />
+
 ## Usage
 
 ```html

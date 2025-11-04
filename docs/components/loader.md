@@ -8,6 +8,25 @@ title: Loader
 
 Minimal loading indicator with accessible status text.
 
+## Live Demo
+
+<DocsDemo :rows="6" :source="`
+<div data-component=\"Loader\"></div>
+<script>
+  // Toggle spinner variant by setting data-type
+  const wrap = document.currentScript?.parentElement;
+  const bar = document.createElement('div'); bar.style.marginTop='8px';
+  const btn = document.createElement('button'); btn.textContent='Toggle Spinner';
+  bar.append(btn); wrap?.append(bar);
+  let on=false; btn.onclick=()=>{
+    const el = document.querySelector('[data-component="Loader"] .loader');
+    if (!el) return;
+    if (on) el.removeAttribute('data-type'); else el.setAttribute('data-type','spinner');
+    on = !on;
+  }
+</script>
+`" />
+
 ## Usage
 
 ```html
