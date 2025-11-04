@@ -10,7 +10,7 @@ export default defineConfig({
       input: {
         app: path.resolve(__dirname, 'src/pages/app.html'),
         dashboard: path.resolve(__dirname, 'src/pages/dashboard.html'),
-        demo: path.resolve(__dirname, 'src/pages/demo-dashboard.html'),
+        'demo-dashboard': path.resolve(__dirname, 'src/pages/demo-dashboard.html'),
       }
     }
   },
