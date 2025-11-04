@@ -10,7 +10,7 @@ Simple, declarative table driven by props and an optional empty slot.
 
 ## Live Demo
 
-<DocsDemo :rows="12" :source="`
+<!-- DocsDemo :rows="12" :source="String.raw`
 <div
   data-component=\"Table\"
   data-props='{"columns":[{"key":"name","label":"Name"},{"key":"role","label":"Role"}],"data":[{"name":"John","role":"Admin"},{"name":"Jane","role":"Editor"}]}'
@@ -34,8 +34,7 @@ Simple, declarative table driven by props and an optional empty slot.
   };
   document.currentScript?.parentElement?.prepend(btn);
 </script>
-`" />
-
+" /> -->
 ## Usage
 
 ```html
@@ -86,3 +85,5 @@ mount(el as HTMLElement, Table);
 Prev: [Modal](./modal.md) | Next: [ThemeSwitcher](./themeswitcher.md)
 
 See also: [Docs Index](../index.md) | [All Components](../index.md#components)
+
+

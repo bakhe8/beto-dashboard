@@ -8,7 +8,9 @@ Quick proof entry points:
 - Definition of Working: see `PROOF.md`
 
 Live Demo (Pages)
-- After CI deploy, the demo will be available at: `https://bakhe8.github.io/beto-dashboard/demo/src/pages/demo-dashboard.html`
+- After CI deploy, open:
+  - Demo App: `https://bakhe8.github.io/beto-dashboard/demo/app.html`
+  - Demo Dashboard: `https://bakhe8.github.io/beto-dashboard/demo/demo-dashboard.html`
 
 [![CI](https://github.com/bakhe8/beto-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/ci.yml)
 [![Lighthouse](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml/badge.svg)](https://github.com/bakhe8/beto-dashboard/actions/workflows/lighthouse.yml)
@@ -87,7 +89,7 @@ BetoDashboard is built for modern browsers and officially supports the following
 
 ## Developer Resources
 
--   [📘 BetoDashboard v1](docs/BetoDashboard_v1.md)
+-   [📘 BetoDashboard v1](BetoDashboard_v1.md)
 
 This handbook is the single source of truth for the project's architecture, component specifications, and development workflows. All contributors are expected to be familiar with its contents.
 

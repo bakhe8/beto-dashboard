@@ -386,6 +386,7 @@ Next Review: Q2 2026 (Architecture + Commercial sync).
 
 ---
 
-Prev: [Recipes](./recipes.md) | Next: [BetoDashboard v1](./BetoDashboard_v1.md)
+Prev: [Recipes](./recipes.md) | Next: [BetoDashboard v1](../BetoDashboard_v1.md)
 
 See also: [Docs Index](./index.md) | [Project README](../README.md)
+

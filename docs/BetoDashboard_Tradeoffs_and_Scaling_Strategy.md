@@ -1,4 +1,4 @@
-[Docs Index](./index.md) | [Project README](../README.md) | [BetoDashboard v2](./BetoDashboard_v2.md) | [BetoDashboard v1](./BetoDashboard_v1.md)
+[Docs Index](./index.md) | [Project README](../README.md) | [BetoDashboard v2](./BetoDashboard_v2.md) | [BetoDashboard v1](../BetoDashboard_v1.md)
 
 # BetoDashboard — Trade-Off Mitigation & Scaling Strategy
 
@@ -234,3 +234,4 @@ BetoDashboard’s evolution path:
 3. **Emerge as a platform** capable of self-extension, automation, and ecosystem growth.
 
 ---
+

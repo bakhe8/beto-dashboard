@@ -3,12 +3,19 @@ name: Deploy Docs
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,20 +30,27 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Build docs
-        run: npm run docs:build
-
       - name: Build demo
         run: npm run demo:build
 
-      - name: Copy demo into docs site and add index/redirects
+      - name: Build docs (optional)`r`n        run: npm run docs:build
+      - name: Build docs (optional)
+        run: npm run docs:build
+
+      - name: Compose final site artifact (docs + demo)
         run: |
-          set -e
-          mkdir -p docs/.vitepress/dist/demo
-          cp -R examples/betodashboard-demo/dist/* docs/.vitepress/dist/demo/
-          BUILD_TS=$(date -u +"%Y-%m-%d %H:%M:%SZ")
-          # Clean demo index
-          cat > docs/.vitepress/dist/demo/index.html <<HTML
+          rm -rf site
+          mkdir -p site
+          # copy docs site if it exists
+          if [ -d docs/.vitepress/dist ]; then
+            cp -R docs/.vitepress/dist/* site/
+          fi
+          # ensure demo under /demo regardless of docs
+          mkdir -p site/demo
+          cp -Rf examples/betodashboard-demo/dist/* site/demo/
+          # write clean demo index and redirects so /demo/* works
+          BUILD_TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          cat > site/demo/index.html <<HTML
           <!doctype html>
           <html lang="en">
             <head>
@@ -44,25 +58,20 @@ jobs:
               <meta name="viewport" content="width=device-width, initial-scale=1" />
               <title>BetoDashboard Demo Index</title>
               <style>
-                body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:2rem;color:#11224E;background:#fff}
+                body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:2rem;color:#11224E}
                 a{color:#0046FF;text-decoration:none}
                 a:hover{text-decoration:underline}
                 ul{line-height:1.9}
-                footer{margin-top:2rem;color:#667}
               </style>
             </head>
             <body>
-              <h1>BetoDashboard Demos</h1>
-              <ul>
+              <h1>BetoDashboard Demos</h1>\n              <nav style="margin:0 0 1rem;"><a href="../">Docs Home</a> · <a href="https://github.com/bakhe8/beto-dashboard">GitHub Repo</a></nav>\n              <ul>
                 <li><a href="./src/pages/app.html">Demo App (components)</a></li>
                 <li><a href="./src/pages/demo-dashboard.html">Demo Dashboard (routes)</a></li>
-              </ul>
-              <footer>Last deployed: ${BUILD_TS} (UTC)</footer>
-            </body>
+              </ul>\n              <footer style="margin-top:2rem;color:#667">Last deployed: ${BUILD_TS} (UTC)</footer>\n            </body>
           </html>
           HTML
-          # Redirect helpers
-          cat > docs/.vitepress/dist/demo/app.html <<HTML
+          cat > site/demo/app.html <<'HTML'
           <!doctype html>
           <html lang="en">
             <head>
@@ -75,7 +84,7 @@ jobs:
             </body>
           </html>
           HTML
-          cat > docs/.vitepress/dist/demo/demo-dashboard.html <<HTML
+          cat > site/demo/demo-dashboard.html <<'HTML'
           <!doctype html>
           <html lang="en">
             <head>
@@ -88,10 +97,27 @@ jobs:
             </body>
           </html>
           HTML
+          echo '--- site root ---'
+          ls -la site | sed -e 's/^/  /'
+          echo '--- site/demo ---'
+          ls -la site/demo | sed -e 's/^/  /'
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/.vitepress/dist
-          force_orphan: true
+          path: site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+
+
+
