@@ -6,7 +6,7 @@ export interface ModalProps {
 
 export default function ModalBasic(root: HTMLElement, props: ModalProps) {
   if (!props.open) return null;
-
+  const previouslyFocused = document.activeElement as HTMLElement | null;
   const dialog = document.createElement('div');
   dialog.setAttribute('role', 'dialog');
   dialog.setAttribute('aria-modal', 'true');
@@ -29,7 +29,19 @@ export default function ModalBasic(root: HTMLElement, props: ModalProps) {
   const closeHandler = () => {
     dialog.remove();
     props.onClose();
+    document.removeEventListener('keydown', onKeydown as any);
+    if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+      previouslyFocused.focus();
+    }
   };
+
+  const onKeydown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeHandler();
+    }
+  };
+  document.addEventListener('keydown', onKeydown as any);
 
   closeBtn?.addEventListener('click', closeHandler);
   dialog.addEventListener('click', (e) => {
@@ -45,6 +57,7 @@ export default function ModalBasic(root: HTMLElement, props: ModalProps) {
     close: () => {
       dialog.remove();
       closeBtn?.removeEventListener('click', closeHandler);
+      document.removeEventListener('keydown', onKeydown as any);
     }
   };
 }
